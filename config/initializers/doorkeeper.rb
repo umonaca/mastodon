@@ -8,7 +8,12 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |_routes|
-    user = User.find_by(email: request.params[:username])
+    # XMPP Auth here should be better done
+    if request.params[:username].include?('@')
+      user = User.find_by(email: request.params[:username])
+    else
+      user = Account.find_local(request.params[:username]).user
+    end
     user if !user&.otp_required_for_login? && user&.valid_password?(request.params[:password])
   end
 
