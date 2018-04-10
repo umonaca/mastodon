@@ -13,6 +13,7 @@ class SuspendAccountService < BaseService
     custom_filters
     domain_blocks
     favourites
+    bookmarks
     follow_requests
     list_accounts
     mute_relationships
