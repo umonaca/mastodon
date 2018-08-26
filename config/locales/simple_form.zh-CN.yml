@@ -35,6 +35,7 @@ zh-CN:
         setting_noindex: 此设置会影响到你的公开个人资料以及嘟文页面
         setting_show_application: 你用来发表嘟文的应用程序将会在你嘟文的详细内容中显示
         setting_use_blurhash: 渐变是基于模糊后的隐藏内容生成的
+        setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
         username: 你的用户名在 %{domain} 上是独特的
         whole_word: 如果关键词只包含字母和数字，就只会在整个词被匹配时才会套用
       featured_tag:
@@ -110,8 +111,10 @@ zh-CN:
         setting_show_application: 展示你用来发嘟的应用
         setting_system_font_ui: 使用系统默认字体
         setting_theme: 站点主题
+        setting_trends: Show trends
         setting_unfollow_modal: 在取消关注前询问我
         setting_use_blurhash: 将隐藏媒体显示为彩色渐变
+        setting_use_pending_items: Slow mode
         severity: 级别
         type: 导入数据类型
         username: 用户名
@@ -134,6 +137,7 @@ zh-CN:
         pending_account: 在有账户需要审核时，发送电子邮件提醒我
         reblog: 当有用户转嘟了我的嘟文时，发送电子邮件提醒我
         report: 在提交新举报时，发送电子邮件提醒我
+        trending_tag: Send e-mail when an unreviewed hashtag is trending
     'no': 否
     recommended: 推荐
     required:
