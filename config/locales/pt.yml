@@ -749,6 +749,7 @@ pt:
       one: 'continha uma hashtag proibida: %{tags}'
       other: 'continha as hashtags proibidas: %{tags}'
     language_detection: Detectar automaticamente a língua
+    local_only: Somente local
     open_in_web: Abrir no browser
     over_character_limit: limite de caracter excedeu %{max}
     pin_errors:
