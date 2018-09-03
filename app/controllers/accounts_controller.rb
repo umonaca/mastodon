@@ -65,7 +65,11 @@ class AccountsController < ApplicationController
   end
 
   def default_statuses
-    @account.statuses.where(visibility: [:public, :unlisted])
+    if current_user.nil?
+      @account.statuses.without_local_only.where(visibility: [:public, :unlisted])
+    else
+      @account.statuses.where(visibility: [:public, :unlisted])
+    end
   end
 
   def only_media_scope
