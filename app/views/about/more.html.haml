@@ -4,6 +4,7 @@
 - content_for :header_tags do
   = javascript_pack_tag 'public', integrity: true, crossorigin: 'anonymous'
   = render partial: 'shared/og'
+  %meta{ name: 'robots', content: 'noindex' }/
 
 .grid-3
   .column-0

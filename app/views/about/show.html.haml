@@ -4,6 +4,7 @@
 - content_for :header_tags do
   %link{ rel: 'canonical', href: about_url }/
   = render partial: 'shared/og'
+  %meta{ name: 'robots', content: 'noindex' }/
 
 .landing
   .landing__brand
