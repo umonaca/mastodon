@@ -60,7 +60,7 @@ class HomeController < ApplicationController
     elsif single_user_mode?
       short_account_path(Account.local.without_suspended.first)
     else
-      "/index.htm"
+      about_path
     end
   end
 
