@@ -112,7 +112,6 @@ class ModifierPicker extends React.PureComponent {
 
   handleSelect = modifier => {
     this.props.onChange(modifier);
-    this.props.onClose();
   }
 
   render () {
