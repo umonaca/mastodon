@@ -10,7 +10,6 @@ class EmbedModal extends ImmutablePureComponent {
   static propTypes = {
     url: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
@@ -24,21 +23,6 @@ class EmbedModal extends ImmutablePureComponent {
 
     this.setState({ loading: true });
 
-    api().post('/api/web/embed', { url }).then(res => {
-      this.setState({ loading: false, oembed: res.data });
-
-      const iframeDocument = this.iframe.contentWindow.document;
-
-      iframeDocument.open();
-      iframeDocument.write(res.data.html);
-      iframeDocument.close();
-
-      iframeDocument.body.style.margin = 0;
-      this.iframe.width  = iframeDocument.body.scrollWidth;
-      this.iframe.height = iframeDocument.body.scrollHeight;
-    }).catch(error => {
-      this.props.onError(error);
-    });
   }
 
   setIframeRef = c =>  {
@@ -58,28 +42,9 @@ class EmbedModal extends ImmutablePureComponent {
 
         <div className='embed-modal__container'>
           <p className='hint'>
-            <FormattedMessage id='embed.instructions' defaultMessage='Embed this status on your website by copying the code below.' />
+            <span>Sorry, embedding is disallowed by the server admin.</span>
           </p>
 
-          <input
-            type='text'
-            className='embed-modal__html'
-            readOnly
-            value={oembed && oembed.html || ''}
-            onClick={this.handleTextareaClick}
-          />
-
-          <p className='hint'>
-            <FormattedMessage id='embed.preview' defaultMessage='Here is what it will look like:' />
-          </p>
-
-          <iframe
-            className='embed-modal__iframe'
-            frameBorder='0'
-            ref={this.setIframeRef}
-            sandbox='allow-same-origin'
-            title='preview'
-          />
         </div>
       </div>
     );
