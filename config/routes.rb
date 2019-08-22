@@ -153,6 +153,7 @@ Rails.application.routes.draw do
     resources :account_subscribes, except: [:show]
     resources :domain_subscribes, except: [:show]
     resources :keyword_subscribes, except: [:show]
+    resources :favourite_tags, only: [:index, :create, :destroy]
   end
 
   resources :media, only: [:show] do

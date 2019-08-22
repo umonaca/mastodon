@@ -187,6 +187,8 @@ ja:
         timeline: タイムライン
       email_domain_block:
         with_dns_records: ドメインのMXレコードとIPアドレスを含む
+      favourite_tag:
+        name: ハッシュタグ
       featured_tag:
         name: ハッシュタグ
       follow_tag:
