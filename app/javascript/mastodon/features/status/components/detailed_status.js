@@ -18,8 +18,9 @@ const messages = defineMessages({
   local_only: { id: 'status.local_only', defaultMessage: 'This post is only visible by other users of your instance' },
 });
 
-@injectIntl
-export default class DetailedStatus extends ImmutablePureComponent {
+
+export default @injectIntl
+class DetailedStatus extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

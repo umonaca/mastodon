@@ -104,7 +104,7 @@ export default class StatusContent extends React.PureComponent {
     window.MathJax.Hub.Queue([
       'Typeset',
       window.MathJax.Hub,
-      this.node.current
+      this.node.current,
     ]);
   }
 
