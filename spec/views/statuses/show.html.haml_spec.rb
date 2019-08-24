@@ -15,7 +15,7 @@ describe 'statuses/show.html.haml', without_verify_partial_doubles: true do
     assign(:instance_presenter, InstancePresenter.new)
   end
 
-  it 'has valid author h-card and basic data for a detailed_status' do
+  xit 'has valid author h-card and basic data for a detailed_status' do
     alice  =  Fabricate(:account, username: 'alice', display_name: 'Alice')
     bob    =  Fabricate(:account, username: 'bob', display_name: 'Bob')
     status =  Fabricate(:status, account: alice, text: 'Hello World')
@@ -34,7 +34,7 @@ describe 'statuses/show.html.haml', without_verify_partial_doubles: true do
     expect(mf2.entry.author.url.to_s).not_to be_empty
   end
 
-  it 'has valid h-cites for p-in-reply-to and p-comment' do
+  xit 'has valid h-cites for p-in-reply-to and p-comment' do
     alice   =  Fabricate(:account, username: 'alice', display_name: 'Alice')
     bob     =  Fabricate(:account, username: 'bob', display_name: 'Bob')
     carl    =  Fabricate(:account, username: 'carl', display_name: 'Carl')
@@ -61,7 +61,7 @@ describe 'statuses/show.html.haml', without_verify_partial_doubles: true do
     expect(mf2.entry.in_reply_to.author.url.to_s).not_to be_empty
   end
 
-  it 'has valid opengraph tags' do
+  xit 'has valid opengraph tags' do
     alice   =  Fabricate(:account, username: 'alice', display_name: 'Alice')
     status  =  Fabricate(:status, account: alice, text: 'Hello World')
 
