@@ -23,6 +23,9 @@
       = f.input :setting_default_language, collection: [nil] + filterable_languages.sort, wrapper: :with_label, label_method: lambda { |locale| locale.nil? ? I18n.t('statuses.language_detection') : human_locale(locale) }, required: false, include_blank: false, hint: false
 
   .fields-group
+    = f.input :setting_default_federation, as: :boolean, wrapper: :with_label
+
+  .fields-group
     = f.input :setting_default_sensitive, as: :boolean, wrapper: :with_label
 
   .fields-group
