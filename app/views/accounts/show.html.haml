@@ -34,6 +34,11 @@
 
       -# our modification: verify login
       - if user_signed_in?
+          
+        .account__section-headline
+          = active_link_to t('accounts.posts_tab_heading'), short_account_url(@account)
+          = active_link_to t('accounts.posts_with_replies'), short_account_with_replies_url(@account)
+          = active_link_to t('accounts.media'), short_account_media_url(@account)
 
         - if user_signed_in? && @account.blocking?(current_account)
           .nothing-here.nothing-here--under-tabs= t('accounts.unavailable')
