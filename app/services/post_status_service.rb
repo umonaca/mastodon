@@ -97,9 +97,13 @@ class PostStatusService < BaseService
   end
 
   def local_only_option(local_only, in_reply_to, federation_setting)
-    return in_reply_to&.local_only? if local_only.nil? # XXX temporary, just until clients implement to avoid leaking local_only posts
-    return federation_setting if local_only.nil?
-    local_only
+    if local_only.nil?  # Clients
+      return true if in_reply_to&.local_only?  # Force local only reply from clients. Does not affect web interface.
+      return true if federation_setting == false
+      false  # federation_setting.nil (somehow uninitialized) or federation_setting == true
+    else  # Web
+      local_only
+    end
   end
 
   def validate_media!
