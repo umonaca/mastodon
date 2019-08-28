@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'The account show page' do
-  xit 'Has an h-feed with correct number of h-entry objects in it' do
+  it 'Has an h-feed with correct number of h-entry objects in it' do
     alice = Fabricate(:account, username: 'alice', display_name: 'Alice')
     _status = Fabricate(:status, account: alice, text: 'Hello World')
     _status2 = Fabricate(:status, account: alice, text: 'Hello World Again')
@@ -14,7 +14,7 @@ describe 'The account show page' do
     expect(h_feed_entries.size).to eq(3)
   end
 
-  xit 'has valid opengraph tags' do
+  it 'has valid opengraph tags' do
     alice = Fabricate(:account, username: 'alice', display_name: 'Alice')
     _status = Fabricate(:status, account: alice, text: 'Hello World')
 
