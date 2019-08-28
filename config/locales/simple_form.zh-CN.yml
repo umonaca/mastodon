@@ -36,7 +36,8 @@ zh-CN:
         setting_show_application: 你用来发表嘟文的应用程序将会在你嘟文的详细内容中显示
         setting_use_blurhash: 渐变是基于模糊后的隐藏内容生成的
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
-        setting_default_federation: "此设置仅对网页版有效。手机客户端用户在嘟文末尾添加:local:即可发布仅本站可见的嘟文"
+        setting_default_federation: "此设置仅对网页版有效。手机客户端在嘟文末尾添加:local:即可发布仅本站可见的嘟文"
+        setting_mobile_federation: 请注意，如果勾选此选项，其他实例（站点）上的用户将无法收到您从手机客户端所发的回复、@和私信。
         username: 你的用户名在 %{domain} 上是独特的
         whole_word: 如果关键词只包含字母和数字，就只会在整个词被匹配时才会套用
       featured_tag:
@@ -97,6 +98,7 @@ zh-CN:
         setting_auto_play_gif: 自动播放 GIF 动画
         setting_boost_modal: 在转嘟前询问我
         setting_default_federation: 默认允许嘟文跨站传播至其它长毛象实例
+        setting_mobile_federation: 强制手机客户端发布的嘟文为仅本站可见（不推荐）
         setting_default_language: 发布语言
         setting_default_privacy: 嘟文默认可见范围
         setting_default_sensitive: 总是将我发送的媒体文件标记为敏感内容

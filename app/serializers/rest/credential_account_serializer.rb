@@ -11,6 +11,7 @@ class REST::CredentialAccountSerializer < REST::AccountSerializer
       sensitive: user.setting_default_sensitive,
       language: user.setting_default_language,
       federation: user.setting_default_federation,
+      mobilefederation: user.setting_mobile_federation,
       note: object.note,
       fields: object.fields.map(&:to_h),
     }
