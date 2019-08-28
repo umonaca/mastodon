@@ -96,9 +96,10 @@ class PostStatusService < BaseService
 
   end
 
-  def local_only_option(local_only, in_reply_to, content)
+  def local_only_option(local_only, in_reply_to, content, mobile_federation_setting)
     if local_only.nil?  # Clients
       return true if in_reply_to&.local_only?  # Force local only reply from clients. Does not affect web interface.
+      return true if mobile_federation_setting # true (force local only)
       return true if /:local: ?\z/.match?(content) # :local: emoji with zero or one space at the end of the status
       false
     else  # Web
@@ -174,7 +175,7 @@ class PostStatusService < BaseService
       visibility: @visibility,
       language: language_from_option(@options[:language]) || @account.user&.setting_default_language&.presence || LanguageDetector.instance.detect(@text, @account),
       application: @options[:application],
-      local_only: local_only_option(@options[:local_only], @in_reply_to, @text)
+      local_only: local_only_option(@options[:local_only], @in_reply_to, @text, @account.user&.setting_mobile_federation)
   }.compact
   end
 
