@@ -336,7 +336,7 @@
   "status.favourite": "收藏",
   "status.filtered": "已过滤",
   "status.load_more": "加载更多",
-  "status.local_only": "This post is only visible by other users of your instance",
+  "status.local_only": "此嘟文仅本站用户可见",
   "status.media_hidden": "隐藏媒体内容",
   "status.mention": "提及 @{name}",
   "status.more": "更多",

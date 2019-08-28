@@ -36,6 +36,7 @@ zh-CN:
         setting_show_application: 你用来发表嘟文的应用程序将会在你嘟文的详细内容中显示
         setting_use_blurhash: 渐变是基于模糊后的隐藏内容生成的
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
+        setting_default_federation: "此设置仅对网页版有效。手机客户端用户在嘟文末尾添加:local:即可发布仅本站可见的嘟文"
         username: 你的用户名在 %{domain} 上是独特的
         whole_word: 如果关键词只包含字母和数字，就只会在整个词被匹配时才会套用
       featured_tag:
