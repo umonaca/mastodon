@@ -17,7 +17,8 @@ defaults: &defaults
   timeline_preview: true
   show_staff_badge: true
   default_sensitive: false
-  default_federation: true
+  default_federation: true # true: Not local-only
+  mobile_federation: false # true: force local-only
   hide_network: false
   unfollow_modal: false
   boost_modal: false
