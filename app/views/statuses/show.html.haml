@@ -6,7 +6,8 @@
 
 
 - content_for :header_tags do
-  %meta{ name: 'robots', content: 'noindex, noarchive' }/
+  - if @account.user&.setting_noindex
+    %meta{ name: 'robots', content: 'noindex, noarchive' }/
 
   %link{ rel: 'alternate', type: 'application/json+oembed', href: api_oembed_url(url: short_account_status_url(@account, @status), format: 'json') }/
   %link{ rel: 'alternate', type: 'application/activity+json', href: ActivityPub::TagManager.instance.uri_for(@status) }/
@@ -22,8 +23,7 @@
 
 .grid
   .column-0
-    - if user_signed_in?
-      .activity-stream.h-entry
-        = render partial: 'status', locals: { status: @status, include_threads: true }
+    .activity-stream.h-entry
+      = render partial: 'status', locals: { status: @status, include_threads: true }
   .column-1
     = render 'application/sidebar'
