@@ -133,3 +133,11 @@ export function ListAdder () {
 export function Search () {
   return import(/*webpackChunkName: "features/search" */'../../search');
 }
+
+export function Tesseract () {
+  return import(/*webpackChunkName: "tesseract" */'tesseract.js');
+}
+
+export function Audio () {
+  return import(/* webpackChunkName: "features/audio" */'../../audio');
+}

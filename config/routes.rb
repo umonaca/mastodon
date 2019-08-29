@@ -155,7 +155,11 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index'
 
     resources :domain_allows, only: [:new, :create, :show, :destroy]
-    resources :domain_blocks, only: [:new, :create, :show, :destroy]
+    resources :domain_blocks, only: [:new, :create, :show, :destroy, :update] do
+      member do
+        get :edit
+      end
+    end
     resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
@@ -419,9 +423,10 @@ Rails.application.routes.draw do
 
   get '/web/(*any)', to: 'home#index', as: :web
 
-  get '/about',      to: 'about#show'
-  get '/about/more', to: 'about#more'
-  get '/terms',      to: 'about#terms'
+  get '/about',        to: 'about#show'
+  get '/about/more',   to: 'about#more'
+  get '/about/blocks', to: 'about#blocks'
+  get '/terms',        to: 'about#terms'
 
   root 'home#index'
 

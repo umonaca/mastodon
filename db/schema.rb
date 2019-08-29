@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_123746) do
+ActiveRecord::Schema.define(version: 2019_08_23_221802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,6 +259,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_123746) do
     t.integer "severity", default: 0
     t.boolean "reject_media", default: false, null: false
     t.boolean "reject_reports", default: false, null: false
+    t.text "private_comment"
+    t.text "public_comment"
     t.index ["domain"], name: "index_domain_blocks_on_domain", unique: true
   end
 
@@ -342,6 +344,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_123746) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "autofollow", default: false, null: false
+    t.text "comment"
     t.index ["code"], name: "index_invites_on_code", unique: true
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
@@ -642,7 +645,9 @@ ActiveRecord::Schema.define(version: 2019_08_05_123746) do
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
     t.boolean "local_only"
-    t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
+    t.datetime "deleted_at"
+    t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
+    t.index ["id", "account_id"], name: "index_statuses_local_20190824", order: { id: :desc }, where: "((local OR (uri IS NULL)) AND (deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
@@ -666,6 +671,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_123746) do
     t.boolean "listable"
     t.datetime "reviewed_at"
     t.datetime "requested_review_at"
+    t.datetime "last_status_at"
+    t.datetime "last_trend_at"
     t.index "lower((name)::text)", name: "index_tags_on_name_lower", unique: true
   end
 
