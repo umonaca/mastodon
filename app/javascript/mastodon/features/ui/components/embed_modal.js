@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage, injectIntl } from 'react-intl';
-
+import api from '../../../api';
 
 export default @injectIntl
 class EmbedModal extends ImmutablePureComponent {
@@ -20,7 +20,7 @@ class EmbedModal extends ImmutablePureComponent {
   };
 
   componentDidMount () {
-
+    const { url } = this.props;
 
     this.setState({ loading: true });
 
@@ -50,7 +50,7 @@ class EmbedModal extends ImmutablePureComponent {
   }
 
   render () {
-
+    const { oembed } = this.state;
 
     return (
       <div className='modal-root__modal embed-modal'>
