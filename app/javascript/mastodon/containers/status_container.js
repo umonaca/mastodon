@@ -25,6 +25,8 @@ import {
   hideStatus,
   revealStatus,
   toggleStatusCollapse,
+  hideQuote,
+  revealQuote,
 } from '../actions/statuses';
 import {
   followAccount,
@@ -256,6 +258,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(openModal('LIST_ADDER', {
       accountId: account.get('id'),
     }));
+  },
+
+  onQuoteToggleHidden (status) {
+    if (status.get('quote_hidden')) {
+      dispatch(revealQuote(status.get('id')));
+    } else {
+      dispatch(hideQuote(status.get('id')));
+    }
   },
 
 });

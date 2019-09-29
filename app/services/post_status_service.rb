@@ -180,6 +180,7 @@ class PostStatusService < BaseService
       application: @options[:application],
       local_only: local_only_option(@options[:local_only], @in_reply_to, @text, @account.user&.setting_mobile_federation),
       rate_limit: @options[:with_rate_limit],
+      quote_id: @options[:quote_id],
     }.compact
   end
 
