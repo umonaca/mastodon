@@ -284,10 +284,6 @@ class Status < ApplicationRecord
       where(language: nil).or where(language: account.chosen_languages)
     end
 
-    def as_home_timeline(account)
-      where(account: [account] + account.following).where(visibility: [:public, :unlisted, :private])
-    end
-
     def as_public_timeline(account = nil, local_only = false)
       if local_only
         query = timeline_scope(local_only)
