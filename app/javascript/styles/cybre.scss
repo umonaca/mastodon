@@ -1,4 +1,4 @@
-$ui-base-color: #181818; // darkest
+$ui-base-color: #1b1b1b; // darkest
 $ui-highlight-color: #1ea21e; // vibrant
 $ui-secondary-color: #E4F2E4; // lightest
 $ui-primary-color: #E4F2E4; // lighter
@@ -22,6 +22,7 @@ $about-page-text: lighten($ui-base-color, 50%);
 
 body, body.about-body {
   background: $ui-base-color url('../images/background-cybre.png');
+  background-attachment: fixed;
 }
 
 body.about-body {
@@ -269,4 +270,9 @@ body.about-body {
   em {
     color: $ui-highlight-color;
   }
+}
+
+.status__content a, .reply-indicator__content a,
+.status__content a.unhandled-link, .reply-indicator__content a.unhandled-link {
+  color: mix($ui-highlight-color, $ui-secondary-color, 10%);
 }
