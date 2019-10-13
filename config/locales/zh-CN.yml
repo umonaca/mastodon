@@ -710,6 +710,7 @@ zh-CN:
       other: "%{count} 次"
     max_uses_prompt: 无限制
     prompt: 生成分享链接，邀请他人在本服务器注册
+    quota: 剩下的可用邀请次数：
     table:
       expires_at: 失效时间
       uses: 已使用次数

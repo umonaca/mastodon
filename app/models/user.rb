@@ -38,6 +38,7 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  invite_quota              :integer          default(0), not null
 #
 
 class User < ApplicationRecord

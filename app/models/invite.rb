@@ -24,11 +24,24 @@ class Invite < ApplicationRecord
   scope :available, -> { where(expires_at: nil).or(where('expires_at >= ?', Time.now.utc)) }
 
   validates :comment, length: { maximum: 420 }
+  validate :quota_sufficient, on: :create
+  after_create :decrease_quota
 
   before_validation :set_code
 
   def valid_for_use?
     (max_uses.nil? || uses < max_uses) && !expired? && !(user.nil? || user.disabled?)
+  end
+
+  def quota_sufficient
+    errors.add(:max_uses, 'not enough invitations left') unless max_uses <= user.invite_quota
+  end
+
+  private
+
+  def decrease_quota
+    self.user.invite_quota -= self.max_uses
+    self.user.save
   end
 
   private

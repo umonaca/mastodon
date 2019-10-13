@@ -800,6 +800,7 @@ en:
       other: "%{count} uses"
     max_uses_prompt: No limit
     prompt: Generate and share links with others to grant access to this server
+    quota: 'Remaining invitations available:'
     table:
       expires_at: Expires
       uses: Uses
