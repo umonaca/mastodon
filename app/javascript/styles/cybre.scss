@@ -272,7 +272,7 @@ body.about-body {
   }
 }
 
-.status__content a, .reply-indicator__content a,
-.status__content a.unhandled-link, .reply-indicator__content a.unhandled-link {
+.status__content a,
+.status__content a.unhandled-link {
   color: mix($ui-highlight-color, $ui-secondary-color, 10%);
 }
