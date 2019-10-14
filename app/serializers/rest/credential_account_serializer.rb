@@ -14,6 +14,7 @@ class REST::CredentialAccountSerializer < REST::AccountSerializer
       mobilefederation: user.setting_mobile_federation,
       note: object.note,
       fields: object.fields.map(&:to_h),
+      follow_requests_count: FollowRequest.where(target_account: object).limit(40).count,
     }
   end
 end
