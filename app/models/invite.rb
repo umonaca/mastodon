@@ -24,7 +24,7 @@ class Invite < ApplicationRecord
   scope :available, -> { where(expires_at: nil).or(where('expires_at >= ?', Time.now.utc)) }
 
   validates :comment, length: { maximum: 420 }
-  validates :max_uses, presence: true
+  validates :max_uses, presence: true, numericality: {greater_than:0}
   validate :quota_sufficient, on: :create
   after_create :decrease_quota
 
