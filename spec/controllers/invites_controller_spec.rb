@@ -16,8 +16,8 @@ describe InvitesController do
   describe 'GET #index' do
     subject { get :index }
 
-    let(:user) { Fabricate(:user, moderator: false, admin: false) }
-    let!(:invite) { Fabricate(:invite, user: user) }
+    let(:user) { Fabricate(:user, moderator: false, admin: false, invite_quota: 65534) }
+    let!(:invite) { Fabricate(:invite, user: user, max_uses: 100) }
 
     context 'when user is a staff' do
       it 'renders index page' do
@@ -40,7 +40,7 @@ describe InvitesController do
     subject { post :create, params: { invite: { max_uses: '10', expires_in: 1800 } } }
 
     context 'when user is an admin' do
-      let(:user) { Fabricate(:user, moderator: false, admin: true) }
+      let(:user) { Fabricate(:user, moderator: false, admin: true, invite_quota: 65534) }
 
       it 'succeeds to create a invite' do
         expect { subject }.to change { Invite.count }.by(1)
@@ -50,7 +50,7 @@ describe InvitesController do
     end
 
     context 'when user is not an admin' do
-      let(:user) { Fabricate(:user, moderator: true, admin: false) }
+      let(:user) { Fabricate(:user, moderator: true, admin: false, invite_quota: 65534) }
 
       it 'returns 403' do
         expect(subject).to have_http_status 403
@@ -61,8 +61,8 @@ describe InvitesController do
   describe 'DELETE #create' do
     subject { delete :destroy, params: { id: invite.id } }
 
-    let!(:invite) { Fabricate(:invite, user: user, expires_at: nil) }
-    let(:user) { Fabricate(:user, moderator: false, admin: true) }
+    let!(:invite) { Fabricate(:invite, user: user, expires_at: nil, max_uses: 100) }
+    let(:user) { Fabricate(:user, moderator: false, admin: true, invite_quota: 65534) }
 
     it 'expires invite' do
       expect(subject).to redirect_to invites_path

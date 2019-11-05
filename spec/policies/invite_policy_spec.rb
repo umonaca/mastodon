@@ -5,8 +5,9 @@ require 'pundit/rspec'
 
 RSpec.describe InvitePolicy do
   let(:subject) { described_class }
-  let(:admin)   { Fabricate(:user, admin: true).account }
-  let(:john)    { Fabricate(:user).account }
+  let(:admin)   { Fabricate(:user, admin: true, invite_quota: 65534).account }
+  let(:john)    { Fabricate(:user, invite_quota: 65534).account }
+  let(:alice)   { Fabricate(:user, invite_quota: 65534).account }
 
   permissions :index? do
     context 'staff?' do
@@ -49,7 +50,7 @@ RSpec.describe InvitePolicy do
   permissions :destroy? do
     context 'owner?' do
       it 'permits' do
-        expect(subject).to permit(john, Fabricate(:invite, user: john.user))
+        expect(subject).to permit(john, Fabricate(:invite, user: john.user, max_uses: 100))
       end
     end
 
@@ -61,13 +62,13 @@ RSpec.describe InvitePolicy do
 
         context 'admin?' do
           it 'permits' do
-            expect(subject).to permit(admin, Fabricate(:invite))
+            expect(subject).to permit(admin, Fabricate(:invite, user: admin.user, max_uses: 100))
           end
         end
 
         context 'not admin?' do
           it 'denies' do
-            expect(subject).to_not permit(john, Fabricate(:invite))
+            expect(subject).to_not permit(john, Fabricate(:invite, user: alice.user, max_uses: 100))
           end
         end
       end
@@ -79,13 +80,13 @@ RSpec.describe InvitePolicy do
 
         context 'staff?' do
           it 'permits' do
-            expect(subject).to permit(admin, Fabricate(:invite))
+            expect(subject).to permit(admin, Fabricate(:invite, user: admin.user, max_uses: 100))
           end
         end
 
         context 'not staff?' do
           it 'denies' do
-            expect(subject).to_not permit(john, Fabricate(:invite))
+            expect(subject).to_not permit(john, Fabricate(:invite, user: alice.user, max_uses: 100))
           end
         end
       end

@@ -34,17 +34,17 @@ en:
         phrase: Will be matched regardless of casing in text or content warning of a toot
         scopes: Which APIs the application will be allowed to access. If you select a top-level scope, you don't need to select individual ones.
         setting_aggregate_reblogs: Do not show new boosts for toots that have been recently boosted (only affects newly-received boosts)
+        setting_default_federation: 'This setting does not affect mobile clients. For mobile client users, please add :local: at the end of your toot to post it as local-only.'
         setting_default_sensitive: Sensitive media is hidden by default and can be revealed with a click
         setting_display_media_default: Hide media marked as sensitive
         setting_display_media_hide_all: Always hide all media
         setting_display_media_show_all: Always show media marked as sensitive
         setting_hide_network: Who you follow and who follows you will not be shown on your profile
+        setting_mobile_federation: Be aware, if this checkbox is checked, users from other instances will never receive your replies, mentions or direct messages which are sent from mobile apps.
         setting_noindex: Affects your public profile and status pages
         setting_show_application: The application you use to toot will be displayed in the detailed view of your toots
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
-        setting_default_federation: "This setting does not affect mobile clients. For mobile client users, please add :local: at the end of your toot to post it as local-only."
-        setting_mobile_federation: Be aware, if this checkbox is checked, users from other instances will never receive your replies, mentions or direct messages which are sent from mobile apps.
         username: Your username will be unique on %{domain}
         whole_word: When the keyword or phrase is alphanumeric only, it will only be applied if it matches the whole word
       domain_allow:
@@ -80,7 +80,7 @@ en:
         text: Custom warning
         type: Action
         types:
-          disable: Disable
+          disable: Disable login
           none: Do nothing
           silence: Silence
           suspend: Suspend and irreversibly delete account data
@@ -115,8 +115,8 @@ en:
         setting_aggregate_reblogs: Group boosts in timelines
         setting_auto_play_gif: Auto-play animated GIFs
         setting_boost_modal: Show confirmation dialog before boosting
+        setting_crop_images: Crop images in non-expanded toots to 16x9
         setting_default_federation: Allow my toots to reach other instances by default
-        setting_mobile_federation: Force all toots sent from mobile clients to be local-only (Not recommended)
         setting_default_language: Posting language
         setting_default_privacy: Posting privacy
         setting_default_sensitive: Always mark media as sensitive
@@ -127,6 +127,7 @@ en:
         setting_display_media_show_all: Show all
         setting_expand_spoilers: Always expand toots marked with content warnings
         setting_hide_network: Hide your network
+        setting_mobile_federation: Force all toots sent from mobile clients to be local-only (Not recommended)
         setting_noindex: Opt-out of search engine indexing
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send toots
