@@ -129,7 +129,7 @@ class Account < ApplicationRecord
 
   delegate :chosen_languages, to: :user, prefix: false, allow_nil: true
 
-  update_index('accounts#account', :self) if Chewy.enabled?
+  update_index('accounts#account', :self)
 
   def local?
     domain.nil?
@@ -198,7 +198,7 @@ class Account < ApplicationRecord
   end
 
   def unsilence!
-    update!(silenced_at: nil, trust_level: trust_level == TRUST_LEVELS[:untrusted] ? TRUST_LEVELS[:trusted] : trust_level)
+    update!(silenced_at: nil)
   end
 
   def suspended?
@@ -310,10 +310,9 @@ class Account < ApplicationRecord
   def save_with_optional_media!
     save!
   rescue ActiveRecord::RecordInvalid
-    self.avatar              = nil
-    self.header              = nil
-    self[:avatar_remote_url] = ''
-    self[:header_remote_url] = ''
+    self.avatar = nil
+    self.header = nil
+
     save!
   end
 
@@ -430,6 +429,8 @@ class Account < ApplicationRecord
             SELECT target_account_id
             FROM follows
             WHERE account_id = ?
+            UNION ALL
+            SELECT ?
           )
           SELECT
             accounts.*,
@@ -445,7 +446,7 @@ class Account < ApplicationRecord
           LIMIT ? OFFSET ?
         SQL
 
-        records = find_by_sql([sql, account.id, account.id, account.id, limit, offset])
+        records = find_by_sql([sql, account.id, account.id, account.id, account.id, limit, offset])
       else
         sql = <<-SQL.squish
           SELECT
