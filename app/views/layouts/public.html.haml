@@ -1,5 +1,4 @@
 - content_for :header_tags do
-  %script{:async => "", :src => "/MathJax/MathJax.js?config=TeX-AMS_CHTML", :type => "text/javascript"}
   = render_initial_state
   = javascript_pack_tag 'public', integrity: true, crossorigin: 'anonymous'
 

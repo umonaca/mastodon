@@ -94,30 +94,14 @@ export default class StatusContent extends React.PureComponent {
     }
   }
 
-  renderMath() {
-    const node = this.node;
-
-    if (!node) {
-      return;
-    }
-
-    window.MathJax.Hub.Queue([
-      'Typeset',
-      window.MathJax.Hub,
-      this.node.current,
-    ]);
-  }
-
   componentDidMount () {
     this._updateStatusLinks();
     this._updateStatusEmojis();
-    this.renderMath();
   }
 
   componentDidUpdate () {
     this._updateStatusLinks();
     this._updateStatusEmojis();
-    this.renderMath();
   }
 
   onMentionClick = (mention, e) => {
