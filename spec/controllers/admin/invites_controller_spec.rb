@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Admin::InvitesController do
   render_views
 
-  let(:user) { Fabricate(:user, admin: true) }
+  let(:user) { Fabricate(:user, admin: true, invite_quota: 65534) }
 
   before do
     sign_in user, scope: :user
@@ -14,7 +14,7 @@ describe Admin::InvitesController do
   describe 'GET #index' do
     subject { get :index, params: { available: true } }
 
-    let!(:invite) { Fabricate(:invite) }
+    let!(:invite) { Fabricate(:invite, max_uses: 100, user: user) }
 
     it 'renders index page' do
       expect(subject).to render_template :index
@@ -33,7 +33,7 @@ describe Admin::InvitesController do
   end
 
   describe 'DELETE #destroy' do
-    let!(:invite) { Fabricate(:invite, expires_at: nil) }
+    let!(:invite) { Fabricate(:invite, expires_at: nil, max_uses: 100, user: user) }
 
     subject { delete :destroy, params: { id: invite.id } }
 
@@ -45,7 +45,7 @@ describe Admin::InvitesController do
 
   describe 'POST #deactivate_all' do
     it 'expires all invites, then redirects to admin_invites_path' do
-      invites = Fabricate.times(2, :invite, expires_at: nil)
+      invites = Fabricate.times(2, :invite, expires_at: nil, max_uses: 100, user: user)
 
       post :deactivate_all
 
