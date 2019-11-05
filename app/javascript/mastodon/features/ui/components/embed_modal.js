@@ -37,13 +37,10 @@ class EmbedModal extends ImmutablePureComponent {
 
 
     return (
-      <div className='modal-root__modal report-modal embed-modal'>
-        <div className='report-modal__target'>
-          <IconButton className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={16} />
-          <FormattedMessage id='status.embed' defaultMessage='Embed' />
-        </div>
+      <div className='modal-root__modal embed-modal'>
+        <h4><FormattedMessage id='status.embed' defaultMessage='Embed' /></h4>
 
-        <div className='report-modal__container embed-modal__container' style={{ display: 'block' }}>
+        <div className='embed-modal__container'>
           <p className='hint'>
             <span>Sorry, embedding is disallowed by the server admin.</span>
           </p>
