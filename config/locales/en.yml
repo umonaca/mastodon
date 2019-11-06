@@ -1146,6 +1146,7 @@ en:
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
     contrast: High contrast
+    cybrespace: Cybrespace
     default: Mastodon
     mastodon-light: Mastodon (light)
     light: Cybre Lite
