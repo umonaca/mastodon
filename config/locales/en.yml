@@ -1147,8 +1147,8 @@ en:
     contrast: High contrast
     cybrespace: Cybrespace
     default: Mastodon
-    mastodon-light: Mastodon (light)
     light: Cybre Lite
+    mastodon-light: Mastodon (light)
     win95: Windows 95
   time:
     formats:
