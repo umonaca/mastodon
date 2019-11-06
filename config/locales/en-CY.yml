@@ -292,7 +292,6 @@ en-CY:
       content: Security verification failed. Are you blocking cookies?
       title: Security verification failed
     '429': Throttled
-    noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md">native apps</a> for Mastodon for your platform.
   exports:
     blocks: You block
     csv: CSV
@@ -334,7 +333,6 @@ en-CY:
       too_many: Cannot attach more than 4 files
   notification_mailer:
     digest:
-      body: 'Here is a brief summary of what you missed on %{instance} since your last visit on %{since}:'
       mention: "%{name} mentioned you in:"
       new_followers_summary:
         one: You have acquired one new follower! Yay!
@@ -535,8 +533,8 @@ en-CY:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    default: Mastodon
     cybrespace: Cybrespace
+    default: Mastodon
     win95: Ｍａｓｔｏ 95
   time:
     formats:
