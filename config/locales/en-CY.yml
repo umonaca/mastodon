@@ -535,8 +535,8 @@ en-CY:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    default: Cybrespace
-    mastodon: Mastodon
+    default: Mastodon
+    cybrespace: Cybrespace
     win95: Ｍａｓｔｏ 95
   time:
     formats:
