@@ -5,3 +5,4 @@ witches-town: styles/witches-town.scss
 nga: styles/nga.scss
 light: styles/cybre-light.scss
 win95: styles/win95.scss
+cybrespace: styles/cybre.scss
