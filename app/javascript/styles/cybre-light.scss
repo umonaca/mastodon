@@ -31,7 +31,7 @@ $gold-star: #dd9d08;
 }
 
 .ui, body {
-  background: $ui-base-color url('../images/background-cybre-light.png');
+  background: $ui-base-color;
   background-attachment: fixed;
 }
 
@@ -933,7 +933,7 @@ button.icon-button {
 }
 
 .tabs-bar__wrapper {
-  background: $ui-base-color url('../images/background-cybre-light.png');
+  background: $ui-base-color;
 }
 
 .layout-single-column .navigation-panel {
