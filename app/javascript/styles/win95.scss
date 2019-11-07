@@ -1411,6 +1411,12 @@ body.admin {
   background-position: 36px 50%;
   &:hover { background-image: url("../images/icon_local.png"); }
 }
+.column-link[href="/web/directory"] {
+  background-image: url("../images/icon_profile");
+  background-repeat:no-repeat;
+  background-position: 36px 50%;
+  &:hover { background-image: url("../images/icon_profile"); }
+}
 .column-link[href="/web/timelines/direct"] {
   background-image: url("../images/icon_direct.png");
   background-repeat:no-repeat;
@@ -1465,6 +1471,12 @@ body.admin {
   background-position: 36px 50%;
   &:hover { background-image: url("../images/icon_settings.png"); }
 }
+.column-link[href="/relationships"] {
+  background-image: url("../images/icon_relationship.png");
+  background-repeat:no-repeat;
+  background-position: 36px 50%;
+  &:hover { background-image: url("../images/icon_relationship.png"); }
+}
 
 .getting-started__footer ul li a[href="/web/keyboard-shortcuts"] {
   background-image: url("../images/icon_keyboard_shortcuts.png");
@@ -1474,9 +1486,17 @@ body.admin {
   background-image: url("../images/icon_invite.png");
   &:hover { background-image: url("../images/icon_invite.png"); }
 }
+.getting-started__footer ul li a[href="/auth/edit"] {
+  background-image: url("../images/icon_setting_alt");
+  &:hover { background-image: url("../images/icon_setting_alt"); }
+}
 .getting-started__footer ul li a[href="/terms"] {
   background-image: url("../images/icon_tos.png");
   &:hover { background-image: url("../images/icon_tos.png"); }
+}
+.getting-started__footer ul li a[href="/settings/applications"] {
+  background-image: url("../images/icon_dev.png");
+  &:hover { background-image: url("../images/icon_dev.png"); }
 }
 .getting-started__footer ul li a[href="https://docs.joinmastodon.org"] {
   background-image: url("../images/icon_docs.png");
