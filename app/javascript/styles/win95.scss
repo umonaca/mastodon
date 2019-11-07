@@ -682,6 +682,16 @@ body.admin {
   @include win95-border-inset();
 }
 
+.icon-button.star-icon.activate > .fa-star {
+  -webkit-animation: none !important;
+          animation: none !important;
+}
+.icon-button.star-icon.deactivate > .fa-star {
+  -webkit-animation: none !important;
+          animation: none !important;
+}
+
+
 .text-icon-button {
   color:$win95-dark-grey;
 }
