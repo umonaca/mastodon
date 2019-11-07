@@ -1504,6 +1504,9 @@ body.admin {
   background-image: url("../images/icon_logout.png");
   &:hover { background-image: url("../images/icon_logout.png"); }
 }
+.getting-started__footer > p {
+  margin-right: 30px;
+}
 
 .column .static-content.getting-started {
   display:none;
