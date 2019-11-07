@@ -1506,6 +1506,10 @@ body.admin {
   background-image: url("../images/icon_about.png");
   &:hover { background-image: url("../images/icon_about.png"); }
 }
+.getting-started__footer ul li a[href="https://joinmastodon.org/apps"] {
+  background-image: url("../images/icon_mobile_app.png");
+  &:hover { background-image: url("../images/icon_mobile_app.png"); }
+}
 .getting-started__footer ul li a[href="/auth/sign_out"] {
   background-image: url("../images/icon_logout.png");
   &:hover { background-image: url("../images/icon_logout.png"); }
