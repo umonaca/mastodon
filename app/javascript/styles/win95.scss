@@ -2608,3 +2608,7 @@ body {
   font-size: 10px;
   width: 10px;
 }
+
+span.poll__chart.leading + label.poll__text {
+  color: white;
+}
