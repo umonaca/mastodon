@@ -66,6 +66,7 @@ class Status extends ImmutablePureComponent {
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
+    onBookmark: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
@@ -223,6 +224,10 @@ class Status extends ImmutablePureComponent {
     this.props.onFavourite(this._properStatus());
   }
 
+  handleHotkeyBookmark = e => {
+    this.props.onBookmark(this.props.status, e);
+  }
+
   handleHotkeyBoost = e => {
     this.props.onReblog(this._properStatus(), e);
   }
@@ -285,6 +290,7 @@ class Status extends ImmutablePureComponent {
     const handlers = this.props.muted ? {} : {
       reply: this.handleHotkeyReply,
       favourite: this.handleHotkeyFavourite,
+      bookmark: this.handleHotkeyBookmark,
       boost: this.handleHotkeyBoost,
       mention: this.handleHotkeyMention,
       open: this.handleHotkeyOpen,

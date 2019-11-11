@@ -49,6 +49,10 @@ class KeyboardShortcuts extends ImmutablePureComponent {
                 <td><FormattedMessage id='keyboard_shortcuts.favourite' defaultMessage='to favourite' /></td>
               </tr>
               <tr>
+                <td><kbd>d</kbd></td>
+                <td><FormattedMessage id='keyboard_shortcuts.bookmark' defaultMessage='to bookmark' /></td>
+              </tr>
+              <tr>
                 <td><kbd>b</kbd></td>
                 <td><FormattedMessage id='keyboard_shortcuts.boost' defaultMessage='to boost' /></td>
               </tr>
