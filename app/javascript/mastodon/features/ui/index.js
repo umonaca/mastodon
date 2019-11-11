@@ -80,6 +80,7 @@ const keyMap = {
   focusColumn: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
   reply: 'r',
   favourite: 'f',
+  bookmark: 'd',
   boost: 'b',
   mention: 'm',
   open: ['enter', 'o'],
