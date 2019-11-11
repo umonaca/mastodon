@@ -1429,6 +1429,12 @@ body.admin {
   background-position: 36px 50%;
   &:hover { background-image: url("../images/icon_pin.png"); }
 }
+.column-link[href="/web/bookmarks"] {
+  background-image: url("../images/icon_bookmark.png");
+  background-repeat:no-repeat;
+  background-position: 36px 50%;
+  &:hover { background-image: url("../images/icon_bookmark.png"); }
+}
 .column-link[href="/web/favourites"] {
   background-image: url("../images/icon_likes.png");
   background-repeat:no-repeat;
