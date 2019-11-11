@@ -20,7 +20,7 @@ class Api::V1::Timelines::HomeController < Api::BaseController
 
   def load_statuses
     if truthy_param?(:exclude_bots)
-      cached_home_statuses.reject { |status| status.reblog? && status.reblog.account.bot && !current_account.following?(status.reblog.account.bot) }
+      cached_home_statuses.reject { |status| status.account.bot || status.reblog? && status.reblog.account.bot }
     else
       cached_home_statuses
     end
