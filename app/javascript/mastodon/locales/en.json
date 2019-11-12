@@ -71,6 +71,7 @@
   "column_header.show_settings": "Show settings",
   "column_header.unpin": "Unpin",
   "column_subheading.settings": "Settings",
+  "community.column_settings.exclude_bots": "Hide posts from bots",
   "community.column_settings.media_only": "Media Only",
   "compose_form.direct_message_warning": "This toot will only be sent to the mentioned users.",
   "compose_form.direct_message_warning_learn_more": "Learn more",

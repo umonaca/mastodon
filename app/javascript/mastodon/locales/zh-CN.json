@@ -71,6 +71,7 @@
   "column_header.show_settings": "显示设置",
   "column_header.unpin": "取消固定",
   "column_subheading.settings": "设置",
+  "community.column_settings.exclude_bots": "隐藏机器人嘟文",
   "community.column_settings.media_only": "仅媒体",
   "compose_form.direct_message_warning": "这条嘟文仅对所有被提及的用户可见。",
   "compose_form.direct_message_warning_learn_more": "了解详情",
