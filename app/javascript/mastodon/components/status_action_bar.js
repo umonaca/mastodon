@@ -125,7 +125,6 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onBookmark(this.props.status);
   }
 
-
   handleDeleteClick = () => {
     this.props.onDelete(this.props.status, this.context.router.history);
   }
