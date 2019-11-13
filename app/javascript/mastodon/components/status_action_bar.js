@@ -39,6 +39,7 @@ const messages = defineMessages({
   copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
   blockDomain: { id: 'account.block_domain', defaultMessage: 'Block domain {domain}' },
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
+  openDomainTimeline: { id: 'account.open_domain_timeline', defaultMessage: 'Open {domain} timeline' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
   unblock: { id: 'account.unblock', defaultMessage: 'Unblock @{name}' },
 });
@@ -194,6 +195,13 @@ class StatusActionBar extends ImmutablePureComponent {
     onUnblockDomain(account.get('acct').split('@')[1]);
   }
 
+  handleOpenDomainTimeline = () => {
+    const { status } = this.props;
+    const account = status.get('account');
+
+    this.context.router.history.push(`/timelines/public/domain/${account.get('acct').split('@')[1]}`);
+  }
+
   handleOpen = () => {
     this.context.router.history.push(`/statuses/${this.props.status.get('id')}`);
   }
@@ -298,6 +306,7 @@ class StatusActionBar extends ImmutablePureComponent {
         } else {
           menu.push({ text: intl.formatMessage(messages.blockDomain, { domain }), action: this.handleBlockDomain });
         }
+        menu.push({ text: intl.formatMessage(messages.openDomainTimeline, { domain }), action: this.handleOpenDomainTimeline });
       }
 
       if (isStaff) {

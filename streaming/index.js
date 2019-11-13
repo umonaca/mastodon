@@ -268,6 +268,8 @@ const startWorker = (workerId) => {
     'public:local:media',
     'public:remote',
     'public:remote:media',
+    'public:domain',
+    'public:domain:media',
     'hashtag',
     'hashtag:local',
   ];
@@ -300,6 +302,7 @@ const startWorker = (workerId) => {
     '/api/v1/streaming/public',
     '/api/v1/streaming/public/local',
     '/api/v1/streaming/public/remote',
+    '/api/v1/streaming/public/domain',
     '/api/v1/streaming/hashtag',
     '/api/v1/streaming/hashtag/local',
   ];
@@ -545,6 +548,19 @@ const startWorker = (workerId) => {
     streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req), true);
   });
 
+  app.get('/api/v1/streaming/public/domain', (req, res) => {
+    const onlyMedia  = req.query.only_media === '1' || req.query.only_media === 'true';
+    const channel    = onlyMedia ? 'timeline:public:domain:media' : 'timeline:public:domain';
+    const { domain } = req.query;
+
+    if (!domain || domain.length === 0) {
+      httpNotFound(res);
+      return;
+    }
+
+    streamFrom(`${channel}:${domain.toLowerCase()}`, req, streamToHttp(req, res), streamHttpEnd(req), true);
+  });
+
   app.get('/api/v1/streaming/direct', (req, res) => {
     const channel = `timeline:direct:${req.accountId}`;
     streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)), true);
@@ -612,6 +628,14 @@ const startWorker = (workerId) => {
     case 'public:remote':
       streamFrom('timeline:public:remote', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
+    case 'public:domain':
+      if (!location.query.domain || location.query.domain.length === 0) {
+        ws.close();
+        return;
+      }
+
+      streamFrom(`timeline:public:domain:${location.query.domain.toLowerCase()}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
+      break;
     case 'public:media':
       streamFrom('timeline:public:media', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
@@ -620,6 +644,14 @@ const startWorker = (workerId) => {
       break;
     case 'public:remote:media':
       streamFrom('timeline:public:remote:media', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
+      break;
+    case 'public:domain:media':
+      if (!location.query.domain || location.query.domain.length === 0) {
+        ws.close();
+        return;
+      }
+
+      streamFrom(`timeline:public:domain:media:${location.query.domain.toLowerCase()}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
     case 'direct':
       channel = `timeline:direct:${req.accountId}`;
