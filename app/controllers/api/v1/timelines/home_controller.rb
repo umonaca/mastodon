@@ -19,7 +19,11 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   private
 
   def load_statuses
-    cached_home_statuses
+    if truthy_param?(:exclude_bots)
+      cached_home_statuses.reject { |status| status.account.bot || status.reblog? && status.reblog.account.bot }
+    else
+      cached_home_statuses
+    end
   end
 
   def cached_home_statuses
@@ -44,7 +48,7 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   end
 
   def pagination_params(core_params)
-    params.slice(:local, :limit).permit(:local, :limit).merge(core_params)
+    params.slice(:local, :limit, :exclude_bots).permit(:local, :limit, :exclude_bots).merge(core_params)
   end
 
   def next_path

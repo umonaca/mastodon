@@ -358,6 +358,8 @@ const startWorker = (workerId) => {
 
     const listener = message => {
       const { event, payload, queued_at } = JSON.parse(message);
+      const filterBots = req.query.exclude_bots === '1' || req.query.exclude_bots === 'true';
+      const botAuthorIds = [];
 
       const transmit = () => {
         const now            = new Date().getTime();
@@ -378,7 +380,7 @@ const startWorker = (workerId) => {
 
       // Only messages that may require filtering are statuses, since notifications
       // are already personalized and deletes do not matter
-      if (!needsFiltering || event !== 'update') {
+      if (event !== 'update') {
         transmit();
         return;
       }
@@ -386,6 +388,19 @@ const startWorker = (workerId) => {
       const unpackedPayload  = payload;
       const targetAccountIds = [unpackedPayload.account.id].concat(unpackedPayload.mentions.map(item => item.id));
       const accountDomain    = unpackedPayload.account.acct.split('@')[1];
+
+      if (needsFiltering && filterBots && unpackedPayload.account.bot) {
+        botAuthorIds.push(unpackedPayload.account.id);
+      }
+
+      if (filterBots && unpackedPayload.reblog && unpackedPayload.reblog.account.bot && botAuthorIds.indexOf(unpackedPayload.reblog.account.id) === -1) {
+        botAuthorIds.push(unpackedPayload.reblog.account.id);
+      }
+
+      if (!needsFiltering && botAuthorIds.length === 0) {
+        transmit();
+        return;
+      }
 
       if (Array.isArray(req.chosenLanguages) && unpackedPayload.language !== null && req.chosenLanguages.indexOf(unpackedPayload.language) === -1) {
         log.silly(req.requestId, `Message ${unpackedPayload.id} filtered by language (${unpackedPayload.language})`);
@@ -412,10 +427,19 @@ const startWorker = (workerId) => {
           queries.push(client.query('SELECT 1 FROM account_domain_blocks WHERE account_id = $1 AND domain = $2', [req.accountId, accountDomain]));
         }
 
+        if (botAuthorIds.length > 0) {
+          queries.push(client.query(`SELECT 1 FROM follows WHERE (account_id = $1 AND target_account_id IN (${placeholders(botAuthorIds, 1)})) UNION SELECT 1 FROM follow_requests WHERE account_id = $1 AND target_account_id IN (${placeholders(botAuthorIds, 1)})`, [req.accountId].concat(botAuthorIds)));
+        }
+
         Promise.all(queries).then(values => {
           done();
 
-          if (values[0].rows.length > 0 || (values.length > 1 && values[1].rows.length > 0)) {
+          if (values[0].rows.length > 0 || (accountDomain && values.length > 1 && values[1].rows.length > 0)) {
+            return;
+          }
+
+          const botQueryIdx = accountDomain ? 2 : 1;
+          if (values.length > botQueryIdx && values[botQueryIdx].rows.length < botAuthorIds.length) {
             return;
           }
 
@@ -577,6 +601,7 @@ const startWorker = (workerId) => {
 
   wss.on('connection', (ws, req) => {
     const location = url.parse(req.url, true);
+    req.query = location.query;
     req.requestId  = uuid.v4();
     req.remoteAddress = ws._socket.remoteAddress;
 

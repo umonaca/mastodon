@@ -25,6 +25,10 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
+
+    other: ImmutableMap({
+      excludeBots: false,
+    }),
   }),
 
   notifications: ImmutableMap({
@@ -63,11 +67,19 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
+    other: ImmutableMap({
+      excludeBots: false,
+      onlyMedia: false,
+    }),
   }),
 
   public: ImmutableMap({
     regex: ImmutableMap({
       body: '',
+    }),
+    other: ImmutableMap({
+      excludeBots: false,
+      onlyMedia: false,
     }),
   }),
 

@@ -68,6 +68,7 @@ const mapStateToProps = state => ({
   hasMediaAttachments: state.getIn(['compose', 'media_attachments']).size > 0,
   canUploadMore: !state.getIn(['compose', 'media_attachments']).some(x => ['audio', 'video'].includes(x.get('type'))) && state.getIn(['compose', 'media_attachments']).size < 4,
   dropdownMenuIsOpen: state.getIn(['dropdown_menu', 'openId']) !== null,
+  excludeBots: state.getIn(['settings', 'home', 'other', 'excludeBots']),
 });
 
 const keyMap = {
@@ -239,6 +240,7 @@ class UI extends React.PureComponent {
     location: PropTypes.object,
     intl: PropTypes.object.isRequired,
     dropdownMenuIsOpen: PropTypes.bool,
+    excludeBots: PropTypes.bool,
   };
 
   state = {
@@ -345,6 +347,8 @@ class UI extends React.PureComponent {
   }
 
   componentWillMount () {
+    const { excludeBots } = this.props;
+
     window.addEventListener('focus', this.handleWindowFocus, false);
     window.addEventListener('blur', this.handleWindowBlur, false);
     window.addEventListener('beforeunload', this.handleBeforeUnload, false);
@@ -363,7 +367,7 @@ class UI extends React.PureComponent {
       window.setTimeout(() => Notification.requestPermission(), 120 * 1000);
     }
 
-    this.props.dispatch(expandHomeTimeline());
+    this.props.dispatch(expandHomeTimeline({ excludeBots }));
     this.props.dispatch(expandNotifications());
 
     setTimeout(() => this.props.dispatch(fetchFilters()), 500);
@@ -373,6 +377,13 @@ class UI extends React.PureComponent {
     this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
       return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName);
     };
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { excludeBots } = nextProps;
+    if (excludeBots !== this.props.excludeBots) {
+      this.props.dispatch(expandHomeTimeline({ excludeBots }));
+    }
   }
 
   componentWillUnmount () {
