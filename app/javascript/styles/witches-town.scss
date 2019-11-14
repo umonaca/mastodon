@@ -50,6 +50,11 @@ $ui-highlight-color: #A288BD;
   content: "\26e7 666\26e7";
 }
 
+// Bookmark icon
+.bookmark-icon.active {
+  color: #ff5050;
+}
+
 // Boost icon
 @function hex-color($color) {
   @if type-of($color) == 'color' {

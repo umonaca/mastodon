@@ -13,6 +13,8 @@ import Column from '../ui/components/column';
 import {
   favourite,
   unfavourite,
+  bookmark,
+  unbookmark,
   reblog,
   unreblog,
   pin,
@@ -232,6 +234,14 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleBookmarkClick = (status) => {
+    if (status.get('bookmarked')) {
+      this.props.dispatch(unbookmark(status));
+    } else {
+      this.props.dispatch(bookmark(status));
+    }
+  }
+
   handleDeleteClick = (status, history, withRedraft = false) => {
     const { dispatch, intl } = this.props;
 
@@ -326,6 +336,10 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyBoost = () => {
     this.handleReblogClick(this.props.status);
+  }
+
+  handleHotkeyBookmark = () => {
+    this.handleBookmarkClick(this.props.status);
   }
 
   handleHotkeyMention = e => {
@@ -461,6 +475,7 @@ class Status extends ImmutablePureComponent {
       moveDown: this.handleHotkeyMoveDown,
       reply: this.handleHotkeyReply,
       favourite: this.handleHotkeyFavourite,
+      bookmark: this.handleHotkeyBookmark,
       boost: this.handleHotkeyBoost,
       mention: this.handleHotkeyMention,
       openProfile: this.handleHotkeyOpenProfile,
@@ -499,6 +514,7 @@ class Status extends ImmutablePureComponent {
                   onReply={this.handleReplyClick}
                   onFavourite={this.handleFavouriteClick}
                   onReblog={this.handleReblogClick}
+                  onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}
                   onDirect={this.handleDirectClick}
                   onMention={this.handleMentionClick}
