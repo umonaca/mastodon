@@ -139,6 +139,7 @@
   "empty_column.account_timeline": "No toots here!",
   "empty_column.account_unavailable": "Profile unavailable",
   "empty_column.blocks": "You haven't blocked any users yet.",
+  "empty_column.bookmarked_statuses": "You don't have any bookmarked toots yet. When you bookmark one, it will show up here.",
   "empty_column.community": "The local timeline is empty. Write something publicly to get the ball rolling!",
   "empty_column.direct": "You don't have any direct messages yet. When you send or receive one, it will show up here.",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
