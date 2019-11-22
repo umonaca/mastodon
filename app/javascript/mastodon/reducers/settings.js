@@ -18,6 +18,7 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
+      showBots: true,
       reblog: true,
       reply: true,
     }),
@@ -71,6 +72,9 @@ const initialState = ImmutableMap({
       excludeBots: false,
       onlyMedia: false,
     }),
+    shows: ImmutableMap({
+      showBots: true,
+    }),
   }),
 
   public: ImmutableMap({
@@ -80,6 +84,9 @@ const initialState = ImmutableMap({
     other: ImmutableMap({
       excludeBots: false,
       onlyMedia: false,
+    }),
+    shows: ImmutableMap({
+      showBots: true,
     }),
   }),
 
