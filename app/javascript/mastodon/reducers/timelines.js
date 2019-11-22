@@ -22,7 +22,7 @@ const initialState = ImmutableMap();
 
 const initialTimeline = ImmutableMap({
   unread: 0,
-  online: 0,
+  online: false,
   top: true,
   isLoading: false,
   hasMore: true,
@@ -161,15 +161,12 @@ export default function timelines(state = initialState, action) {
   case TIMELINE_SCROLL_TOP:
     return updateTop(state, action.timeline, action.top);
   case TIMELINE_CONNECT:
-    return state.update(action.timeline, initialTimeline, map => map.update('online', count => count + 1));
+    return state.update(action.timeline, initialTimeline, map => map.set('online', true));
   case TIMELINE_DISCONNECT:
     return state.update(
       action.timeline,
       initialTimeline,
-      map => {
-        const online = Math.max(map.get('online') - 1, 0);
-        return map.set('online', online).update(action.usePendingItems ? 'pendingItems' : 'items', items => (!online && items.first()) ? items.unshift(null) : items);
-      }
+      map => map.set('online', false).update(action.usePendingItems ? 'pendingItems' : 'items', items => items.first() ? items.unshift(null) : items)
     );
   default:
     return state;

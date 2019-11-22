@@ -26,10 +26,6 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
-
-    other: ImmutableMap({
-      excludeBots: false,
-    }),
   }),
 
   notifications: ImmutableMap({
@@ -68,10 +64,6 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
-    other: ImmutableMap({
-      excludeBots: false,
-      onlyMedia: false,
-    }),
     shows: ImmutableMap({
       showBots: true,
     }),
@@ -80,10 +72,6 @@ const initialState = ImmutableMap({
   public: ImmutableMap({
     regex: ImmutableMap({
       body: '',
-    }),
-    other: ImmutableMap({
-      excludeBots: false,
-      onlyMedia: false,
     }),
     shows: ImmutableMap({
       showBots: true,

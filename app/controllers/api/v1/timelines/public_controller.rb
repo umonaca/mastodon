@@ -31,8 +31,6 @@ class Api::V1::Timelines::PublicController < Api::BaseController
       params_slice(:max_id, :since_id, :min_id)
     )
 
-    statuses = statuses.not_from_bot if truthy_param?(:exclude_bots)
-
     if truthy_param?(:only_media)
       # `SELECT DISTINCT id, updated_at` is too slow, so pluck ids at first, and then select id, updated_at with ids.
       status_ids = statuses.joins(:media_attachments).distinct(:id).pluck(:id)
@@ -51,7 +49,7 @@ class Api::V1::Timelines::PublicController < Api::BaseController
   end
 
   def pagination_params(core_params)
-    params.slice(:local, :limit, :only_media, :exclude_bots).permit(:local, :limit, :only_media, :exclude_bots).merge(core_params)
+    params.slice(:local, :limit, :only_media).permit(:local, :limit, :only_media).merge(core_params)
   end
 
   def next_path

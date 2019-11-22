@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
-import { clearTimeline, expandPublicTimeline } from '../../actions/timelines';
+import { expandPublicTimeline } from '../../actions/timelines';
 import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
 import ColumnSettingsContainer from './containers/column_settings_container';
 import { connectPublicStream } from '../../actions/streaming';
@@ -14,17 +14,14 @@ const messages = defineMessages({
   title: { id: 'column.public', defaultMessage: 'Federated timeline' },
 });
 
-const mapStateToProps = (state, { columnId }) => {
+const mapStateToProps = (state, { onlyMedia, columnId }) => {
   const uuid = columnId;
   const columns = state.getIn(['settings', 'columns']);
   const index = columns.findIndex(c => c.get('uuid') === uuid);
-  const onlyMedia = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyMedia']) : state.getIn(['settings', 'public', 'other', 'onlyMedia']);
-  const timelineState = state.getIn(['timelines', `public${onlyMedia ? ':media' : ''}`]);
 
   return {
-    hasUnread: !!timelineState && timelineState.get('unread') > 0,
-    onlyMedia,
-    excludeBots: (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'excludeBots']) : state.getIn(['settings', 'public', 'other', 'excludeBots']),
+    hasUnread: state.getIn(['timelines', `public${onlyMedia ? ':media' : ''}`, 'unread']) > 0,
+    onlyMedia: (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyMedia']) : state.getIn(['settings', 'public', 'other', 'onlyMedia']),
   };
 };
 
@@ -38,7 +35,6 @@ class PublicTimeline extends React.PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
-    excludeBots: false,
   };
 
   static propTypes = {
@@ -49,16 +45,15 @@ class PublicTimeline extends React.PureComponent {
     multiColumn: PropTypes.bool,
     hasUnread: PropTypes.bool,
     onlyMedia: PropTypes.bool,
-    excludeBots: PropTypes.bool,
   };
 
   handlePin = () => {
-    const { columnId, dispatch, onlyMedia, excludeBots } = this.props;
+    const { columnId, dispatch, onlyMedia } = this.props;
 
     if (columnId) {
       dispatch(removeColumn(columnId));
     } else {
-      dispatch(addColumn('PUBLIC', { other: { onlyMedia, excludeBots } }));
+      dispatch(addColumn('PUBLIC', { other: { onlyMedia } }));
     }
   }
 
@@ -72,25 +67,19 @@ class PublicTimeline extends React.PureComponent {
   }
 
   componentDidMount () {
-    const { dispatch, onlyMedia, excludeBots } = this.props;
+    const { dispatch, onlyMedia } = this.props;
 
-    dispatch(expandPublicTimeline({ onlyMedia, excludeBots }));
-    this.disconnect = dispatch(connectPublicStream({ onlyMedia, excludeBots }));
+    dispatch(expandPublicTimeline({ onlyMedia }));
+    this.disconnect = dispatch(connectPublicStream({ onlyMedia }));
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.onlyMedia !== this.props.onlyMedia || prevProps.excludeBots !== this.props.excludeBots) {
-      const { dispatch, onlyMedia, excludeBots } = this.props;
+    if (prevProps.onlyMedia !== this.props.onlyMedia) {
+      const { dispatch, onlyMedia } = this.props;
 
       this.disconnect();
-
-      if (prevProps.excludeBots !== excludeBots) {
-        dispatch(clearTimeline('public'));
-        dispatch(clearTimeline('public:media'));
-      }
-
-      dispatch(expandPublicTimeline({ onlyMedia, excludeBots }));
-      this.disconnect = dispatch(connectPublicStream({ onlyMedia, excludeBots }));
+      dispatch(expandPublicTimeline({ onlyMedia }));
+      this.disconnect = dispatch(connectPublicStream({ onlyMedia }));
     }
   }
 
@@ -106,9 +95,9 @@ class PublicTimeline extends React.PureComponent {
   }
 
   handleLoadMore = maxId => {
-    const { dispatch, onlyMedia, excludeBots } = this.props;
+    const { dispatch, onlyMedia } = this.props;
 
-    dispatch(expandPublicTimeline({ maxId, onlyMedia, excludeBots }));
+    dispatch(expandPublicTimeline({ maxId, onlyMedia }));
   }
 
   render () {
