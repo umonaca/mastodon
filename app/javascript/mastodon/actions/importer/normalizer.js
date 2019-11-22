@@ -53,6 +53,14 @@ export function normalizeStatus(status, normalOldStatus) {
     normalStatus.poll = status.poll.id;
   }
 
+  if (status.account && status.account.bot) {
+    normalStatus.bot = status.account.bot;
+  } else if (status.reblog && status.reblog.account && status.reblog.account.bot) {
+    normalStatus.bot = status.reblog.account.bot;
+  } else {
+    normalStatus.bot = false;
+  }
+
   // Only calculate these values when status first encountered
   // Otherwise keep the ones already in the reducer
   if (normalOldStatus) {
