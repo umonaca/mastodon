@@ -24,7 +24,7 @@ class ColumnSettings extends React.PureComponent {
         </div>
 
         <div className='column-settings__row'>
-          <SettingToggle settings={settings} settingPath={['other', 'excludeBots']} onChange={onChange} label={<FormattedMessage id='community.column_settings.exclude_bots' defaultMessage='Hide posts from bots' />} />
+          <SettingToggle settings={settings} settingPath={['shows', 'showBots']} onChange={onChange} label={<FormattedMessage id='community.column_settings.show_bot_statuses' defaultMessage='Show toots from bots' />} />
         </div>
       </div>
     );

@@ -14,10 +14,9 @@ const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   hasUnread: state.getIn(['timelines', 'home', 'unread']) > 0,
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
-  excludeBots: state.getIn(['settings', 'home', 'other', 'excludeBots']),
 });
 
 export default @connect(mapStateToProps)
@@ -32,16 +31,15 @@ class HomeTimeline extends React.PureComponent {
     isPartial: PropTypes.bool,
     columnId: PropTypes.string,
     multiColumn: PropTypes.bool,
-    excludeBots: PropTypes.bool,
   };
 
   handlePin = () => {
-    const { columnId, dispatch, excludeBots } = this.props;
+    const { columnId, dispatch } = this.props;
 
     if (columnId) {
       dispatch(removeColumn(columnId));
     } else {
-      dispatch(addColumn('HOME', { excludeBots }));
+      dispatch(addColumn('HOME', {}));
     }
   }
 
@@ -59,8 +57,7 @@ class HomeTimeline extends React.PureComponent {
   }
 
   handleLoadMore = maxId => {
-    const { excludeBots } = this.props;
-    this.props.dispatch(expandHomeTimeline({ maxId, excludeBots }));
+    this.props.dispatch(expandHomeTimeline({ maxId }));
   }
 
   componentDidMount () {
@@ -76,13 +73,13 @@ class HomeTimeline extends React.PureComponent {
   }
 
   _checkIfReloadNeeded (wasPartial, isPartial) {
-    const { dispatch, excludeBots } = this.props;
+    const { dispatch } = this.props;
 
     if (wasPartial === isPartial) {
       return;
     } else if (!wasPartial && isPartial) {
       this.polling = setInterval(() => {
-        dispatch(expandHomeTimeline({ excludeBots }));
+        dispatch(expandHomeTimeline());
       }, 3000);
     } else if (wasPartial && !isPartial) {
       this._stopPolling();

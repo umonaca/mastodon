@@ -18,16 +18,13 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
+      showBots: true,
       reblog: true,
       reply: true,
     }),
 
     regex: ImmutableMap({
       body: '',
-    }),
-
-    other: ImmutableMap({
-      excludeBots: false,
     }),
   }),
 
@@ -67,9 +64,8 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
-    other: ImmutableMap({
-      excludeBots: false,
-      onlyMedia: false,
+    shows: ImmutableMap({
+      showBots: true,
     }),
   }),
 
@@ -77,9 +73,8 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
-    other: ImmutableMap({
-      excludeBots: false,
-      onlyMedia: false,
+    shows: ImmutableMap({
+      showBots: true,
     }),
   }),
 

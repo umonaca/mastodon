@@ -29,7 +29,7 @@ class ColumnSettings extends React.PureComponent {
         </div>
 
         <div className='column-settings__row'>
-          <SettingToggle prefix='home_timeline' settings={settings} settingPath={['other', 'excludeBots']} onChange={onChange} label={<FormattedMessage id='community.column_settings.exclude_bots' defaultMessage='Hide posts from bots' />} />
+          <SettingToggle prefix='home_timeline' settings={settings} settingPath={['shows', 'showBots']} onChange={onChange} label={<FormattedMessage id='home.column_settings.show_bot_statuses' defaultMessage='Show toots from bots' />} />
         </div>
       </div>
     );
