@@ -19,7 +19,9 @@ const makeGetStatusIds = (pending = false) => createSelector([
 
     if (columnSettings.getIn(['shows', 'showBots']) === false) {
       showStatus = showStatus && statusForId.get('bot') === false;
+      console.log('get here');
     }
+    console.log('get here 2');
 
     if (columnSettings.getIn(['shows', 'reblog']) === false) {
       showStatus = showStatus && statusForId.get('reblog') === null;
@@ -44,7 +46,7 @@ const makeMapStateToProps = () => {
     hasMore:   state.getIn(['timelines', timelineId, 'hasMore']),
     numPending: getPendingStatusIds(state, { type: timelineId }).size,
   });
-
+  console.log('container 2');
   return mapStateToProps;
 };
 
@@ -63,3 +65,4 @@ const mapDispatchToProps = (dispatch, { timelineId }) => ({
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(StatusList);
+console.log('container 1');
