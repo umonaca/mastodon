@@ -22,7 +22,7 @@ const mapStateToProps = (state, { columnId }) => {
   const onlyMedia = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyMedia']) : state.getIn(['settings', 'community', 'other', 'onlyMedia']);
   const timelineState = state.getIn(['timelines', `community${onlyMedia ? ':media' : ''}`]);
   const showBots = state.getIn(['settings', 'community', 'shows', 'showBots']);
-  
+
   return {
     hasUnread: !!timelineState && timelineState.get('unread') > 0,
     onlyMedia,
@@ -81,13 +81,10 @@ class CommunityTimeline extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    console.log('Community column update ' + this.props.columnId);
-    console.log('get setting 1 ' + this.props.showBots);
-
     if (prevProps.showBots !== this.props.showBots && this.props.columnId) {
+      // Pinned column => shared setting => unpinned column & pinned column state => dispatch changeColumnParams for pinned columns
       const { columnId, showBots, dispatch } = this.props;
-      console.log('Community column REAL update' + this.props.showBots);
-      dispatch(changeColumnParams(columnId, Array('shows', 'showBots'), showBots));  
+      dispatch(changeColumnParams(columnId, Array('shows', 'showBots'), showBots));
     }
 
     if (prevProps.onlyMedia !== this.props.onlyMedia) {

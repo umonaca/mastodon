@@ -81,12 +81,10 @@ class PublicTimeline extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    console.log('Fed column update ' + this.props.columnId);
-    console.log('get setting 1 Fed' + this.props.showBots);
     if (prevProps.showBots !== this.props.showBots && this.props.columnId) {
+      // Pinned column => shared setting => unpinned column & pinned column state => dispatch changeColumnParams for pinned columns
       const { columnId, showBots, dispatch } = this.props;
-      console.log('Fed column REAL update' + this.props.showBots);
-      dispatch(changeColumnParams(columnId, Array('shows', 'showBots'), showBots));  
+      dispatch(changeColumnParams(columnId, Array('shows', 'showBots'), showBots));
     }
 
     if (prevProps.onlyMedia !== this.props.onlyMedia) {
