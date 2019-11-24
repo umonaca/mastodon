@@ -2,6 +2,7 @@
 .detailed-status > .media-spoiler,
 .status > .media-spoiler,
 .status .video-player,
+.status .audio-player,
 .media-gallery,
 .status .status-card.interactive {
   margin-top: 20px;
@@ -11,6 +12,7 @@
 
 .detailed-status > .media-spoiler,
 .status > .media-spoiler,
+.audio-player,
 .video-player {
   max-width: none;
 }
@@ -19,6 +21,7 @@
 .status .status__info + .media-gallery,
 .status .status__info + .media-spoiler,
 .status .status__info + .video-player,
+.status .status__info + .audio-player,
 .status .status__info + .status-card {
   margin-top: 40px;
 }
@@ -39,6 +42,7 @@
   }
   & > .media-spoiler,
   .video-player,
+  .audio-player,
   .media-gallery,
   .status-card {
     margin-top: 20px;
