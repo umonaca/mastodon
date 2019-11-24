@@ -16,7 +16,13 @@ const mapStateToProps = (state, { columnId }) => {
 const mapDispatchToProps = (dispatch, { columnId }) => {
   return {
     onChange (key, checked) {
-      if (columnId) {
+      if (key && key.length === 2 && key[1] === 'showBots' && columnId) {
+        // Note: for advanced UI， let multiple columns of the same timelineId change at the same time
+        // It's hacky but it works with minimal changes to the code
+        //dispatch(changeColumnParams(columnId, key, checked));  // Moved to community/public timeline's index.js
+        // Pinned column => shared setting => unpinned column & pinned column state => dispatch changeColumnParams for pinned columns
+        dispatch(changeSetting(['public', ...key], checked)); // It's hacky but it works with minimal changes to the code
+      } else if (columnId) {
         dispatch(changeColumnParams(columnId, key, checked));
       } else {
         dispatch(changeSetting(['public', ...key], checked));

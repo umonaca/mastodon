@@ -44,7 +44,6 @@ const makeMapStateToProps = () => {
     hasMore:   state.getIn(['timelines', timelineId, 'hasMore']),
     numPending: getPendingStatusIds(state, { type: timelineId }).size,
   });
-
   return mapStateToProps;
 };
 

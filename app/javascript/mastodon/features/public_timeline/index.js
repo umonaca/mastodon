@@ -9,6 +9,7 @@ import { expandPublicTimeline } from '../../actions/timelines';
 import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
 import ColumnSettingsContainer from './containers/column_settings_container';
 import { connectPublicStream } from '../../actions/streaming';
+import { changeColumnParams } from '../../actions/columns';
 
 const messages = defineMessages({
   title: { id: 'column.public', defaultMessage: 'Federated timeline' },
@@ -20,10 +21,12 @@ const mapStateToProps = (state, { columnId }) => {
   const index = columns.findIndex(c => c.get('uuid') === uuid);
   const onlyMedia = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyMedia']) : state.getIn(['settings', 'public', 'other', 'onlyMedia']);
   const timelineState = state.getIn(['timelines', `public${onlyMedia ? ':media' : ''}`]);
+  const showBots = state.getIn(['settings', 'public', 'shows', 'showBots']);
 
   return {
     hasUnread: !!timelineState && timelineState.get('unread') > 0,
     onlyMedia,
+    showBots,
   };
 };
 
@@ -37,6 +40,7 @@ class PublicTimeline extends React.PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
+    showBots: true,
   };
 
   static propTypes = {
@@ -47,15 +51,16 @@ class PublicTimeline extends React.PureComponent {
     multiColumn: PropTypes.bool,
     hasUnread: PropTypes.bool,
     onlyMedia: PropTypes.bool,
+    showBots: PropTypes.bool,
   };
 
   handlePin = () => {
-    const { columnId, dispatch, onlyMedia } = this.props;
+    const { columnId, dispatch, onlyMedia, showBots } = this.props;
 
     if (columnId) {
       dispatch(removeColumn(columnId));
     } else {
-      dispatch(addColumn('PUBLIC', { other: { onlyMedia } }));
+      dispatch(addColumn('PUBLIC', { other: { onlyMedia }, shows: { showBots }  }));
     }
   }
 
@@ -76,6 +81,12 @@ class PublicTimeline extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps) {
+    if (prevProps.showBots !== this.props.showBots && this.props.columnId) {
+      // Pinned column => shared setting => unpinned column & pinned column state => dispatch changeColumnParams for pinned columns
+      const { columnId, showBots, dispatch } = this.props;
+      dispatch(changeColumnParams(columnId, Array('shows', 'showBots'), showBots));
+    }
+
     if (prevProps.onlyMedia !== this.props.onlyMedia) {
       const { dispatch, onlyMedia } = this.props;
 
