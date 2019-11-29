@@ -271,7 +271,6 @@
   "navigation_bar.preferences": "Parapëlqime",
   "navigation_bar.public_timeline": "Rrjedhë kohore të federuarish",
   "navigation_bar.security": "Siguri",
-  "notification.and_n_others": "and {count, plural, one {# other} other {# others}}",
   "notification.favourite": "{name} parapëlqeu gjendjen tuaj",
   "notification.follow": "{name} zuri t’ju ndjekë",
   "notification.mention": "{name} ju ka përmendur",

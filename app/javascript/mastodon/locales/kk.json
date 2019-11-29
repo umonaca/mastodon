@@ -271,7 +271,6 @@
   "navigation_bar.preferences": "Басымдықтар",
   "navigation_bar.public_timeline": "Жаһандық желі",
   "navigation_bar.security": "Қауіпсіздік",
-  "notification.and_n_others": "and {count, plural, one {# other} other {# others}}",
   "notification.favourite": "{name} жазбаңызды таңдаулыға қосты",
   "notification.follow": "{name} сізге жазылды",
   "notification.mention": "{name} сізді атап өтті",

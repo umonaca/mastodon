@@ -271,7 +271,6 @@
   "navigation_bar.preferences": "Preferences",
   "navigation_bar.public_timeline": "Federated timeline",
   "navigation_bar.security": "Security",
-  "notification.and_n_others": "and {count, plural, one {# other} other {# others}}",
   "notification.favourite": "{name} favourited your status",
   "notification.follow": "{name} followed you",
   "notification.mention": "{name} mentioned you",
