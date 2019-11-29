@@ -96,8 +96,8 @@ zh-CN:
         setting_aggregate_reblogs: 在时间轴中合并转嘟
         setting_auto_play_gif: 自动播放 GIF 动画
         setting_boost_modal: 在转嘟前询问我
-        setting_default_federation: 默认允许嘟文跨站传播至其它长毛象实例
         setting_crop_images: 裁剪未展开嘟文的图片到 16x9
+        setting_default_federation: 默认允许嘟文跨站传播至其它长毛象实例
         setting_default_language: 发布语言
         setting_default_privacy: 嘟文默认可见范围
         setting_default_sensitive: 总是将我发送的媒体文件标记为敏感内容
