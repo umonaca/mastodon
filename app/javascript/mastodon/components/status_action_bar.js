@@ -122,10 +122,6 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   }
 
-  handleBookmarkClick = () => {
-    this.props.onBookmark(this.props.status);
-  }
-
   handleReblogClick = e => {
     if (me) {
       this.props.onReblog(this.props.status, e);
