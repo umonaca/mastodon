@@ -42,11 +42,11 @@ aliases:
 
       - restore_cache:
           keys:
-            - v1-node-dependencies-{{ checksum "yarn.lock" }}
-            - v1-node-dependencies-
+            - v1.01-node-dependencies-{{ checksum "yarn.lock" }}
+            - v1.01-node-dependencies-
       - run: yarn install --frozen-lockfile
       - save_cache:
-          key: v1-node-dependencies-{{ checksum "yarn.lock" }}
+          key: v1.01-node-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules/
 
