@@ -5644,7 +5644,7 @@ a.status-card.compact:hover {
       }
 
       &__relationship {
-        width: 23px;
+        width: 46px;
         min-height: 1px;
         flex: 0 0 auto;
       }
@@ -6406,6 +6406,7 @@ noscript {
 
     &__name {
       padding: 5px;
+      display: flex;
 
       .account-role {
         vertical-align: top;
@@ -6424,6 +6425,7 @@ noscript {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        flex: 1 1 auto;
 
         small {
           display: block;
@@ -6433,6 +6435,9 @@ noscript {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+      }
+      &__relationship {
+        flex: 0 0 auto;
       }
     }
 

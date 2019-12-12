@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.datetime "updated_at", null: false
     t.datetime "last_status_at"
     t.integer "lock_version", default: 0, null: false
+    t.bigint "subscribing_count", default: 0, null: false
     t.index ["account_id"], name: "index_account_stats_on_account_id", unique: true
   end
 

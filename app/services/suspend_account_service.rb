@@ -20,6 +20,7 @@ class SuspendAccountService < BaseService
     notifications
     owned_lists
     passive_relationships
+    passive_subscribes
     report_notes
     scheduled_statuses
     status_pins
@@ -113,19 +114,20 @@ class SuspendAccountService < BaseService
 
     return unless @options[:reserve_username]
 
-    @account.silenced_at      = nil
-    @account.suspended_at     = @options[:suspended_at] || Time.now.utc
-    @account.locked           = false
-    @account.memorial         = false
-    @account.discoverable     = false
-    @account.display_name     = ''
-    @account.note             = ''
-    @account.fields           = []
-    @account.statuses_count   = 0
-    @account.followers_count  = 0
-    @account.following_count  = 0
-    @account.moved_to_account = nil
-    @account.trust_level      = :untrusted
+    @account.silenced_at       = nil
+    @account.suspended_at      = @options[:suspended_at] || Time.now.utc
+    @account.locked            = false
+    @account.memorial          = false
+    @account.discoverable      = false
+    @account.display_name      = ''
+    @account.note              = ''
+    @account.fields            = []
+    @account.statuses_count    = 0
+    @account.followers_count   = 0
+    @account.following_count   = 0
+    @account.subscribing_count = 0
+    @account.moved_to_account  = nil
+    @account.trust_level       = :untrusted
     @account.avatar.destroy
     @account.header.destroy
     @account.save!
