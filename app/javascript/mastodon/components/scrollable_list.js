@@ -212,13 +212,10 @@ export default class ScrollableList extends PureComponent {
   }
 
   attachIntersectionObserver () {
-    let nodeOptions = {
+    this.intersectionObserverWrapper.connect({
       root: this.node,
       rootMargin: '300% 0px',
-    };
-
-    this.intersectionObserverWrapper
-      .connect(this.props.bindToDocument ? {} : nodeOptions);
+    });
   }
 
   detachIntersectionObserver () {
