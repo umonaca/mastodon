@@ -50,7 +50,7 @@
 
 class Account < ApplicationRecord
   USERNAME_RE = /[a-z0-9_]+([a-z0-9_\.-]+[a-z0-9_]+)?/i
-  MENTION_RE  = /(?<=^|[^\/[:word:]])@((#{USERNAME_RE})(?:@[a-z0-9\.\-]+[a-z0-9]+)?)/i
+  MENTION_RE  = /(?<=^|[^\/[:word:]])@((#{USERNAME_RE})(?:@[[:word:]\.\-]+[a-z0-9]+)?)/i
 
   include AccountAssociations
   include AccountAvatar
@@ -93,6 +93,7 @@ class Account < ApplicationRecord
   scope :without_silenced, -> { where(silenced_at: nil) }
   scope :recent, -> { reorder(id: :desc) }
   scope :bots, -> { where(actor_type: %w(Application Service)) }
+  scope :groups, -> { where(actor_type: 'Group') }
   scope :alphabetic, -> { order(domain: :asc, username: :asc) }
   scope :by_domain_accounts, -> { group(:domain).select(:domain, 'COUNT(*) AS accounts_count').order('accounts_count desc') }
   scope :matches_username, ->(value) { where(arel_table[:username].matches("#{value}%")) }
@@ -153,8 +154,18 @@ class Account < ApplicationRecord
     self.actor_type = ActiveModel::Type::Boolean.new.cast(val) ? 'Service' : 'Person'
   end
 
+  def group?
+    actor_type == 'Group'
+  end
+
+  alias group group?
+
   def acct
     local? ? username : "#{username}@#{domain}"
+  end
+
+  def pretty_acct
+    local? ? username : "#{username}@#{Addressable::IDNA.to_unicode(domain)}"
   end
 
   def local_username_and_domain
