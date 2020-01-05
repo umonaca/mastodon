@@ -148,8 +148,8 @@ Rails.application.routes.draw do
     resources :aliases, only: [:index, :create, :destroy]
     resources :sessions, only: [:destroy]
     resources :featured_tags, only: [:index, :create, :destroy]
-    resources :follow_tags, only: [:index, :create, :destroy]
-    resources :account_subscribes, only: [:index, :create, :destroy]
+    resources :follow_tags, except: [:show]
+    resources :account_subscribes, except: [:show]
     resources :domain_subscribes, except: [:show]
     resources :keyword_subscribes, except: [:show]
   end
