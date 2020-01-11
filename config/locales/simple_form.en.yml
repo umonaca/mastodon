@@ -50,6 +50,9 @@ en:
         setting_mobile_federation: Be aware, if this checkbox is checked, users from other instances will never receive your replies, mentions or direct messages which are sent from mobile apps.
         setting_noindex: Affects your public profile and status pages
         setting_show_application: The application you use to toot will be displayed in the detailed view of your toots
+        setting_show_follow_button_on_timeline: You can easily check the follow status and build a follow list quickly
+        setting_show_subscribe_button_on_timeline: You can easily check the status of your subscriptions and quickly build a subscription list
+        setting_show_target: Enable the function to switch between posting target and follow / subscribe target
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
         username: Your username will be unique on %{domain}
@@ -161,6 +164,9 @@ en:
         setting_noindex: Opt-out of search engine indexing
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send toots
+        setting_show_follow_button_on_timeline: Show follow button on timeline
+        setting_show_subscribe_button_on_timeline: Show subscribe button on timeline
+        setting_show_target: Enable targeting features
         setting_system_font_ui: Use system's default font
         setting_theme: Site theme
         setting_trends: Show today's trends

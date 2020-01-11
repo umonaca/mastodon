@@ -26,5 +26,8 @@ export const usePendingItems = getMeta('use_pending_items');
 export const showTrends = getMeta('trends');
 export const title = getMeta('title');
 export const cropImages = getMeta('crop_images');
+export const show_follow_button_on_timeline = getMeta('show_follow_button_on_timeline');
+export const show_subscribe_button_on_timeline = getMeta('show_subscribe_button_on_timeline');
+export const show_target = getMeta('show_target');
 
 export default initialState;

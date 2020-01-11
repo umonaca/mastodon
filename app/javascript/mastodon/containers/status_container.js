@@ -26,6 +26,10 @@ import {
   toggleStatusCollapse,
 } from '../actions/statuses';
 import {
+  followAccount,
+  unfollowAccount,
+  subscribeAccount,
+  unsubscribeAccount,
   unmuteAccount,
   unblockAccount,
 } from '../actions/accounts';
@@ -33,12 +37,13 @@ import {
   blockDomain,
   unblockDomain,
 } from '../actions/domain_blocks';
+
 import { initMuteModal } from '../actions/mutes';
 import { initBlockModal } from '../actions/blocks';
 import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { boostModal, deleteModal } from '../initial_state';
+import { boostModal, deleteModal, unfollowModal, unsubscribeModal } from '../initial_state';
 import { showAlertForError } from '../actions/alerts';
 
 const messages = defineMessages({
@@ -49,6 +54,8 @@ const messages = defineMessages({
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
   blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Hide entire domain' },
+  unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
+  unsubscribeConfirm: { id: 'confirmations.unsubscribe.confirm', defaultMessage: 'Unsubscribe' },
 });
 
 const makeMapStateToProps = () => {
@@ -207,6 +214,37 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(unblockDomain(domain));
   },
 
+  onFollow (account) {
+    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
+      if (unfollowModal) {
+        dispatch(openModal('CONFIRM', {
+          message: <FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
+          confirm: intl.formatMessage(messages.unfollowConfirm),
+          onConfirm: () => dispatch(unfollowAccount(account.get('id'))),
+        }));
+      } else {
+        dispatch(unfollowAccount(account.get('id')));
+      }
+    } else {
+      dispatch(followAccount(account.get('id')));
+    }
+  },
+
+  onSubscribe (account) {
+    if (account.getIn(['relationship', 'subscribing'])) {
+      if (unsubscribeModal) {
+        dispatch(openModal('CONFIRM', {
+          message: <FormattedMessage id='confirmations.unsubscribe.message' defaultMessage='Are you sure you want to unsubscribe {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
+          confirm: intl.formatMessage(messages.unsubscribeConfirm),
+          onConfirm: () => dispatch(unsubscribeAccount(account.get('id'))),
+        }));
+      } else {
+        dispatch(unsubscribeAccount(account.get('id')));
+      }
+    } else {
+      dispatch(subscribeAccount(account.get('id')));
+    }
+  },
 });
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Status));

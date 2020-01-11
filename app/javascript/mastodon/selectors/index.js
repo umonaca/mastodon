@@ -90,15 +90,28 @@ export const makeGetStatus = () => {
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account'])]),
+      (state, { id }) => state.getIn(['relationships', state.getIn(['statuses', id, 'account'])]),
+      (state, { id }) => state.getIn(['relationships', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account'])]),
+      (state, { id }) => state.getIn(['accounts', state.getIn(['accounts', state.getIn(['statuses', id, 'account']), 'moved'])]),
+      (state, { id }) => state.getIn(['accounts', state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account']), 'moved'])]),
       getFiltersRegex,
     ],
 
-    (statusBase, statusReblog, accountBase, accountReblog, filtersRegex) => {
+    (statusBase, statusReblog, accountBase, accountReblog, relationship, reblogRelationship, moved, reblogMoved, filtersRegex) => {
       if (!statusBase) {
         return null;
       }
 
+      accountBase = accountBase.withMutations(map => {
+        map.set('relationship', relationship);
+        map.set('moved', moved);
+      });
+
       if (statusReblog) {
+        accountReblog = accountReblog.withMutations(map => {
+          map.set('relationship', reblogRelationship);
+          map.set('moved', reblogMoved);
+        });
         statusReblog = statusReblog.set('account', accountReblog);
       } else {
         statusReblog = null;

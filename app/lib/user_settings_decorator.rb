@@ -41,6 +41,9 @@ class UserSettingsDecorator
     user.settings['use_pending_items']   = use_pending_items_preference if change?('setting_use_pending_items')
     user.settings['trends']              = trends_preference if change?('setting_trends')
     user.settings['crop_images']         = crop_images_preference if change?('setting_crop_images')
+    user.settings['show_follow_button_on_timeline']    = show_follow_button_on_timeline_preference if change?('setting_show_follow_button_on_timeline')
+    user.settings['show_subscribe_button_on_timeline'] = show_subscribe_button_on_timeline_preference if change?('setting_show_subscribe_button_on_timeline')
+    user.settings['show_target']                       = show_target_preference if change?('setting_show_target')
   end
 
   def merged_notification_emails
@@ -145,6 +148,18 @@ class UserSettingsDecorator
 
   def crop_images_preference
     boolean_cast_setting 'setting_crop_images'
+  end
+
+  def show_follow_button_on_timeline_preference
+    boolean_cast_setting 'setting_show_follow_button_on_timeline'
+  end
+
+  def show_subscribe_button_on_timeline_preference
+    boolean_cast_setting 'setting_show_subscribe_button_on_timeline'
+  end
+
+  def show_target_preference
+    boolean_cast_setting 'setting_show_target'
   end
 
   def boolean_cast_setting(key)
