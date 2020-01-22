@@ -71,6 +71,7 @@ module Mastodon
       :hy,
       :id,
       :io,
+      :is,
       :it,
       :ja,
       :ka,

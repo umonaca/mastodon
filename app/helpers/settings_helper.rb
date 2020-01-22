@@ -33,6 +33,7 @@ module SettingsHelper
     hy: 'Հայերեն',
     id: 'Bahasa Indonesia',
     io: 'Ido',
+    is: 'Íslenska',
     it: 'Italiano',
     ja: '日本語',
     ka: 'ქართული',
