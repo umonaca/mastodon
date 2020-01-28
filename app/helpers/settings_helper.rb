@@ -37,6 +37,7 @@ module SettingsHelper
     it: 'Italiano',
     ja: '日本語',
     ka: 'ქართული',
+    kab: 'Taqbaylit',
     kk: 'Қазақша',
     kn: 'ಕನ್ನಡ',
     ko: '한국어',

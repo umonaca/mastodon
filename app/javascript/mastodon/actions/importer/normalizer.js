@@ -84,7 +84,6 @@ export function normalizeStatus(status, normalOldStatus) {
 
 export function normalizePoll(poll) {
   const normalPoll = { ...poll };
-
   const emojiMap = makeEmojiMap(normalPoll);
 
   normalPoll.options = poll.options.map((option, index) => ({
@@ -94,4 +93,13 @@ export function normalizePoll(poll) {
   }));
 
   return normalPoll;
+}
+
+export function normalizeAnnouncement(announcement) {
+  const normalAnnouncement = { ...announcement };
+  const emojiMap = makeEmojiMap(normalAnnouncement);
+
+  normalAnnouncement.contentHtml = emojify(normalAnnouncement.content, emojiMap);
+
+  return normalAnnouncement;
 }
