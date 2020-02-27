@@ -81,6 +81,7 @@ class Status < ApplicationRecord
   validates_with DisallowedHashtagsValidator
   validates :reblog, uniqueness: { scope: :account }, if: :reblog?
   validates :visibility, exclusion: { in: %w(direct limited) }, if: :reblog?
+  validates :quote_visibility, inclusion: { in: %w(public unlisted) }, if: :quote?
 
   accepts_nested_attributes_for :poll
 
@@ -176,6 +177,10 @@ class Status < ApplicationRecord
 
   def quote?
     !quote_id.nil? && quote
+  end
+
+  def quote_visibility
+    quote&.visibility
   end
 
   def within_realtime_window?
