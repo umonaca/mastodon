@@ -20,6 +20,7 @@ class FollowService < BaseService
     raise Mastodon::NotPermittedError  if following_not_allowed?
 
     if @source_account.following?(@target_account)
+      UnmergeWorker.perform_async(@target_account.id, @source_account.id) if @source_account.delivery_following?(@target_account) && @options[:delivery]
       return change_follow_options!
     elsif @source_account.requested?(@target_account)
       return change_follow_request_options!
@@ -45,15 +46,15 @@ class FollowService < BaseService
   end
 
   def change_follow_options!
-    @source_account.follow!(@target_account, reblogs: @options[:reblogs])
+    @source_account.follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery])
   end
 
   def change_follow_request_options!
-    @source_account.request_follow!(@target_account, reblogs: @options[:reblogs])
+    @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery])
   end
 
   def request_follow!
-    follow_request = @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], rate_limit: @options[:with_rate_limit])
+    follow_request = @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery], rate_limit: @options[:with_rate_limit])
 
     if @target_account.local?
       LocalNotificationWorker.perform_async(@target_account.id, follow_request.id, follow_request.class.name)
@@ -65,10 +66,10 @@ class FollowService < BaseService
   end
 
   def direct_follow!
-    follow = @source_account.follow!(@target_account, reblogs: @options[:reblogs], rate_limit: @options[:with_rate_limit])
+    follow = @source_account.follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery], rate_limit: @options[:with_rate_limit])
 
     LocalNotificationWorker.perform_async(@target_account.id, follow.id, follow.class.name)
-    MergeWorker.perform_async(@target_account.id, @source_account.id)
+    MergeWorker.perform_async(@target_account.id, @source_account.id) if @options[:delivery]
 
     follow
   end

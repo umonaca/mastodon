@@ -42,7 +42,7 @@ class ActivityPub::Activity::Delete < ActivityPub::Activity
     return if @json['signature'].blank?
 
     rebloggers_ids = @status.reblogs.includes(:account).references(:account).merge(Account.local).pluck(:account_id)
-    inboxes        = Account.where(id: ::Follow.where(target_account_id: rebloggers_ids).select(:account_id)).inboxes - [@account.preferred_inbox_url]
+    inboxes        = Account.where(id: ::Follow.where(target_account_id: rebloggers_ids, delivery: true).select(:account_id)).inboxes - [@account.preferred_inbox_url]
 
     ActivityPub::LowPriorityDeliveryWorker.push_bulk(inboxes) do |inbox_url|
       [payload, rebloggers_ids.first, inbox_url]
@@ -61,7 +61,7 @@ class ActivityPub::Activity::Delete < ActivityPub::Activity
   def forward_for_reply
     return unless @json['signature'].present? && reply_to_local?
 
-    inboxes = replied_to_status.account.followers.inboxes - [@account.preferred_inbox_url]
+    inboxes = replied_to_status.account.delivery_followers.inboxes - [@account.preferred_inbox_url]
 
     ActivityPub::LowPriorityDeliveryWorker.push_bulk(inboxes) do |inbox_url|
       [payload, replied_to_status.account_id, inbox_url]

@@ -8,11 +8,17 @@ module AccountInteractions
       Follow.where(target_account_id: target_account_ids, account_id: account_id).each_with_object({}) do |follow, mapping|
         mapping[follow.target_account_id] = {
           reblogs: follow.show_reblogs?,
+          delivery: follow.delivery?,
         }
       end
     end
 
     def followed_by_map(target_account_ids, account_id)
+      Follow.where(account_id: target_account_ids, target_account_id: account_id).each_with_object({}) do |follow, mapping|
+        mapping[follow.account_id] = {
+          delivery: follow.delivery?,
+        }
+      end
       follow_mapping(Follow.where(account_id: target_account_ids, target_account_id: account_id), :account_id)
     end
 
@@ -40,6 +46,7 @@ module AccountInteractions
       FollowRequest.where(target_account_id: target_account_ids, account_id: account_id).each_with_object({}) do |follow_request, mapping|
         mapping[follow_request.target_account_id] = {
           reblogs: follow_request.show_reblogs?,
+          delivery: follow_request.delivery?,
         }
       end
     end
@@ -74,6 +81,8 @@ module AccountInteractions
 
     has_many :following, -> { order('follows.id desc') }, through: :active_relationships,  source: :target_account
     has_many :followers, -> { order('follows.id desc') }, through: :passive_relationships, source: :account
+    has_many :delivery_following, -> { where('follows.delivery').order('follows.id desc') }, through: :active_relationships,  source: :target_account
+    has_many :delivery_followers, -> { where('follows.delivery').order('follows.id desc') }, through: :passive_relationships, source: :account
 
     # Block relationships
     has_many :block_relationships, class_name: 'Block', foreign_key: 'account_id', dependent: :destroy
@@ -98,25 +107,29 @@ module AccountInteractions
     has_many :subscribers, through: :passive_subscribes, source: :account
   end
 
-  def follow!(other_account, reblogs: nil, uri: nil, rate_limit: false)
+  def follow!(other_account, reblogs: nil, uri: nil, rate_limit: false, delivery: true)
     reblogs = true if reblogs.nil?
+    delivery = true if delivery.nil?
 
-    rel = active_relationships.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit)
+    rel = active_relationships.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit, delivery: delivery)
                               .find_or_create_by!(target_account: other_account)
 
     rel.update!(show_reblogs: reblogs)
+    rel.update!(delivery: delivery)
     remove_potential_friendship(other_account)
 
     rel
   end
 
-  def request_follow!(other_account, reblogs: nil, uri: nil, rate_limit: false)
+  def request_follow!(other_account, reblogs: nil, uri: nil, rate_limit: false, delivery: true)
     reblogs = true if reblogs.nil?
+    delivery = true if delivery.nil?
 
-    rel = follow_requests.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit)
+    rel = follow_requests.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit, delivery: delivery)
                          .find_or_create_by!(target_account: other_account)
 
     rel.update!(show_reblogs: reblogs)
+    rel.update!(delivery: delivery)
     remove_potential_friendship(other_account)
 
     rel
@@ -186,6 +199,10 @@ module AccountInteractions
     active_relationships.where(target_account: other_account).exists?
   end
 
+  def delivery_following?(other_account)
+    active_relationships.where(target_account: other_account, delivery: true).exists?
+  end
+
   def blocking?(other_account)
     block_relationships.where(target_account: other_account).exists?
   end
@@ -239,9 +256,9 @@ module AccountInteractions
   end
 
   def followers_for_local_distribution
-    followers.local
-             .joins(:user)
-             .where('users.current_sign_in_at > ?', User::ACTIVE_DURATION.ago)
+    delivery_followers.local
+                      .joins(:user)
+                      .where('users.current_sign_in_at > ?', User::ACTIVE_DURATION.ago)
   end
 
   def subscribers_for_local_distribution
