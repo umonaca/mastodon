@@ -142,7 +142,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       }
     ],
@@ -217,7 +217,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Toggle visibility",
+        "defaultMessage": "Hide media",
         "id": "media_gallery.toggle_visible"
       },
       {
@@ -455,11 +455,11 @@
         "id": "status.copy"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
@@ -527,7 +527,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hide entire domain",
+        "defaultMessage": "Block entire domain",
         "id": "confirmations.domain_block.confirm"
       },
       {
@@ -701,11 +701,11 @@
         "id": "account.media"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
@@ -741,7 +741,7 @@
         "id": "navigation_bar.blocks"
       },
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "navigation_bar.domain_blocks"
       },
       {
@@ -777,7 +777,7 @@
         "id": "account.muted"
       },
       {
-        "defaultMessage": "Domain hidden",
+        "defaultMessage": "Domain blocked",
         "id": "account.domain_blocked"
       },
       {
@@ -1102,7 +1102,7 @@
         "id": "privacy.public.short"
       },
       {
-        "defaultMessage": "Post to public timelines",
+        "defaultMessage": "Visible for all, shown in public timelines",
         "id": "privacy.public.long"
       },
       {
@@ -1110,7 +1110,7 @@
         "id": "privacy.unlisted.short"
       },
       {
-        "defaultMessage": "Do not show in public timelines",
+        "defaultMessage": "Visible for all, but not in public timelines",
         "id": "privacy.unlisted.long"
       },
       {
@@ -1118,7 +1118,7 @@
         "id": "privacy.private.short"
       },
       {
-        "defaultMessage": "Post to followers only",
+        "defaultMessage": "Visible for followers only",
         "id": "privacy.private.long"
       },
       {
@@ -1126,7 +1126,7 @@
         "id": "privacy.direct.short"
       },
       {
-        "defaultMessage": "Post to mentioned users only",
+        "defaultMessage": "Visible for mentioned users only",
         "id": "privacy.direct.long"
       },
       {
@@ -1495,15 +1495,15 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "column.domain_blocks"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
-        "defaultMessage": "There are no hidden domains yet.",
+        "defaultMessage": "There are no blocked domains yet.",
         "id": "empty_column.domain_blocks"
       }
     ],
@@ -2413,11 +2413,11 @@
         "id": "status.copy"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {

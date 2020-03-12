@@ -43,8 +43,8 @@ en:
         setting_default_federation: 'This setting does not affect mobile clients. For mobile client users, please add :local: at the end of your toot to post it as local-only.'
         setting_default_sensitive: Sensitive media is hidden by default and can be revealed with a click
         setting_display_media_default: Hide media marked as sensitive
-        setting_display_media_hide_all: Always hide all media
-        setting_display_media_show_all: Always show media marked as sensitive
+        setting_display_media_hide_all: Always hide media
+        setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will not be shown on your profile
         setting_mobile_federation: Be aware, if this checkbox is checked, users from other instances will never receive your replies, mentions or direct messages which are sent from mobile apps.
         setting_noindex: Affects your public profile and status pages
