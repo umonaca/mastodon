@@ -187,6 +187,24 @@
     color: $highlight-text-color;
   }
 
+  &.passive {
+    color: #ccaa00;
+  }
+
+  &.active.passive {
+    color: #00aa00;
+  }
+
+  &.active.no_delivery {
+    color: rgba($highlight-text-color, 33%);
+    -webkit-text-stroke: 1px $highlight-text-color;
+  }
+
+  &.active.passive.no_delivery {
+    color: #00aa0055;
+    -webkit-text-stroke: 1px #00aa00;
+  }
+
   &::-moz-focus-inner {
     border: 0;
   }
@@ -1519,6 +1537,13 @@ a.account__display-name {
   top: 60px;
   left: 10px;
   z-index: 1;
+
+  &.account__action-bar_home,
+  &.account__action-bar_list {
+    left: unset;
+    right: 10px;
+    top: 8px;
+  }
 }
 
 .status__avatar {
@@ -6156,6 +6181,7 @@ noscript {
 
   .list__wrapper {
     display: flex;
+    position: relative;
   }
 
   .list__display-name {

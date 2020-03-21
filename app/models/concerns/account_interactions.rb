@@ -23,7 +23,13 @@ module AccountInteractions
     end
 
     def subscribing_map(target_account_ids, account_id)
-      follow_mapping(AccountSubscribe.where(target_account_id: target_account_ids, account_id: account_id), :target_account_id)
+      AccountSubscribe.where(target_account_id: target_account_ids, account_id: account_id).each_with_object({}) do |subscribe, mapping|
+        mapping[subscribe.target_account_id] = (mapping[subscribe.target_account_id] || {}).merge({
+          subscribe.list_id || -1 => {
+            reblogs: subscribe.show_reblogs?,
+          }
+        })
+      end
     end
 
     def blocking_map(target_account_ids, account_id)
@@ -187,9 +193,11 @@ module AccountInteractions
     block&.destroy
   end
 
-  def subscribe!(other_account, show_reblogs = true, list_id = nil)
-    rel = active_subscribes.find_or_create_by!(target_account: other_account, show_reblogs: show_reblogs, list_id: list_id)
+  def subscribe!(other_account, reblogs = true, list_id = nil)
+    rel = active_subscribes.create_with(show_reblogs: reblogs)
+                           .find_or_create_by!(target_account: other_account, list_id: list_id)
 
+    rel.update!(show_reblogs: reblogs)
     remove_potential_friendship(other_account)
 
     rel
@@ -252,7 +260,7 @@ module AccountInteractions
   end
 
   def subscribing?(other_account, list_id = nil)
-    active_subscribes.where(target_account: other_account, list_id:  list_id).exists?
+    active_subscribes.where(target_account: other_account, list_id: list_id).exists?
   end
 
   def followers_for_local_distribution

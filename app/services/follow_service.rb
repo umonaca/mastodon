@@ -11,10 +11,11 @@ class FollowService < BaseService
   # @option [Boolean] :reblogs Whether or not to show reblogs, defaults to true
   # @option [Boolean] :bypass_locked
   # @option [Boolean] :with_rate_limit
+  # @option [Boolean] :delivery
   def call(source_account, target_account, options = {})
     @source_account = source_account
     @target_account = ResolveAccountService.new.call(target_account, skip_webfinger: true)
-    @options        = { reblogs: true, bypass_locked: false, with_rate_limit: false }.merge(options)
+    @options        = { reblogs: true, bypass_locked: false, with_rate_limit: false, delivery: true }.merge(options)
 
     raise ActiveRecord::RecordNotFound if following_not_possible?
     raise Mastodon::NotPermittedError  if following_not_allowed?
