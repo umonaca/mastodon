@@ -29,6 +29,7 @@ import {
   COMPOSE_UPLOAD_CHANGE_REQUEST,
   COMPOSE_UPLOAD_CHANGE_SUCCESS,
   COMPOSE_UPLOAD_CHANGE_FAIL,
+  COMPOSE_DOODLE_SET,
   COMPOSE_RESET,
   COMPOSE_POLL_ADD,
   COMPOSE_POLL_REMOVE,
@@ -72,6 +73,17 @@ const initialState = ImmutableMap({
   default_sensitive: false,
   resetFileKey: Math.floor((Math.random() * 0x10000)),
   idempotencyKey: null,
+  doodle: ImmutableMap({
+    fg: 'rgb(  0,    0,    0)',
+    bg: 'rgb(255,  255,  255)',
+    swapped: false,
+    mode: 'draw',
+    size: 'normal',
+    weight: 2,
+    opacity: 1,
+    adaptiveStroke: true,
+    smoothing: false,
+  }),
   tagHistory: ImmutableList(),
 });
 
@@ -425,6 +437,8 @@ export default function compose(state = initialState, action) {
     return state.updateIn(['poll', 'options'], options => options.delete(action.index));
   case COMPOSE_POLL_SETTINGS_CHANGE:
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
+  case COMPOSE_DOODLE_SET:
+    return state.mergeIn(['doodle'], action.options);
   default:
     return state;
   }
