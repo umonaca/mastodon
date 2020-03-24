@@ -13,8 +13,8 @@ const iconStyle = {
   lineHeight: '27px',
 };
 
-@injectIntl
-export default class UploadButton extends ImmutablePureComponent {
+export default @injectIntl
+class UploadButton extends ImmutablePureComponent {
 
   static propTypes = {
     disabled: PropTypes.bool,
