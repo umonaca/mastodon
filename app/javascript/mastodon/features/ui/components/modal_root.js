@@ -9,6 +9,7 @@ import ActionsModal from './actions_modal';
 import MediaModal from './media_modal';
 import VideoModal from './video_modal';
 import BoostModal from './boost_modal';
+import DoodleModal from './doodle_modal';
 import AudioModal from './audio_modal';
 import ConfirmationModal from './confirmation_modal';
 import FocalPointModal from './focal_point_modal';
@@ -26,6 +27,7 @@ const MODAL_COMPONENTS = {
   'VIDEO': () => Promise.resolve({ default: VideoModal }),
   'AUDIO': () => Promise.resolve({ default: AudioModal }),
   'BOOST': () => Promise.resolve({ default: BoostModal }),
+  'DOODLE': () => Promise.resolve({ default: DoodleModal }),
   'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
   'MUTE': MuteModal,
   'BLOCK': BlockModal,
@@ -60,7 +62,7 @@ export default class ModalRoot extends React.PureComponent {
   }
 
   renderLoading = modalId => () => {
-    return ['MEDIA', 'VIDEO', 'BOOST', 'CONFIRM', 'ACTIONS'].indexOf(modalId) === -1 ? <ModalLoading /> : null;
+    return ['MEDIA', 'VIDEO', 'BOOST', 'DOODLE', 'CONFIRM', 'ACTIONS'].indexOf(modalId) === -1 ? <ModalLoading /> : null;
   }
 
   renderError = (props) => {
