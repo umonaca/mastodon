@@ -7,6 +7,7 @@ export default class ModalRoot extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
+    noEsc: PropTypes.bool,
   };
 
   state = {
