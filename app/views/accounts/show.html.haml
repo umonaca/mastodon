@@ -1,7 +1,7 @@
 - content_for :page_title do
   -# our modification: verify login
   - if user_signed_in?
-    = "#{display_name(@account)} (@#{@account.local_username_and_domain})"
+    = "#{display_name(@account)} (#{acct(@account)})"
   - else
     = "とある科学的前豆瓣用户"
 
@@ -11,8 +11,7 @@
 
   -# our modification: verify login
   - if user_signed_in?
-    %meta{ name: 'description', content: account_description(@account) }/
-
+  
     %link{ rel: 'alternate', type: 'application/rss+xml', href: @rss_url }/
     %link{ rel: 'alternate', type: 'application/activity+json', href: ActivityPub::TagManager.instance.uri_for(@account) }/
 
