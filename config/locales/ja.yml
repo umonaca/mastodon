@@ -1223,6 +1223,7 @@ ja:
   themes:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
+    mask: Mastodon (マスク)
     mastodon-light: Mastodon (ライト)
   time:
     formats:
