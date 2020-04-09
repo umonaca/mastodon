@@ -1,0 +1,8 @@
+// base on mastodon-light theme
+@import 'nga/variables';
+@import 'application';
+@import 'nga/diff';
+
+.bookmark-icon.active {
+    color: #ff5050;
+}

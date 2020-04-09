@@ -1,3 +1,8 @@
-default: styles/application.scss
+default: styles/application-vanilla.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
+witches-town: styles/witches-town.scss
+nga: styles/nga.scss
+light: styles/cybre-light.scss
+cybrespace: styles/cybre.scss
+win95: styles/win95.scss

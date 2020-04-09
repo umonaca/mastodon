@@ -1,3 +1,7 @@
 @import 'contrast/variables';
 @import 'application';
 @import 'contrast/diff';
+
+.bookmark-icon.active {
+    color: #ff5050;
+}

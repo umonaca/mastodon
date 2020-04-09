@@ -2,6 +2,7 @@
 
 module SettingsHelper
   HUMAN_LOCALES = {
+    'en-CY': 'English (Cybre)',
     ar: 'العربية',
     ast: 'Asturianu',
     bg: 'Български',
