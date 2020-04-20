@@ -1,4 +1,4 @@
-web: env PORT=3000 bundle exec puma -C config/puma.rb
-sidekiq: env PORT=3000 bundle exec sidekiq
-stream: env PORT=4000 yarn run start
-webpack: ./bin/webpack-dev-server --listen-host 0.0.0.0
+web: env REDIS_NAMESPACE=mstdn-devel PORT=8964 bundle exec puma -C config/puma.rb
+sidekiq: env REDIS_NAMESPACE=mstdn-devel PORT=8964 bundle exec sidekiq
+stream: env REDIS_NAMESPACE=mstdn-devel PORT=7964 yarn run start
+webpack: env REDIS_NAMESPACE=mstdn-devel PORT=7964 ./bin/webpack-dev-server --listen-host 0.0.0.0
