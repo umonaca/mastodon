@@ -232,13 +232,32 @@ export function uploadCompose(files) {
         // Account for disparity in size of original image and resized data
         total += file.size - f.size;
 
-        return api(getState).post('/api/v1/media', data, {
+        return api(getState).post('/api/v2/media', data, {
           onUploadProgress: function({ loaded }){
             progress[i] = loaded;
             dispatch(uploadComposeProgress(progress.reduce((a, v) => a + v, 0), total));
           },
-        }).then(({ data }) => dispatch(uploadComposeSuccess(data, f)));
-      }).catch(error => dispatch(uploadComposeFail(error, true)));
+        }).then(({ status, data }) => {
+          // If server-side processing of the media attachment has not completed yet,
+          // poll the server until it is, before showing the media attachment as uploaded
+
+          if (status === 200) {
+            dispatch(uploadComposeSuccess(data, f));
+          } else if (status === 202) {
+            const poll = () => {
+              api(getState).get(`/api/v1/media/${data.id}`).then(response => {
+                if (response.status === 200) {
+                  dispatch(uploadComposeSuccess(response.data, f));
+                } else if (response.status === 206) {
+                  setTimeout(() => poll(), 1000);
+                }
+              }).catch(error => dispatch(uploadComposeFail(error)));
+            };
+
+            poll();
+          }
+        });
+      }).catch(error => dispatch(uploadComposeFail(error)));
     };
   };
 };
@@ -269,11 +288,10 @@ export function changeUploadComposeSuccess(media) {
   };
 };
 
-export function changeUploadComposeFail(error, decrement = false) {
+export function changeUploadComposeFail(error) {
   return {
     type: COMPOSE_UPLOAD_CHANGE_FAIL,
     error: error,
-    decrement: decrement,
     skipLoading: true,
   };
 };
