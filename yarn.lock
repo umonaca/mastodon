@@ -1947,6 +1947,11 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+atrament@0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/atrament/-/atrament-0.2.4.tgz#6f78196edfcd194e568b7c0b9c88201ec371ac66"
+  integrity sha512-hSA9VwW6COMwvRhSEO4uZweZ91YGOdHqwvslNyrJZG+8mzc4qx/qMsDZBuAeXFeWZO/QKtRjIXguOUy1aNMl3A==
+
 autoprefixer@^9.7.6:
   version "9.7.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.7.6.tgz#63ac5bbc0ce7934e6997207d5bb00d68fa8293a4"

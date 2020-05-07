@@ -24,6 +24,7 @@ export default class IconButton extends React.PureComponent {
     animate: PropTypes.bool,
     overlay: PropTypes.bool,
     tabIndex: PropTypes.string,
+    label: PropTypes.string,
   };
 
   static defaultProps = {
@@ -77,14 +78,19 @@ export default class IconButton extends React.PureComponent {
   }
 
   render () {
-    const style = {
+    let style = {
       fontSize: `${this.props.size}px`,
-      width: `${this.props.size * 1.28571429}px`,
       height: `${this.props.size * 1.28571429}px`,
       lineHeight: `${this.props.size}px`,
       ...this.props.style,
       ...(this.props.active ? this.props.activeStyle : {}),
     };
+
+    if (!this.props.label) {
+      style.width = `${this.props.size * 1.28571429}px`;
+    } else {
+      style.textAlign = 'left';
+    }
 
     const {
       active,
@@ -129,6 +135,7 @@ export default class IconButton extends React.PureComponent {
         disabled={disabled}
       >
         <Icon id={icon} fixedWidth aria-hidden='true' />
+        {this.props.label}
       </button>
     );
   }
