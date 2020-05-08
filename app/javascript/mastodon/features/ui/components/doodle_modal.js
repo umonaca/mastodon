@@ -112,7 +112,8 @@ function dataURLtoFile(dataurl, filename) {
 }
 /** Doodle canvas size options */
 const DOODLE_SIZES = {
-  normal: [500, 500, 'Square 500'],
+  normal: [400, 225, '400x225 - Default'],
+  s500: [500, 500, 'Square 500'],
   tootbanner: [702, 330, 'Tootbanner'],
   s640x480: [640, 480, '640×480 - 480p'],
   s800x600: [800, 600, '800×600 - SVGA'],
