@@ -1,0 +1,59 @@
+diff --git a/node_modules/atrament/lib/atrament.js b/node_modules/atrament/lib/atrament.js
+index c849764..adeec68 100755
+--- a/node_modules/atrament/lib/atrament.js
++++ b/node_modules/atrament/lib/atrament.js
+@@ -79,6 +79,7 @@ var Atrament = function () {
+       // begin drawing
+       _this.mouse.down = true;
+       _this.context.beginPath();
++      _this.smooth_count = 0;
+       _this.context.moveTo(_this.mouse.px, _this.mouse.py);
+     };
+     var mouseUp = function mouseUp() {
+@@ -154,13 +155,27 @@ var Atrament = function () {
+ 
+       if (this._adaptive) {
+         // calculate target thickness based on the new distance
+-        this._targetThickness = (dist - 1) / (50 - 1) * (this._maxWeight - this._weight) + this._weight;
++        this._targetThickness = this._weight * (0.6 - Math.atan(dist / 4 - 3) / Math.PI);
++
++        console.log({Previous:this._thickness});
+         // approach the target gradually
+         if (this._thickness > this._targetThickness) {
+-          this._thickness -= 0.5;
++          this._thickness = this._thickness * 0.8 - 0.05;
++          console.log(this._thickness);
++          if (this._thickness < this._targetThickness) {
++            this._thickness = this._targetThickness;
++          }
+         } else if (this._thickness < this._targetThickness) {
+-          this._thickness += 0.5;
++          this._thickness = this._thickness * 1.2 + 0.05;
++          console.log(this._thickness);
++          if (this._thickness > this._targetThickness) {
++            this._thickness = this._targetThickness;
++          }
++        } else {
++          // strangely _thickness often goes to NaN, so...
++          this._thickness = this._targetThickness;
+         }
++
+         // set line width
+         context.lineWidth = this._thickness;
+       } else {
+@@ -170,8 +185,15 @@ var Atrament = function () {
+ 
+       // draw using quad interpolation
+       context.quadraticCurveTo(mouse.px, mouse.py, mouse.x, mouse.y);
++      console.log([dist, this._targetThickness, context.lineWidth]);
+       context.stroke();
+ 
++      if (++this.smooth_count >= 3) {
++        this.smooth_count = 0;
++        context.beginPath();
++        console.log('resmooth!');
++      }
++
+       // remember
+       mouse.px = mouse.x;
+       mouse.py = mouse.y;

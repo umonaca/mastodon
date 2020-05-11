@@ -79,7 +79,7 @@ const initialState = ImmutableMap({
     swapped: false,
     mode: 'draw',
     size: 'normal',
-    weight: 2,
+    weight: 3,
     opacity: 1,
     adaptiveStroke: true,
     smoothing: false,
