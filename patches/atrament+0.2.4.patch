@@ -1,8 +1,229 @@
+diff --git a/node_modules/atrament/.eslintrc b/node_modules/atrament/.eslintrc
+deleted file mode 100644
+index ce85779..0000000
+--- a/node_modules/atrament/.eslintrc
++++ /dev/null
+@@ -1,30 +0,0 @@
+-{
+-  "extends": ["eslint:recommended", "airbnb"],
+-  "env": {
+-    "browser": true
+-  },
+-  "parser": "babel-eslint",
+-  "rules": {
+-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+-    "semi": ["error", "always"],
+-    "no-console": ["off"],
+-    "no-empty": ["error", { "allowEmptyCatch": true }],
+-    "no-param-reassign": ["off"],
+-    "no-underscore-dangle": ["off"],
+-    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+-    "comma-dangle": ["error", "never"],
+-    "func-names": ["off"],
+-    "consistent-return": ["off"],
+-    "max-len": ["off"],
+-    "padded-blocks": ["off"],
+-    "global-require": ["off"],
+-    "no-unused-expressions": ["off"],
+-    "no-shadow": ["off"],
+-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "ObjectId", "Intercom"] }],
+-    "no-restricted-syntax": ["error", "DebuggerStatement", "LabeledStatement", "WithStatement"],
+-    "no-nested-ternary": ["off"],
+-    "no-return-assign": ["off"],
+-    "no-confusing-arrow": ["off"],
+-    "no-cond-assign": ["off"]
+-  }
+-}
+diff --git a/node_modules/atrament/.travis.yml b/node_modules/atrament/.travis.yml
+deleted file mode 100644
+index 036b201..0000000
+--- a/node_modules/atrament/.travis.yml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-language: node_js
+-node_js: "6.1"
+-install: npm install
+-script: npm run build
+diff --git a/node_modules/atrament/LICENSE.md b/node_modules/atrament/LICENSE.md
+deleted file mode 100644
+index 5448ef7..0000000
+--- a/node_modules/atrament/LICENSE.md
++++ /dev/null
+@@ -1,27 +0,0 @@
+-# DON'T BE A DICK PUBLIC LICENSE
+-
+-> Version 1, December 2009
+-
+-> Copyright (C) 2009 Philip Sturgeon <me@philsturgeon.uk>
+- 
+- Everyone is permitted to copy and distribute verbatim or modified
+- copies of this license document, and changing it is allowed as long
+- as the name is changed.
+-
+-> DON'T BE A DICK PUBLIC LICENSE
+-> TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+-
+- 1. Do whatever you like with the original work, just don't be a dick.
+-
+-     Being a dick includes - but is not limited to - the following instances:
+-
+-	 1a. Outright copyright infringement - Don't just copy this and change the name.  
+-	 1b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.  
+-	 1c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.  
+-
+- 2. If you become rich through modifications, related works/services, or supporting the original work,
+- share the love. Only a dick would make loads off this work and not buy the original work's 
+- creator(s) a pint.
+- 
+- 3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes 
+- you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.
+diff --git a/node_modules/atrament/README.md b/node_modules/atrament/README.md
+deleted file mode 100644
+index 7ca5a8b..0000000
+--- a/node_modules/atrament/README.md
++++ /dev/null
+@@ -1,107 +0,0 @@
+-# atrament.js
+-#### Tiny JS library for beautiful drawing and handwriting on the HTML Canvas
+----
+-
+-![](demo/img/muchotravka.png)
+-
+-[![Build Status](https://travis-ci.org/jakubfiala/atrament.js.svg?branch=master)](https://travis-ci.org/jakubfiala/atrament.js)
+-
+-Atrament is a lightweight library that enables the user to draw smooth, natural drawings and handwriting on the HTML canvas. The algorithm was originally developed about 2 weeks after I started learning JavaScript, as I wanted to build a collaborative drawing space on the web, which ended up being [1WALL](http://fiala.uk/1wall). I wanted the drawing to feel natural and comfortable, and the result to be smooth and pleasing. Years later, I've taken the algorithm, improved it, rewrote it in ES6 and made it into a neat little library.
+-
+-[Here's a basic demo.](http://fiala.uk/atrament.js/demo/)
+-
+-Enjoy!
+-
+-## Installation
+-
+-#### script tag
+-
+-Include the script located at [dist/atrament.min.js](https://github.com/jakubfiala/atrament.js/raw/master/dist/atrament.min.js) in the `<head>` tag of your HTML.
+-
+-Alternatively, you can use Bower: `bower install atrament` and include `bower_components/atrament/dist/atrament.min.js` as a script tag.
+-
+-#### as a module
+-
+-If you're using a tool like webpack or browserify to bundle your code, you can install it using npm.
+-
+-+ install atrament as a dependency using ```npm install --save atrament```.
+-+ require the package in a module using ```var atrament = require('atrament');```
+-+ You can also access the Atrament class using ```var Atrament = require('atrament').Atrament;```
+-
+-#### polymer
+-
+-Thanks to [rubenstolk](https://github.com/rubenstolk), you can also use the [sc-atrament](https://github.com/safetychanger/sc-atrament) Polymer element.
+-
+-## Usage
+-
+-+ create a `<canvas>` tag, e.g.:
+-```html
+-<canvas id="mySketcher" width="500px" height="500px">
+-```
+-+ in your JavaScript, call `atrament` passing in the selector string of your canvas:
+-```js
+-var sketcher = atrament('#mySketcher');
+-//or use a more object-oriented style
+-var sketcher = new Atrament('#mySketcher');
+-//you can also pass the canvas Node itself
+-var sketcher = new Atrament(document.querySelector('#mySketcher'));
+-```
+-+ you can also pass the width, height and default colour to the function:
+-```js
+-var sketcher = atrament('#mySketcher', 500, 500, 'orange');
+-```
+-+ that's it, happy drawing!
+-
+-
+-## Options & config
+-
+-+ clear the canvas:
+-```js
+-sketcher.clear();
+-```
+-+ change the line thickness:
+-```js
+-sketcher.weight = 20; //in pixels
+-```
+-+ change the color:
+-```js
+-sketcher.color = '#ff485e'; //just like CSS
+-```
+-+ toggle between modes:
+-```js
+-sketcher.mode = 'erase'; 	// eraser tool
+-sketcher.mode = 'fill'; 	// click to fill area
+-sketcher.mode = 'draw'; 	// default
+-```
+-+ toggle smoothing - having it on makes the drawings look much better, turning it off makes it feel a bit more responsive. `true` by default.
+-```js
+-sketcher.smoothing = false;
+-```
+-+ toggle adaptive stroke, i.e. line width changing based on drawing speed for a more natural effect. `true` by default.
+-```js
+-sketcher.adaptiveStroke = false;
+-```
+-+ change the opacity:
+-```js
+-sketcher.opacity = 0.5; //number between 0-1
+-```
+-+ export as image:
+-```js
+-//we have to get the dataURL of the image
+-var dataURL = sketcher.toImage();
+-//then we can, for instance, open a new window with it
+-window.open(dataURL);
+-```
+-+ `dirty` event – do something when the canvas becomes dirty:
+-```js
+-// this also fires when you clear the canvas
+-// the dirty property is then false
+-// note that we attach the event to canvas
+-canvas.addEventListener('dirty', e => console.info(sketcher.dirty));
+-```
+-
+-## Development
+-To obtain the dependencies, `cd` into the atrament directory and run `npm install`.
+-You should be able to then build atrament by simply running `npm run build`.
+-
+-I didn't bother writing tests because it's such a small package. Contributions are welcome!
 diff --git a/node_modules/atrament/lib/atrament.js b/node_modules/atrament/lib/atrament.js
-index c849764..adeec68 100755
+index c849764..ec7c0a9 100755
 --- a/node_modules/atrament/lib/atrament.js
 +++ b/node_modules/atrament/lib/atrament.js
-@@ -79,6 +79,7 @@ var Atrament = function () {
+@@ -32,10 +32,16 @@ var Atrament = function () {
+     // create a mouse object
+     this.mouse = new _mouse2.default();
+ 
++    this.touch_force = 1;
++
+     // mousemove handler
+     var mouseMove = function mouseMove(e) {
+       e.preventDefault();
+ 
++      if (e.touches && e.touches[0] && typeof e.touches[0]["force"] !== "undefined") {
++        _this.touch_force = e.touches[0]["force"] / 0.15;
++      }
++
+       var rect = _this.canvas.getBoundingClientRect();
+       var position = e.changedTouches && e.changedTouches[0] || e;
+       var x = position.offsetX;
+@@ -64,6 +70,11 @@ var Atrament = function () {
+     // mousedown handler
+     var mouseDown = function mouseDown(mousePosition) {
+       mousePosition.preventDefault();
++
++      if (mousePosition.touches && mousePosition.touches[0] && typeof mousePosition.touches[0]["force"] !== "undefined") {
++        _this.touch_force = mousePosition.touches[0]["force"] / 0.15;
++      }
++
+       // update position just in case
+       mouseMove(mousePosition);
+ 
+@@ -79,6 +90,7 @@ var Atrament = function () {
        // begin drawing
        _this.mouse.down = true;
        _this.context.beginPath();
@@ -10,26 +231,23 @@ index c849764..adeec68 100755
        _this.context.moveTo(_this.mouse.px, _this.mouse.py);
      };
      var mouseUp = function mouseUp() {
-@@ -154,13 +155,27 @@ var Atrament = function () {
+@@ -154,24 +166,37 @@ var Atrament = function () {
  
        if (this._adaptive) {
          // calculate target thickness based on the new distance
 -        this._targetThickness = (dist - 1) / (50 - 1) * (this._maxWeight - this._weight) + this._weight;
 +        this._targetThickness = this._weight * (0.6 - Math.atan(dist / 4 - 3) / Math.PI);
 +
-+        console.log({Previous:this._thickness});
          // approach the target gradually
          if (this._thickness > this._targetThickness) {
 -          this._thickness -= 0.5;
 +          this._thickness = this._thickness * 0.8 - 0.05;
-+          console.log(this._thickness);
 +          if (this._thickness < this._targetThickness) {
 +            this._thickness = this._targetThickness;
 +          }
          } else if (this._thickness < this._targetThickness) {
 -          this._thickness += 0.5;
 +          this._thickness = this._thickness * 1.2 + 0.05;
-+          console.log(this._thickness);
 +          if (this._thickness > this._targetThickness) {
 +            this._thickness = this._targetThickness;
 +          }
@@ -41,18 +259,17 @@ index c849764..adeec68 100755
          // set line width
          context.lineWidth = this._thickness;
        } else {
-@@ -170,8 +185,15 @@ var Atrament = function () {
+-        // line width is equal to default weight
+-        context.lineWidth = this._weight;
++        // line width is controlled by touch force
++        context.lineWidth = this._weight * this.touch_force;
+       }
  
        // draw using quad interpolation
        context.quadraticCurveTo(mouse.px, mouse.py, mouse.x, mouse.y);
-+      console.log([dist, this._targetThickness, context.lineWidth]);
        context.stroke();
  
-+      if (++this.smooth_count >= 3) {
-+        this.smooth_count = 0;
-+        context.beginPath();
-+        console.log('resmooth!');
-+      }
++      context.beginPath(); // begin new path to prevent overpainting
 +
        // remember
        mouse.px = mouse.x;
