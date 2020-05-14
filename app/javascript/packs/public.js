@@ -118,6 +118,26 @@ function main() {
 
     delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
     delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
+
+    delegate(document, '.status__content__spoiler-link', 'click', function() {
+      const statusEl = this.parentNode.parentNode;
+
+      if (statusEl.dataset.spoiler === 'expanded') {
+        statusEl.dataset.spoiler = 'folded';
+        this.textContent = (new IntlMessageFormat(messages['status.show_more'] || 'Show more', locale)).format();
+      } else {
+        statusEl.dataset.spoiler = 'expanded';
+        this.textContent = (new IntlMessageFormat(messages['status.show_less'] || 'Show less', locale)).format();
+      }
+
+      return false;
+    });
+
+    [].forEach.call(document.querySelectorAll('.status__content__spoiler-link'), (spoilerLink) => {
+      const statusEl = spoilerLink.parentNode.parentNode;
+      const message = (statusEl.dataset.spoiler === 'expanded') ? (messages['status.show_less'] || 'Show less') : (messages['status.show_more'] || 'Show more');
+      spoilerLink.textContent = (new IntlMessageFormat(message, locale)).format();
+    });
   });
 
   delegate(document, '.webapp-btn', 'click', ({ target, button }) => {
@@ -125,20 +145,6 @@ function main() {
       return true;
     }
     window.location.href = target.href;
-    return false;
-  });
-
-  delegate(document, '.status__content__spoiler-link', 'click', function() {
-    const contentEl = this.parentNode.parentNode.querySelector('.e-content');
-
-    if (contentEl.style.display === 'block') {
-      contentEl.style.display = 'none';
-      this.parentNode.style.marginBottom = 0;
-    } else {
-      contentEl.style.display = 'block';
-      this.parentNode.style.marginBottom = null;
-    }
-
     return false;
   });
 
@@ -162,7 +168,7 @@ function main() {
       if (target.value) {
         name.innerHTML = emojify(escapeTextContentForBrowser(target.value));
       } else {
-        name.textContent = document.querySelector('#default_account_display_name').textContent;
+        name.textContent = target.dataset.default;
       }
     }
   });
