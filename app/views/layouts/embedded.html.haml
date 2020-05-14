@@ -2,3 +2,7 @@
 %html{ lang: I18n.locale }
   %head
   %body.embed
+    = yield
+
+    .logo-resources
+      = render file: Rails.root.join('app', 'javascript', 'images', 'logo_transparent.svg')
