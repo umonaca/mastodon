@@ -279,16 +279,12 @@ class Video extends React.PureComponent {
     document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true);
     document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true);
 
-    window.addEventListener('scroll', this.handleScroll);
-
     if (this.props.blurhash) {
       this._decode();
     }
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll', this.handleScroll);
-
     document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true);
     document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true);
     document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true);
@@ -324,19 +320,6 @@ class Video extends React.PureComponent {
       ctx.putImageData(imageData, 0, 0);
     }
   }
-
-  handleScroll = throttle(() => {
-    if (!this.video) {
-      return;
-    }
-
-    const { top, height } = this.video.getBoundingClientRect();
-    const inView = (top <= (window.innerHeight || document.documentElement.clientHeight)) && (top + height >= 0);
-
-    if (!this.state.paused && !inView) {
-      this.setState({ paused: true }, () => this.video.pause());
-    }
-  }, 150, { trailing: true })
 
   handleFullscreenChange = () => {
     this.setState({ fullscreen: isFullscreen() });

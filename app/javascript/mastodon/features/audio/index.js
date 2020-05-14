@@ -60,8 +60,6 @@ class Audio extends React.PureComponent {
     if (this.waveform) {
       this._updateWaveform();
     }
-
-    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidUpdate (prevProps) {
@@ -71,8 +69,6 @@ class Audio extends React.PureComponent {
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll', this.handleScroll);
-
     if (this.wavesurfer) {
       this.wavesurfer.destroy();
       this.wavesurfer = null;
@@ -177,19 +173,6 @@ class Audio extends React.PureComponent {
       this.wavesurfer.setVolume(slideamt);
     }
   }, 60);
-
-  handleScroll = throttle(() => {
-    if (!this.waveform || !this.wavesurfer) {
-      return;
-    }
-
-    const { top, height } = this.waveform.getBoundingClientRect();
-    const inView = (top <= (window.innerHeight || document.documentElement.clientHeight)) && (top + height >= 0);
-
-    if (!this.state.paused && !inView) {
-      this.setState({ paused: true }, () => this.wavesurfer.pause());
-    }
-  }, 150, { trailing: true })
 
   render () {
     const { height, intl, alt, editable } = this.props;
