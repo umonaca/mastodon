@@ -65,3 +65,7 @@ docker-compose.override.yml
 
 # VS Code files
 *.orig
+
+# Gallery app
+public/gallery
+public/pawoo
