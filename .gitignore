@@ -69,3 +69,4 @@ docker-compose.override.yml
 # Gallery app
 public/gallery
 public/pawoo
+public/tokyo
