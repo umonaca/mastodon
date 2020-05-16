@@ -276,3 +276,12 @@ body.about-body {
 .status__content a.unhandled-link {
   color: mix($ui-highlight-color, $ui-secondary-color, 10%);
 }
+
+.detailed-status {
+  &-unlisted::before,
+  &-private::before,
+  &-direct::before {
+    top: 20px;
+    color: #5d5d5d;
+  }
+}
