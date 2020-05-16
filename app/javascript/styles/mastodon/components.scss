@@ -1052,29 +1052,6 @@
       }
     }
   }
-
-  &-unlisted time::after,
-  &-private time::after,
-  &-direct time::after {
-      display: inline-block;
-      text-align: center;
-      width: 14px;
-      height: 14px;
-      font: 14px/1 FontAwesome;
-      margin-left: 4px;
-  }
-
-  &-unlisted time::after {
-      content: "\f09C";
-  }
-
-  &-private time::after {
-      content: "\F023";
-  }
-
-  &-direct time::after {
-      content: "\F0E0";
-  }
 }
 
 .notification-favourite {
@@ -1209,7 +1186,6 @@
 .detailed-status {
   background: lighten($ui-base-color, 4%);
   padding: 14px 10px;
-  position: relative;
 
   &--flex {
     display: flex;
@@ -1221,37 +1197,6 @@
     .detailed-status__meta {
       flex: 100%;
     }
-  }
-
-  &-unlisted::before,
-  &-private::before,
-  &-direct::before {
-    display: block;
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    right: 10px;
-    top: 20px;
-    font: 14px/1 FontAwesome;
-    color: #606984;
-  }
-
-  &-unlisted .display-name,
-  &-private .display-name,
-  &-direct .display-name {
-    padding-right: 10px;
-  }
-
-  &-unlisted::before {
-      content: "\f09C";
-  }
-
-  &-private::before {
-      content: "\F023";
-  }
-
-  &-direct::before {
-      content: "\F0E0";
   }
 
   .status__content {
