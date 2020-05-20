@@ -70,3 +70,4 @@ docker-compose.override.yml
 public/gallery
 public/pawoo
 public/tokyo
+public/instructions.html
