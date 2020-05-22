@@ -415,7 +415,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.bigint "target_account_id", null: false
     t.boolean "show_reblogs", default: true, null: false
     t.string "uri"
-    t.boolean "private", default: true, null: false
     t.index ["account_id", "target_account_id"], name: "index_follows_on_account_id_and_target_account_id", unique: true
     t.index ["target_account_id"], name: "index_follows_on_target_account_id"
   end
@@ -937,9 +936,9 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
   add_foreign_key "conversation_mutes", "accounts", name: "fk_225b4212bb", on_delete: :cascade
   add_foreign_key "conversation_mutes", "conversations", on_delete: :cascade
   add_foreign_key "custom_filters", "accounts", on_delete: :cascade
-  add_foreign_key "email_domain_blocks", "email_domain_blocks", column: "parent_id", on_delete: :cascade
   add_foreign_key "domain_subscribes", "accounts", on_delete: :cascade
   add_foreign_key "domain_subscribes", "lists", on_delete: :cascade
+  add_foreign_key "email_domain_blocks", "email_domain_blocks", column: "parent_id", on_delete: :cascade
   add_foreign_key "favourites", "accounts", name: "fk_5eb6c2b873", on_delete: :cascade
   add_foreign_key "favourites", "statuses", name: "fk_b0e856845e", on_delete: :cascade
   add_foreign_key "featured_tags", "accounts", on_delete: :cascade
