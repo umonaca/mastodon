@@ -467,7 +467,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   end
 
   def process_quote
-    if quote.nil? && md = @object['content'].match(/QT:\s*\[<a href=\"([^\"]+).*?\]/)
+    if quote.nil? && @object['content'].present? && md = @object['content'].match(/QT:\s*\[<a href=\"([^\"]+).*?\]/)
       @quote = quote_from_url(md[1])
       @object['content'] = @object['content'].sub(/QT:\s*\[.*?\]/, '<span class="quote-inline"><br/>\1</span>')
     end
