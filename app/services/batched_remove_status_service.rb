@@ -78,8 +78,8 @@ class BatchedRemoveStatusService < BaseService
       else
         redis.publish('timeline:public:remote', payload)
       end
-      @domains[status.id].each do |domain|
-        redis.publish("timeline:public:domain:#{domain.mb_chars.downcase}", payload)
+      unless status.local?
+        redis.publish("timeline:public:domain:#{@domains[status.id].mb_chars.downcase}", payload)
       end
 
       if status.media_attachments.any?
@@ -89,8 +89,8 @@ class BatchedRemoveStatusService < BaseService
         else
           redis.publish('timeline:public:remote:media', payload)
         end
-        @domains[status.id].each do |domain|
-          redis.publish("timeline:public:domain:media:#{domain.mb_chars.downcase}", payload)
+        unless status.local?
+          redis.publish("timeline:public:domain:media:#{@domains[status.id].mb_chars.downcase}", payload)
         end
       end
 
