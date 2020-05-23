@@ -50,8 +50,8 @@ ja:
         setting_noindex: 公開プロフィールおよび各投稿ページに影響します
         setting_show_application: トゥートするのに使用したアプリがトゥートの詳細ビューに表示されるようになります
         setting_show_follow_button_on_timeline: フォロー状態を確認し易くなり、素早くフォローリストを構築できます
-        setting_show_subscribe_button_on_timeline: 購読状態を確認し易くなり、素早く購読リストを構築できます
         setting_show_followed_by: フォロー状態に応じてフォローボタンの色が変わります（灰色：フォロー関係なし、黄色：フォローされている、青色：フォローしている、緑色：相互フォロー）
+        setting_show_subscribe_button_on_timeline: 購読状態を確認し易くなり、素早く購読リストを構築できます
         setting_show_target: 投稿対象と、フォロー・購読の対象を切り替える機能を有効にします
         setting_use_blurhash: ぼかしはメディアの色を元に生成されますが、細部は見えにくくなっています
         setting_use_pending_items: 新着があってもタイムラインを自動的にスクロールしないようにします
@@ -164,8 +164,8 @@ ja:
         setting_reduce_motion: アニメーションの動きを減らす
         setting_show_application: 送信したアプリを開示する
         setting_show_follow_button_on_timeline: タイムライン上にフォローボタンを表示する
-        setting_show_subscribe_button_on_timeline: タイムライン上に購読ボタンを表示する
         setting_show_followed_by: 被フォロー状態をフォローボタンに反映する
+        setting_show_subscribe_button_on_timeline: タイムライン上に購読ボタンを表示する
         setting_show_target: ターゲット機能を有効にする
         setting_system_font_ui: システムのデフォルトフォントを使う
         setting_theme: サイトテーマ
@@ -210,16 +210,16 @@ ja:
       keyword_subscribe:
         disabled: 一時的に購読を無効にする
         exclude_keyword: 除外するキーワードまたは正規表現
-        ignorecase: 大文字と小文字を区別しない
         ignore_block: ユーザーによるドメインブロックを無視する
+        ignorecase: 大文字と小文字を区別しない
         keyword: キーワードまたは正規表現
         list_id: 対象タイムライン
         name: 名称
         regexp: キーワードに正規表現を使う
       keyword_subscribes:
         disabled: 状態
-        ignorecase: 大小
         ignore_block: ブロック
+        ignorecase: 大小
         keyword: 設定値
         name: 名称
         regexp: 種別

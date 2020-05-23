@@ -46,6 +46,13 @@ ja:
       other: 人
     user_count_before: ユーザー数
     what_is_mastodon: Mastodon とは？
+  account_subscribes:
+    add_new: 追加
+    edit:
+      title: 編集
+    hint_html: "<strong>アカウントの購読とは何ですか？</strong> 指定したアカウントの公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
+    new:
+      title: 新規アカウント購読を追加
   accounts:
     choices_html: "%{name} によるおすすめ:"
     endorsements_hint: あなたがフォローしている中でおすすめしたい人をここで紹介できます。
@@ -78,13 +85,6 @@ ja:
       moderator: Mod
     unavailable: プロフィールは利用できません
     unfollow: フォロー解除
-  account_subscribes:
-    add_new: 追加
-    edit:
-      title: 編集
-    hint_html: "<strong>アカウントの購読とは何ですか？</strong> 指定したアカウントの公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
-    new:
-      title: 新規アカウント購読を追加
   admin:
     account_actions:
       action: アクションを実行
@@ -806,13 +806,6 @@ ja:
     errors:
       limit: 注目のハッシュタグの上限に達しました
     hint_html: "<strong>注目のハッシュタグとは？</strong>プロフィールページに目立つ形で表示され、そのハッシュタグのついたあなたの公開投稿だけを抽出して閲覧できるようにします。クリエイティブな仕事や長期的なプロジェクトを追うのに優れた機能です。"
-  follow_tags:
-    add_new: 追加
-    edit:
-      title: 編集
-    hint_html: "<strong>ハッシュタグのフォローとは何ですか？</strong> それらはあなたがフォローするハッシュタグのコレクションです。サーバが受け取ったハッシュタグ付きの投稿の中から、ここで指定したハッシュタグのついた投稿をホームタイムラインまたはリストに挿入します。"
-    new:
-      title: ハッシュタグのフォローを追加
   filters:
     contexts:
       account: プロフィール
@@ -831,6 +824,13 @@ ja:
       title: フィルター
     new:
       title: 新規フィルターを追加
+  follow_tags:
+    add_new: 追加
+    edit:
+      title: 編集
+    hint_html: "<strong>ハッシュタグのフォローとは何ですか？</strong> それらはあなたがフォローするハッシュタグのコレクションです。サーバが受け取ったハッシュタグ付きの投稿の中から、ここで指定したハッシュタグのついた投稿をホームタイムラインまたはリストに挿入します。"
+    new:
+      title: ハッシュタグのフォローを追加
   footer:
     developers: 開発者向け
     more: さらに…
@@ -913,20 +913,20 @@ ja:
     errors:
       duplicate: 既に同じ内容が登録されています
       limit: キーワード購読の登録可能数の上限に達しました
-      regexp: "正規表現に誤りがあります: %{message}"
+      regexp: '正規表現に誤りがあります: %{message}'
     hint_html: "<strong>キーワードの購読とは何ですか？</strong> 指定した単語のいずれか、または正規表現に一致する公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
-    ignorecase:
-      enabled: 無視
-      disabled: 区別
     ignore_block: 無視
+    ignorecase:
+      disabled: 区別
+      enabled: 無視
     index:
       delete: 削除
       title: キーワードの購読
     new:
       title: 新規キーワード購読を追加
     regexp:
-      enabled: 正規表現
       disabled: キーワード
+      enabled: 正規表現
   lists:
     add_new: 新しいリストを追加
     errors:

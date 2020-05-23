@@ -52,8 +52,8 @@ en:
         setting_noindex: Affects your public profile and status pages
         setting_show_application: The application you use to toot will be displayed in the detailed view of your toots
         setting_show_follow_button_on_timeline: You can easily check the follow status and build a follow list quickly
+        setting_show_followed_by: 'The color of the follow button changes according to the follow status (gray: no follow relationship, yellow: followed, blue: following, green: mutual follow)'
         setting_show_subscribe_button_on_timeline: You can easily check the status of your subscriptions and quickly build a subscription list
-        setting_show_followed_by: "The color of the follow button changes according to the follow status (gray: no follow relationship, yellow: followed, blue: following, green: mutual follow)"
         setting_show_target: Enable the function to switch between posting target and follow / subscribe target
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
@@ -168,8 +168,8 @@ en:
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send toots
         setting_show_follow_button_on_timeline: Show follow button on timeline
-        setting_show_subscribe_button_on_timeline: Show subscribe button on timeline
         setting_show_followed_by: Reflect the following status on the follow button
+        setting_show_subscribe_button_on_timeline: Show subscribe button on timeline
         setting_show_target: Enable targeting features
         setting_system_font_ui: Use system's default font
         setting_theme: Site theme
@@ -187,8 +187,8 @@ en:
         domain: Domain
         exclude_reblog: Exclude boost
         list_id: Target timeline
-        timeline: Timeline
         reblog: Boost
+        timeline: Timeline
       email_domain_block:
         with_dns_records: Include MX records and IPs of the domain
       featured_tag:
@@ -214,16 +214,16 @@ en:
       keyword_subscribe:
         disabled: Temporarily disable subscription
         exclude_keyword: Excluded keyword list or regular expression
-        ignorecase: Ignore case
         ignore_block: Ignore User's domain blocking
+        ignorecase: Ignore case
         keyword: Keyword list or regular expression
         list_id: Target timeline
         name: Name
         regexp: Use regular expressions for keywords
       keyword_subscribes:
         disabled: State
-        ignorecase: Case
         ignore_block: Block
+        ignorecase: Case
         keyword: String
         name: Name
         regexp: Type

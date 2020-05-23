@@ -48,6 +48,13 @@ en:
       other: users
     user_count_before: Home to
     what_is_mastodon: What is Mastodon?
+  account_subscribes:
+    add_new: Add
+    edit:
+      title: Edit
+    hint_html: "<strong>What are account subscription?</strong> Insert public posts from the specified account into the home or list timeline. Posts received by the server (federated timeline) are targets."
+    new:
+      title: Add new account subscription
   accounts:
     choices_html: "%{name}'s choices:"
     endorsements_hint: You can endorse people you follow from the web interface, and they will show up here.
@@ -82,13 +89,6 @@ en:
       moderator: Mod
     unavailable: Profile unavailable
     unfollow: Unfollow
-  account_subscribes:
-    add_new: Add
-    edit:
-      title: Edit
-    hint_html: "<strong>What are account subscription?</strong> Insert public posts from the specified account into the home or list timeline. Posts received by the server (federated timeline) are targets."
-    new:
-      title: Add new account subscription
   admin:
     account_actions:
       action: Perform action
@@ -940,20 +940,20 @@ en:
     errors:
       duplicate: The same content has already been registered
       limit: You have reached the maximum number of "Keyword subscribes" that can be registered
-      regexp: "Regular expression error: %{message}"
+      regexp: 'Regular expression error: %{message}'
     hint_html: "<strong>What is a keyword subscribes?</strong> Inserts a public post that matches one of the specified words or a regular expression into the home or list timeline. Posts received by the server (federated timeline) are targets."
-    ignorecase:
-      enabled: Ignore
-      disabled: Sensitive
     ignore_block: Ignore
+    ignorecase:
+      disabled: Sensitive
+      enabled: Ignore
     index:
       delete: Delete
       title: Keyword subscribe
     new:
       title: Add new keyword subscribe
     regexp:
-      enabled: Regex
       disabled: Keyword
+      enabled: Regex
   lists:
     add_new: Add new list
     errors:
