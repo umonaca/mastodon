@@ -253,11 +253,11 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.bigint "user_id"
     t.string "dump_file_name"
     t.string "dump_content_type"
-    t.bigint "dump_file_size"
     t.datetime "dump_updated_at"
     t.boolean "processed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "dump_file_size"
   end
 
   create_table "blocks", force: :cascade do |t|
@@ -794,6 +794,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
     t.index ["uri"], name: "index_statuses_on_uri", unique: true
+    t.index ["url"], name: "index_statuses_on_url"
   end
 
   create_table "statuses_tags", id: false, force: :cascade do |t|
