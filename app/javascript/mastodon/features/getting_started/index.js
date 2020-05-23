@@ -36,6 +36,9 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
+  tokyo: { id:'navigation_bar.tokyo', defaultMessage: 'Tokyo Camera Club' },
+  gallery: { id: 'navigation_bar.gallery', defaultMessage: 'Galleries' },
+  galleries_subheading: {id: 'column_subheading.galleries', defaultMessage: 'Galleries' },
 });
 
 const mapStateToProps = state => ({
@@ -102,7 +105,7 @@ class GettingStarted extends ImmutablePureComponent {
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
       );
 
-      height += 34 + 48*2;
+      height += 34 + 48*3;
 
       if (profile_directory) {
         navItems.push(
@@ -111,6 +114,13 @@ class GettingStarted extends ImmutablePureComponent {
 
         height += 48;
       }
+
+      navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.gallery)} />,
+        <ColumnLink key={i++} icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
+      );
+
+      height += 34 + 48;
 
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
@@ -140,6 +150,13 @@ class GettingStarted extends ImmutablePureComponent {
     }
 
     if (!multiColumn) {
+      navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.galleries_subheading)} />,
+        <ColumnLink key={i++} icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
+      );
+
+      height += 34 + 48;
+
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.settings_subheading)} />,
         <ColumnLink key={i++} icon='gears' text={intl.formatMessage(messages.preferences)} href='/settings/preferences' />,
