@@ -360,27 +360,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.index ["list_id"], name: "index_domain_subscribes_on_list_id"
   end
 
-  create_table "domains", force: :cascade do |t|
-    t.string "domain", default: "", null: false
-    t.string "title", default: "", null: false
-    t.string "short_description", default: "", null: false
-    t.string "email", default: "", null: false
-    t.string "version", default: "", null: false
-    t.string "thumbnail_remote_url", default: "", null: false
-    t.string "languages", array: true
-    t.boolean "registrations"
-    t.boolean "approval_required"
-    t.bigint "contact_account_id"
-    t.string "software", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "thumbnail_file_name"
-    t.string "thumbnail_content_type"
-    t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
-    t.index ["contact_account_id"], name: "index_domains_on_contact_account_id"
-  end
-
   create_table "email_domain_blocks", force: :cascade do |t|
     t.string "domain", default: "", null: false
     t.datetime "created_at", null: false
@@ -961,7 +940,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
   add_foreign_key "custom_filters", "accounts", on_delete: :cascade
   add_foreign_key "domain_subscribes", "accounts", on_delete: :cascade
   add_foreign_key "domain_subscribes", "lists", on_delete: :cascade
-  add_foreign_key "domains", "accounts", column: "contact_account_id"
   add_foreign_key "email_domain_blocks", "email_domain_blocks", column: "parent_id", on_delete: :cascade
   add_foreign_key "favourites", "accounts", name: "fk_5eb6c2b873", on_delete: :cascade
   add_foreign_key "favourites", "statuses", name: "fk_b0e856845e", on_delete: :cascade
