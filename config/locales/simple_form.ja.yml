@@ -45,26 +45,44 @@ ja:
         setting_display_media_default: 閲覧注意としてマークされたメディアは隠す
         setting_display_media_hide_all: メディアを常に隠す
         setting_display_media_show_all: メディアを常に表示する
+        setting_follow_button_to_list_adder: フォロー・購読ボタンの動作を変更し、フォロー・購読するリストを選択したり、ホームで受け取らないよう設定するダイアログを開きます
         setting_hide_network: フォローとフォロワーの情報がプロフィールページで見られないようにします
         setting_noindex: 公開プロフィールおよび各投稿ページに影響します
         setting_show_application: トゥートするのに使用したアプリがトゥートの詳細ビューに表示されるようになります
+        setting_show_follow_button_on_timeline: フォロー状態を確認し易くなり、素早くフォローリストを構築できます
+        setting_show_followed_by: フォロー状態に応じてフォローボタンの色が変わります（灰色：フォロー関係なし、黄色：フォローされている、青色：フォローしている、緑色：相互フォロー）
+        setting_show_subscribe_button_on_timeline: 購読状態を確認し易くなり、素早く購読リストを構築できます
+        setting_show_target: 投稿対象と、フォロー・購読の対象を切り替える機能を有効にします
         setting_use_blurhash: ぼかしはメディアの色を元に生成されますが、細部は見えにくくなっています
         setting_use_pending_items: 新着があってもタイムラインを自動的にスクロールしないようにします
         username: あなたのユーザー名は %{domain} の中で重複していない必要があります
         whole_word: キーワードまたはフレーズが英数字のみの場合、単語全体と一致する場合のみ適用されるようになります
       domain_allow:
         domain: 登録するとこのサーバーからデータを受信したり、このドメインから受信するデータを処理して保存できるようになります
+      domain_subscribe:
+        domain: 購読したいサーバのドメイン名を指定します
+        exclude_reblog: ブーストされた投稿を購読から除外します
       email_domain_block:
         domain: メールアドレスのドメイン名および、名前解決したMXレコード、IPアドレスを指定できます。ユーザー登録時にこれらをチェックし、該当する場合はユーザー登録を拒否します。
         with_dns_records: 指定したドメインのDNSレコードを取得し、その結果もブラックリストに登録されます
       featured_tag:
         name: 'これらを使うといいかもしれません:'
+      follow_tag:
+        name: フォローしたいハッシュタグを '#' 抜きで指定します
+      form_account_subscribe:
+        acct: 購読したいアカウントを username@domain 形式で指定します
+        show_reblogs: ブーストされた投稿を購読に含めます
       form_challenge:
         current_password: セキュリティ上重要なエリアにアクセスしています
       imports:
         data: 他の Mastodon サーバーからエクスポートしたCSVファイルを選択して下さい
       invite_request:
         text: このサーバーは現在承認制です。申請を承認する際に役立つメッセージを添えてください
+      keyword_subscribe:
+        exclude_keyword: カンマで区切って複数の除外するキーワードを並べます（または正規表現で指定します）
+        ignore_block: ドメイン全体を非表示にしたまま、キーワードの購読を優先することができます
+        keyword: カンマで区切って複数のキーワードを並べます（または正規表現で指定します）
+        name: オプションです
       sessions:
         otp: '携帯電話のアプリで生成された二段階認証コードを入力するか、リカバリーコードを使用してください:'
       tag:
@@ -140,14 +158,20 @@ ja:
         setting_display_media_hide_all: 非表示
         setting_display_media_show_all: 表示
         setting_expand_spoilers: 閲覧注意としてマークされたトゥートを常に展開する
+        setting_follow_button_to_list_adder: フォローボタンでリスト追加ダイアログを開く
         setting_hide_network: 繋がりを隠す
         setting_noindex: 検索エンジンによるインデックスを拒否する
         setting_reduce_motion: アニメーションの動きを減らす
         setting_show_application: 送信したアプリを開示する
+        setting_show_follow_button_on_timeline: タイムライン上にフォローボタンを表示する
+        setting_show_followed_by: 被フォロー状態をフォローボタンに反映する
+        setting_show_subscribe_button_on_timeline: タイムライン上に購読ボタンを表示する
+        setting_show_target: ターゲット機能を有効にする
         setting_system_font_ui: システムのデフォルトフォントを使う
         setting_theme: サイトテーマ
         setting_trends: 本日のトレンドタグを表示する
         setting_unfollow_modal: フォローを解除する前に確認ダイアログを表示する
+        setting_unsubscribe_modal: 購読を解除する前に確認ダイアログを表示する
         setting_use_blurhash: 非表示のメディアを色付きのぼかしで表示する
         setting_use_pending_items: 手動更新モード
         severity: 重大性
@@ -155,10 +179,26 @@ ja:
         username: ユーザー名
         username_or_email: ユーザー名またはメールアドレス
         whole_word: 単語全体にマッチ
+      domain_subscribe:
+        domain: ドメイン
+        exclude_reblog: ブースト除外
+        list_id: 対象タイムライン
+        reblog: ブースト
+        timeline: タイムライン
       email_domain_block:
         with_dns_records: ドメインのMXレコードとIPアドレスを含む
       featured_tag:
         name: ハッシュタグ
+      follow_tag:
+        list_id: 対象タイムライン
+        name: ハッシュタグ
+        timeline: タイムライン
+      form_account_subscribe:
+        acct: アカウント
+        list_id: 対象タイムライン
+        reblog: ブースト
+        show_reblogs: ブーストを表示
+        timeline: タイムライン
       interactions:
         must_be_follower: フォロワー以外からの通知をブロック
         must_be_following: フォローしていないユーザーからの通知をブロック
@@ -167,6 +207,23 @@ ja:
         comment: コメント
       invite_request:
         text: 意気込みをお聞かせください
+      keyword_subscribe:
+        disabled: 一時的に購読を無効にする
+        exclude_keyword: 除外するキーワードまたは正規表現
+        ignore_block: ユーザーによるドメインブロックを無視する
+        ignorecase: 大文字と小文字を区別しない
+        keyword: キーワードまたは正規表現
+        list_id: 対象タイムライン
+        name: 名称
+        regexp: キーワードに正規表現を使う
+      keyword_subscribes:
+        disabled: 状態
+        ignore_block: ブロック
+        ignorecase: 大小
+        keyword: 設定値
+        name: 名称
+        regexp: 種別
+        timeline: タイムライン
       notification_emails:
         digest: タイムラインからピックアップしてメールで通知する
         favourite: お気に入り登録された時

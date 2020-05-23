@@ -11,15 +11,17 @@ class FollowService < BaseService
   # @option [Boolean] :reblogs Whether or not to show reblogs, defaults to true
   # @option [Boolean] :bypass_locked
   # @option [Boolean] :with_rate_limit
+  # @option [Boolean] :delivery
   def call(source_account, target_account, options = {})
     @source_account = source_account
     @target_account = ResolveAccountService.new.call(target_account, skip_webfinger: true)
-    @options        = { reblogs: true, bypass_locked: false, with_rate_limit: false }.merge(options)
+    @options        = { reblogs: true, bypass_locked: false, with_rate_limit: false, delivery: true }.merge(options)
 
     raise ActiveRecord::RecordNotFound if following_not_possible?
     raise Mastodon::NotPermittedError  if following_not_allowed?
 
     if @source_account.following?(@target_account)
+      UnmergeWorker.perform_async(@target_account.id, @source_account.id) if @source_account.delivery_following?(@target_account) && @options[:delivery]
       return change_follow_options!
     elsif @source_account.requested?(@target_account)
       return change_follow_request_options!
@@ -45,15 +47,15 @@ class FollowService < BaseService
   end
 
   def change_follow_options!
-    @source_account.follow!(@target_account, reblogs: @options[:reblogs])
+    @source_account.follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery])
   end
 
   def change_follow_request_options!
-    @source_account.request_follow!(@target_account, reblogs: @options[:reblogs])
+    @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery])
   end
 
   def request_follow!
-    follow_request = @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], rate_limit: @options[:with_rate_limit])
+    follow_request = @source_account.request_follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery], rate_limit: @options[:with_rate_limit])
 
     if @target_account.local?
       LocalNotificationWorker.perform_async(@target_account.id, follow_request.id, follow_request.class.name)
@@ -65,10 +67,10 @@ class FollowService < BaseService
   end
 
   def direct_follow!
-    follow = @source_account.follow!(@target_account, reblogs: @options[:reblogs], rate_limit: @options[:with_rate_limit])
+    follow = @source_account.follow!(@target_account, reblogs: @options[:reblogs], delivery: @options[:delivery], rate_limit: @options[:with_rate_limit])
 
     LocalNotificationWorker.perform_async(@target_account.id, follow.id, follow.class.name)
-    MergeWorker.perform_async(@target_account.id, @source_account.id)
+    MergeWorker.perform_async(@target_account.id, @source_account.id) if @options[:delivery]
 
     follow
   end

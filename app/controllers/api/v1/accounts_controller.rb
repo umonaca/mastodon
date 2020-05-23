@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::AccountsController < Api::BaseController
-  before_action -> { authorize_if_got_token! :read, :'read:accounts' }, except: [:create, :follow, :unfollow, :block, :unblock, :mute, :unmute]
-  before_action -> { doorkeeper_authorize! :follow, :'write:follows' }, only: [:follow, :unfollow]
+  before_action -> { authorize_if_got_token! :read, :'read:accounts' }, except: [:create, :follow, :unfollow, :subscribe, :unsubscribe, :block, :unblock, :mute, :unmute]
+  before_action -> { doorkeeper_authorize! :follow, :'write:follows' }, only: [:follow, :unfollow, :subscribe, :unsubscribe]
   before_action -> { doorkeeper_authorize! :follow, :'write:mutes' }, only: [:mute, :unmute]
   before_action -> { doorkeeper_authorize! :follow, :'write:blocks' }, only: [:block, :unblock]
   before_action -> { doorkeeper_authorize! :write, :'write:accounts' }, only: [:create]
@@ -31,11 +31,16 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def follow
-    FollowService.new.call(current_user.account, @account, reblogs: truthy_param?(:reblogs), with_rate_limit: true)
+    FollowService.new.call(current_user.account, @account, reblogs: truthy_param?(:reblogs), delivery: truthy_param?(:delivery), with_rate_limit: true)
 
-    options = @account.locked? || current_user.account.silenced? ? {} : { following_map: { @account.id => { reblogs: truthy_param?(:reblogs) } }, requested_map: { @account.id => false } }
+    options = @account.locked? || current_user.account.silenced? ? {} : { following_map: { @account.id => { reblogs: truthy_param?(:reblogs), delivery: truthy_param?(:delivery) } }, requested_map: { @account.id => false } }
 
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships(options)
+  end
+
+  def subscribe
+    AccountSubscribeService.new.call(current_user.account, @account, reblogs: truthy_param?(:reblogs), list_id: params[:list_id])
+    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 
   def block
@@ -50,6 +55,11 @@ class Api::V1::AccountsController < Api::BaseController
 
   def unfollow
     UnfollowService.new.call(current_user.account, @account)
+    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
+  end
+
+  def unsubscribe
+    UnsubscribeAccountService.new.call(current_user.account, @account, params[:list_id])
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 

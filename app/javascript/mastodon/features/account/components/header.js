@@ -3,18 +3,22 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Button from 'mastodon/components/button';
+import IconButton from 'mastodon/components/icon_button';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { autoPlayGif, me, isStaff } from 'mastodon/initial_state';
+import { autoPlayGif, me, isStaff, show_followed_by, follow_button_to_list_adder } from 'mastodon/initial_state';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 import Avatar from 'mastodon/components/avatar';
 import { shortNumberFormat } from 'mastodon/utils/numbers';
 import { NavLink } from 'react-router-dom';
 import DropdownMenuContainer from 'mastodon/containers/dropdown_menu_container';
+import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
+  unsubscribe: { id: 'account.unsubscribe', defaultMessage: 'Unsubscribe' },
+  subscribe: { id: 'account.subscribe', defaultMessage: 'Subscribe' },
   cancel_follow_request: { id: 'account.cancel_follow_request', defaultMessage: 'Cancel follow request' },
   requested: { id: 'account.requested', defaultMessage: 'Awaiting approval. Click to cancel follow request' },
   unblock: { id: 'account.unblock', defaultMessage: 'Unblock @{name}' },
@@ -63,6 +67,8 @@ class Header extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     identity_props: ImmutablePropTypes.list,
     onFollow: PropTypes.func.isRequired,
+    onSubscribe: PropTypes.func.isRequired,
+    onAddToList: PropTypes.func.isRequired,
     onBlock: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     domain: PropTypes.string.isRequired,
@@ -115,6 +121,22 @@ class Header extends ImmutablePureComponent {
 
   handleEmojiMouseLeave = ({ target }) => {
     target.src = target.getAttribute('data-static');
+  }
+
+  handleFollow = (e) => {
+    if ((e && e.shiftKey) || !follow_button_to_list_adder) {
+      this.props.onFollow(this.props.account);
+    } else {
+      this.props.onAddToList(this.props.account);
+    }
+  }
+
+  handleSubscribe = (e) => {
+    if ((e && e.shiftKey) || !follow_button_to_list_adder) {
+      this.props.onSubscribe(this.props.account);
+    } else {
+      this.props.onAddToList(this.props.account);
+    }
   }
 
   setRef = (c) => {
@@ -201,9 +223,10 @@ class Header extends ImmutablePureComponent {
         }
 
         menu.push({ text: intl.formatMessage(account.getIn(['relationship', 'endorsed']) ? messages.unendorse : messages.endorse), action: this.props.onEndorseToggle });
-        menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });
         menu.push(null);
       }
+      menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });
+      menu.push(null);
 
       if (account.getIn(['relationship', 'muting'])) {
         menu.push({ text: intl.formatMessage(messages.unmute, { name: account.get('username') }), action: this.props.onMute });
@@ -252,6 +275,25 @@ class Header extends ImmutablePureComponent {
       badge = null;
     }
 
+    const following        = account.getIn(['relationship', 'following']);
+    const delivery         = account.getIn(['relationship', 'delivery_following']);
+    const followed_by      = account.getIn(['relationship', 'followed_by']) && show_followed_by;
+    const subscribing      = account.getIn(['relationship', 'subscribing'], new Map).size > 0;
+    const subscribing_home = account.getIn(['relationship', 'subscribing', '-1'], new Map).size > 0;
+    const blockd_by        = account.getIn(['relationship', 'blocked_by']);
+    let buttons;
+
+    if(me !== account.get('id') && !blockd_by) {
+      let following_buttons, subscribing_buttons;
+      if(!account.get('moved') || subscribing) {
+        subscribing_buttons = <IconButton icon='rss-square' title={intl.formatMessage(subscribing ? messages.unsubscribe : messages.subscribe)} onClick={this.handleSubscribe} active={subscribing} no_delivery={subscribing && !subscribing_home} />;
+      }
+      if(!account.get('moved') || following) {
+        following_buttons = <IconButton icon={following ? 'user-times' : 'user-plus'} title={intl.formatMessage(following ? messages.unfollow : messages.follow)} onClick={this.handleFollow} active={following} passive={followed_by} no_delivery={following && !delivery} />;
+      }
+      buttons = <span>{subscribing_buttons}{following_buttons}</span>
+    }
+
     return (
       <div className={classNames('account__header', { inactive: !!account.get('moved') })} ref={this.setRef}>
         <div className='account__header__image'>
@@ -282,6 +324,9 @@ class Header extends ImmutablePureComponent {
               <span dangerouslySetInnerHTML={displayNameHtml} /> {badge}
               <small>@{acct} {lockedIcon}</small>
             </h1>
+            <div className='account__header__tabs__name__relationship account__relationship'>
+              {buttons}
+            </div>
           </div>
 
           <div className='account__header__extra'>
@@ -327,6 +372,12 @@ class Header extends ImmutablePureComponent {
               <NavLink exact activeClassName='active' to={`/accounts/${account.get('id')}/followers`} title={intl.formatNumber(account.get('followers_count'))}>
                 <strong>{shortNumberFormat(account.get('followers_count'))}</strong> <FormattedMessage id='account.followers' defaultMessage='Followers' />
               </NavLink>
+
+              { (me === account.get('id')) && (
+                <NavLink exact activeClassName='active' to={`/accounts/${account.get('id')}/subscribing`} title={intl.formatNumber(account.get('subscribing_count'))}>
+                  <strong>{shortNumberFormat(account.get('subscribing_count'))}</strong> <FormattedMessage id='account.subscribes' defaultMessage='Subscribes' />
+                </NavLink>
+              )}
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ class ActivityPub::MoveDistributionWorker
   private
 
   def inboxes
-    @inboxes ||= @migration.account.followers.inboxes
+    @inboxes ||= @migration.account.delivery_followers.inboxes
   end
 
   def signed_payload

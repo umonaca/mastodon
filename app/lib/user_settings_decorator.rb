@@ -23,6 +23,7 @@ class UserSettingsDecorator
     user.settings['default_federation']  = default_federation_preference if change?('setting_default_federation')
     user.settings['mobile_federation']  = mobile_federation_preference if change?('setting_mobile_federation')
     user.settings['unfollow_modal']      = unfollow_modal_preference if change?('setting_unfollow_modal')
+    user.settings['unsubscribe_modal']   = unsubscribe_modal_preference if change?('setting_unsubscribe_modal')
     user.settings['boost_modal']         = boost_modal_preference if change?('setting_boost_modal')
     user.settings['delete_modal']        = delete_modal_preference if change?('setting_delete_modal')
     user.settings['auto_play_gif']       = auto_play_gif_preference if change?('setting_auto_play_gif')
@@ -40,6 +41,11 @@ class UserSettingsDecorator
     user.settings['use_pending_items']   = use_pending_items_preference if change?('setting_use_pending_items')
     user.settings['trends']              = trends_preference if change?('setting_trends')
     user.settings['crop_images']         = crop_images_preference if change?('setting_crop_images')
+    user.settings['show_follow_button_on_timeline']    = show_follow_button_on_timeline_preference if change?('setting_show_follow_button_on_timeline')
+    user.settings['show_subscribe_button_on_timeline'] = show_subscribe_button_on_timeline_preference if change?('setting_show_subscribe_button_on_timeline')
+    user.settings['show_followed_by']                  = show_followed_by_preference if change?('setting_show_followed_by')
+    user.settings['follow_button_to_list_adder']       = follow_button_to_list_adder_preference if change?('setting_follow_button_to_list_adder')
+    user.settings['show_target']                       = show_target_preference if change?('setting_show_target')
   end
 
   def merged_notification_emails
@@ -68,6 +74,10 @@ class UserSettingsDecorator
   
   def unfollow_modal_preference
     boolean_cast_setting 'setting_unfollow_modal'
+  end
+
+  def unsubscribe_modal_preference
+    boolean_cast_setting 'setting_unsubscribe_modal'
   end
 
   def boost_modal_preference
@@ -140,6 +150,26 @@ class UserSettingsDecorator
 
   def crop_images_preference
     boolean_cast_setting 'setting_crop_images'
+  end
+
+  def show_follow_button_on_timeline_preference
+    boolean_cast_setting 'setting_show_follow_button_on_timeline'
+  end
+
+  def show_subscribe_button_on_timeline_preference
+    boolean_cast_setting 'setting_show_subscribe_button_on_timeline'
+  end
+
+  def show_followed_by_preference
+    boolean_cast_setting 'setting_show_followed_by'
+  end
+
+  def follow_button_to_list_adder_preference
+    boolean_cast_setting 'setting_follow_button_to_list_adder'
+  end
+
+  def show_target_preference
+    boolean_cast_setting 'setting_show_target'
   end
 
   def boolean_cast_setting(key)

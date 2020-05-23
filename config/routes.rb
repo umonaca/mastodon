@@ -148,6 +148,10 @@ Rails.application.routes.draw do
     resources :aliases, only: [:index, :create, :destroy]
     resources :sessions, only: [:destroy]
     resources :featured_tags, only: [:index, :create, :destroy]
+    resources :follow_tags, except: [:show]
+    resources :account_subscribes, except: [:show]
+    resources :domain_subscribes, except: [:show]
+    resources :keyword_subscribes, except: [:show]
   end
 
   resources :media, only: [:show] do
@@ -392,6 +396,7 @@ Rails.application.routes.draw do
         patch :update_credentials, to: 'credentials#update'
         resource :search, only: :show, controller: :search
         resources :relationships, only: :index
+        resources :subscribing, only: :index, controller: 'subscribing_accounts'
       end
 
       resources :accounts, only: [:create, :show] do
@@ -404,6 +409,8 @@ Rails.application.routes.draw do
         member do
           post :follow
           post :unfollow
+          post :subscribe
+          post :unsubscribe
           post :block
           post :unblock
           post :mute
@@ -416,6 +423,7 @@ Rails.application.routes.draw do
 
       resources :lists, only: [:index, :create, :show, :update, :destroy] do
         resource :accounts, only: [:show, :create, :destroy], controller: 'lists/accounts'
+        resource :subscribes, only: [:show, :create, :destroy], controller: 'lists/subscribes'
       end
 
       namespace :featured_tags do
@@ -423,6 +431,10 @@ Rails.application.routes.draw do
       end
 
       resources :featured_tags, only: [:index, :create, :destroy]
+      resources :favourite_tags, only: [:index, :create, :show, :update, :destroy]
+      resources :follow_tags, only: [:index, :create, :show, :update, :destroy]
+      resources :domain_subscribes, only: [:index, :create, :show, :update, :destroy]
+      resources :keyword_subscribes, only: [:index, :create, :show, :update, :destroy]
 
       resources :polls, only: [:create, :show] do
         resources :votes, only: :create, controller: 'polls/votes'

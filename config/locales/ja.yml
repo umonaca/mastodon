@@ -46,6 +46,13 @@ ja:
       other: 人
     user_count_before: ユーザー数
     what_is_mastodon: Mastodon とは？
+  account_subscribes:
+    add_new: 追加
+    edit:
+      title: 編集
+    hint_html: "<strong>アカウントの購読とは何ですか？</strong> 指定したアカウントの公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
+    new:
+      title: 新規アカウント購読を追加
   accounts:
     choices_html: "%{name} によるおすすめ:"
     endorsements_hint: あなたがフォローしている中でおすすめしたい人をここで紹介できます。
@@ -751,6 +758,15 @@ ja:
     directory: ディレクトリ
     explanation: 関心を軸にユーザーを発見しよう
     explore_mastodon: "%{title}を探索"
+  domain_subscribes:
+    add_new: 追加
+    edit:
+      title: 編集
+    exclude_reblog: 含めない
+    hint_html: "<strong>ドメインの購読とは何ですか？</strong> 指定したドメインの公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
+    include_reblog: 含める
+    new:
+      title: 新規ドメイン購読を追加
   domain_validator:
     invalid_domain: は無効なドメイン名です
   errors:
@@ -808,6 +824,13 @@ ja:
       title: フィルター
     new:
       title: 新規フィルターを追加
+  follow_tags:
+    add_new: 追加
+    edit:
+      title: 編集
+    hint_html: "<strong>ハッシュタグのフォローとは何ですか？</strong> それらはあなたがフォローするハッシュタグのコレクションです。サーバが受け取ったハッシュタグ付きの投稿の中から、ここで指定したハッシュタグのついた投稿をホームタイムラインまたはリストに挿入します。"
+    new:
+      title: ハッシュタグのフォローを追加
   footer:
     developers: 開発者向け
     more: さらに…
@@ -881,9 +904,34 @@ ja:
       expires_at: 有効期限
       uses: 使用
     title: 新規ユーザーの招待
+  keyword_subscribes:
+    add_new: 追加
+    disabled: 無効
+    edit:
+      title: 編集
+    enabled: 有効
+    errors:
+      duplicate: 既に同じ内容が登録されています
+      limit: キーワード購読の登録可能数の上限に達しました
+      regexp: '正規表現に誤りがあります: %{message}'
+    hint_html: "<strong>キーワードの購読とは何ですか？</strong> 指定した単語のいずれか、または正規表現に一致する公開投稿をホームタイムラインまたはリストに挿入します。サーバが受け取っている投稿（連合タイムライン）が対象です。"
+    ignore_block: 無視
+    ignorecase:
+      disabled: 区別
+      enabled: 無視
+    index:
+      delete: 削除
+      title: キーワードの購読
+    new:
+      title: 新規キーワード購読を追加
+    regexp:
+      disabled: キーワード
+      enabled: 正規表現
   lists:
+    add_new: 新しいリストを追加
     errors:
       limit: リストの上限に達しました
+    home: ホーム
   media_attachments:
     validations:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
@@ -985,6 +1033,7 @@ ja:
       too_few_options: は複数必要です
       too_many_options: は%{max}個までです
   preferences:
+    fedibird_features: Fedibirdの機能
     other: その他
     posting_defaults: デフォルトの投稿設定
     public_timelines: 公開タイムライン
@@ -1073,18 +1122,23 @@ ja:
   settings:
     account: アカウント
     account_settings: アカウント設定
+    account_subscribes: アカウントの購読
     aliases: アカウントエイリアス
     appearance: 外観
     authorized_apps: 認証済みアプリ
     back: Mastodon に戻る
     delete: アカウントの削除
     development: 開発
+    domain_subscribes: ドメインの購読
     edit_profile: プロフィールを編集
     export: データのエクスポート
     featured_tags: 注目のハッシュタグ
+    follow_and_subscriptions: フォロー・購読
+    follow_tags: ハッシュタグのフォロー
     identity_proofs: Identity proofs
     import: データのインポート
     import_and_export: インポート・エクスポート
+    keyword_subscribes: キーワードの購読
     migrate: アカウントの引っ越し
     notifications: 通知
     preferences: ユーザー設定

@@ -14,6 +14,8 @@ module AccountCounters
            :following_count=,
            :followers_count,
            :followers_count=,
+           :subscribing_count,
+           :subscribing_count=,
            :increment_count!,
            :decrement_count!,
            :last_status_at,
