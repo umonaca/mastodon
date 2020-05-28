@@ -115,7 +115,8 @@ class User < ApplicationRecord
            :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
            :show_follow_button_on_timeline, :show_subscribe_button_on_timeline, :show_followed_by, :show_target,
            :follow_button_to_list_adder,
-           :default_federation, :mobile_federation, to: :settings, prefix: :setting, allow_nil: false
+           :default_federation, :mobile_federation, :disable_swiping,
+           to: :settings, prefix: :setting, allow_nil: false
 
   attr_reader :invite_code, :sign_in_token_attempt
   attr_writer :external
