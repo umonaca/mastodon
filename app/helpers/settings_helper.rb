@@ -66,6 +66,8 @@ module SettingsHelper
     th: 'ไทย',
     tr: 'Türkçe',
     uk: 'Українська',
+    ur: 'اُردُو',
+    vi: 'Tiếng Việt',
     'zh-CN': '简体中文',
     'zh-HK': '繁體中文（香港）',
     'zh-TW': '繁體中文（臺灣）',
