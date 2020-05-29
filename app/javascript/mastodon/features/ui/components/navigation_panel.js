@@ -15,7 +15,6 @@ const NavigationPanel = () => (
     <FollowRequestsNavLink />
     <NavLink className='column-link column-link--transparent' to='/timelines/public/local' data-preview-title-id='column.community' data-preview-icon='users' ><Icon className='column-link__icon' id='users' fixedWidth /><FormattedMessage id='tabs_bar.local_timeline' defaultMessage='Local' /></NavLink>
     <NavLink className='column-link column-link--transparent' exact to='/timelines/public' data-preview-title-id='column.public' data-preview-icon='globe' ><Icon className='column-link__icon' id='globe' fixedWidth /><FormattedMessage id='tabs_bar.federated_timeline' defaultMessage='Federated' /></NavLink>
-    <a className='column-link column-link--transparent' href='/tokyo'><Icon className='column-link__icon' id='camera' fixedWidth /><FormattedMessage id='navigation_bar.tokyo' defaultMessage='Tokyo Camera Club' /></a>
     <NavLink className='column-link column-link--transparent' to='/timelines/direct'><Icon className='column-link__icon' id='envelope' fixedWidth /><FormattedMessage id='navigation_bar.direct' defaultMessage='Direct messages' /></NavLink>
     <NavLink className='column-link column-link--transparent' to='/favourites'><Icon className='column-link__icon' id='star' fixedWidth /><FormattedMessage id='navigation_bar.favourites' defaultMessage='Favourites' /></NavLink>
     <NavLink className='column-link column-link--transparent' to='/bookmarks'><Icon className='column-link__icon' id='bookmark' fixedWidth /><FormattedMessage id='navigation_bar.bookmarks' defaultMessage='Bookmarks' /></NavLink>
@@ -28,6 +27,12 @@ const NavigationPanel = () => (
 
     <a className='column-link column-link--transparent' href='/settings/preferences'><Icon className='column-link__icon' id='cog' fixedWidth /><FormattedMessage id='navigation_bar.preferences' defaultMessage='Preferences' /></a>
     <a className='column-link column-link--transparent' href='/relationships'><Icon className='column-link__icon' id='users' fixedWidth /><FormattedMessage id='navigation_bar.follows_and_followers' defaultMessage='Follows and followers' /></a>
+
+    <hr />
+
+    <a className='column-link column-link--transparent' href='/tokyo'><Icon className='column-link__icon' id='camera' fixedWidth /><FormattedMessage id='navigation_bar.tokyo' defaultMessage='Tokyo Camera Club' /></a>
+
+    <hr />
 
     {showTrends && <div className='flex-spacer' />}
     {showTrends && <TrendsContainer />}
