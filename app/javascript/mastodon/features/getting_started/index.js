@@ -37,6 +37,7 @@ const messages = defineMessages({
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
   tokyo: { id:'navigation_bar.tokyo', defaultMessage: 'Tokyo Camera Club' },
+  galleryapp: { id:'navigation_bar.galleryapp', defaultMessage: 'Federated Media Timeline' },
   gallery: { id: 'navigation_bar.gallery', defaultMessage: 'Galleries' },
   galleries_subheading: {id: 'column_subheading.galleries', defaultMessage: 'Galleries' },
 });
@@ -118,9 +119,10 @@ class GettingStarted extends ImmutablePureComponent {
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.gallery)} />,
         <ColumnLink key={i++} icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
+        <ColumnLink key={i++} icon='play-circle' text={intl.formatMessage(messages.galleryapp)} href='/gallery' />,
       );
 
-      height += 34 + 48;
+      height += 34 + 48*2;
 
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
@@ -153,9 +155,10 @@ class GettingStarted extends ImmutablePureComponent {
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.galleries_subheading)} />,
         <ColumnLink key={i++} icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
+        <ColumnLink key={i++} icon='play-circle' text={intl.formatMessage(messages.galleryapp)} href='/gallery' />,
       );
 
-      height += 34 + 48;
+      height += 34 + 48*2;
 
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.settings_subheading)} />,

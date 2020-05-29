@@ -31,6 +31,7 @@ const NavigationPanel = () => (
     <hr />
 
     <a className='column-link column-link--transparent' href='/tokyo'><Icon className='column-link__icon' id='camera' fixedWidth /><FormattedMessage id='navigation_bar.tokyo' defaultMessage='Tokyo Camera Club' /></a>
+    <a className='column-link column-link--transparent' href='/gallery'><Icon className='column-link__icon' id='play-circle' fixedWidth /><FormattedMessage id='navigation_bar.galleryapp' defaultMessage='Federated Media Timeline' /></a>
 
     <hr />
 
