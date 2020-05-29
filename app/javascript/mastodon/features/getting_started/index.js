@@ -41,6 +41,8 @@ const messages = defineMessages({
   galleryapp: { id:'navigation_bar.galleryapp', defaultMessage: 'Federated Media Timeline' },
   gallery: { id: 'navigation_bar.gallery', defaultMessage: 'Galleries' },
   galleries_subheading: { id: 'column_subheading.galleries', defaultMessage: 'Galleries' },
+  nicedb: { id: 'navigation_bar.nicedb', defaultMessage: 'NiceDB' },
+  extra_heading: { id: 'navigation_bar.extraheading', defaultMessage: 'New world'},
 });
 
 const mapStateToProps = state => ({
@@ -124,6 +126,13 @@ class GettingStarted extends ImmutablePureComponent {
       }
 
       navItems.push(
+        <ColumnSubheading key='extra_heading' text={intl.formatMessage(messages.extra_heading)} />,
+        <ColumnLink key='nicedb' icon='book' text={intl.formatMessage(messages.nicedb)} href='https://nicedb.org' />,
+      );
+
+      height += 34 + 48;
+
+      navItems.push(
         <ColumnSubheading key='gallery' text={intl.formatMessage(messages.gallery)} />,
         <ColumnLink key='tokyo' icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
         <ColumnLink key='galleryapp' icon='play-circle' text={intl.formatMessage(messages.galleryapp)} href='/gallery' />,
@@ -174,6 +183,13 @@ class GettingStarted extends ImmutablePureComponent {
     }
 
     if (!multiColumn) {
+      navItems.push(
+        <ColumnSubheading key='extra_heading' text={intl.formatMessage(messages.extra_heading)} />,
+        <ColumnLink key='nicedb' icon='book' text={intl.formatMessage(messages.nicedb)} href='https://nicedb.org' />,
+      );
+
+      height += 34 + 48;
+
       navItems.push(
         <ColumnSubheading key='galleries_subheading' text={intl.formatMessage(messages.galleries_subheading)} />,
         <ColumnLink key='tokyo' icon='camera' text={intl.formatMessage(messages.tokyo)} href='/tokyo' />,
