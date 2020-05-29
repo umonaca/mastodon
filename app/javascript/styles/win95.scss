@@ -1483,6 +1483,12 @@ body.admin {
   background-position: 36px 50%;
   &:hover { background-image: url("../images/icon_relationship.png"); }
 }
+.column-link[href="https://nicedb.org"] {
+  background-image: url("../images/icon_nicedb.png");
+  background-repeat:no-repeat;
+  background-position: 36px 50%;
+  &:hover { background-image: url("../images/icon_nicedb.png"); }
+}
 
 .getting-started__footer ul li a[href="/web/keyboard-shortcuts"] {
   background-image: url("../images/icon_keyboard_shortcuts.png");
