@@ -396,9 +396,11 @@ class Status < ApplicationRecord
                          Status.local
                        when :remote
                          Status.remote
-                       else
+                       when String
                          Status.includes(:account)
                            .where(accounts: {domain: scope}).select('statuses.*, accounts.*')
+                       else
+                         Status
                        end
 
       starting_scope
