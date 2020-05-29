@@ -8,7 +8,6 @@ import IconButton from './icon_button';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { me, show_followed_by, follow_button_to_list_adder } from '../initial_state';
-import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -131,7 +130,7 @@ class Account extends ImmutablePureComponent {
         if (!account.get('moved') || following) {
           following_buttons = <IconButton icon={following ? 'user-times' : 'user-plus'} title={intl.formatMessage(following ? messages.unfollow : messages.follow)} onClick={this.handleFollow} active={following} passive={followed_by} no_delivery={following && !delivery} />;
         }
-        buttons = <span>{subscribing_buttons}{following_buttons}</span>
+        buttons = <span>{subscribing_buttons}{following_buttons}</span>;
       }
     }
 

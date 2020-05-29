@@ -1,7 +1,6 @@
 import api, { getLinks } from '../api';
 import openDB from '../storage/db';
 import { importAccount, importFetchedAccount, importFetchedAccounts } from './importer';
-import { Map as ImmutableMap } from 'immutable';
 
 export const ACCOUNT_FETCH_REQUEST = 'ACCOUNT_FETCH_REQUEST';
 export const ACCOUNT_FETCH_SUCCESS = 'ACCOUNT_FETCH_SUCCESS';
@@ -633,7 +632,7 @@ export function fetchSubscribing(id) {
   return (dispatch, getState) => {
     dispatch(fetchSubscribeRequest(id));
 
-    api(getState).get(`/api/v1/accounts/subscribing`).then(response => {
+    api(getState).get('/api/v1/accounts/subscribing').then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
 
       dispatch(importFetchedAccounts(response.data));

@@ -19,11 +19,10 @@ import {
   unsubscribeAccount,
   blockAccount,
   unblockAccount,
-  unmuteAccount
+  unmuteAccount,
 } from 'mastodon/actions/accounts';
 import { openModal } from 'mastodon/actions/modal';
 import { initMuteModal } from 'mastodon/actions/mutes';
-import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -213,7 +212,7 @@ class AccountCard extends ImmutablePureComponent {
         if(!account.get('moved') || following) {
           following_buttons = <IconButton icon={following ? 'user-times' : 'user-plus'} title={intl.formatMessage(following ? messages.unfollow : messages.follow)} onClick={this.handleFollow} active={following} passive={followed_by} no_delivery={following && !delivery} />;
         }
-        buttons = <span>{subscribing_buttons}{following_buttons}</span>
+        buttons = <span>{subscribing_buttons}{following_buttons}</span>;
       }
     }
 

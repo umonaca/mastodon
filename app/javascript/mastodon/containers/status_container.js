@@ -48,7 +48,6 @@ import { openModal } from '../actions/modal';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { boostModal, deleteModal, unfollowModal, unsubscribeModal } from '../initial_state';
 import { showAlertForError } from '../actions/alerts';
-import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },

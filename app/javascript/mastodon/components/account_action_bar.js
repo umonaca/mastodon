@@ -78,7 +78,7 @@ class AccountActionBar extends ImmutablePureComponent {
           following_buttons = <IconButton icon={following ? 'user-times' : 'user-plus'} title={intl.formatMessage(following ? messages.unfollow : messages.follow)} onClick={this.handleFollow} active={following} passive={followed_by} no_delivery={following && !delivery} />;
         }
       }
-      buttons = <span>{subscribing_buttons}{following_buttons}</span>
+      buttons = <span>{subscribing_buttons}{following_buttons}</span>;
     }
 
     return (

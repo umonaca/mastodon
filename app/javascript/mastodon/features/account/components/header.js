@@ -12,7 +12,6 @@ import Avatar from 'mastodon/components/avatar';
 import { shortNumberFormat } from 'mastodon/utils/numbers';
 import { NavLink } from 'react-router-dom';
 import DropdownMenuContainer from 'mastodon/containers/dropdown_menu_container';
-import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
@@ -291,7 +290,7 @@ class Header extends ImmutablePureComponent {
       if(!account.get('moved') || following) {
         following_buttons = <IconButton icon={following ? 'user-times' : 'user-plus'} title={intl.formatMessage(following ? messages.unfollow : messages.follow)} onClick={this.handleFollow} active={following} passive={followed_by} no_delivery={following && !delivery} />;
       }
-      buttons = <span>{subscribing_buttons}{following_buttons}</span>
+      buttons = <span>{subscribing_buttons}{following_buttons}</span>;
     }
 
     return (

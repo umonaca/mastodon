@@ -10,7 +10,6 @@ import { unfollowAccount, followAccount } from '../../../actions/accounts';
 import { me, show_followed_by, unfollowModal } from '../../../initial_state';
 import { openModal } from '../../../actions/modal';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { Map as ImmutableMap } from 'immutable';
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -19,7 +18,7 @@ const messages = defineMessages({
   unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
 });
 
-const MapStateToProps = (state) => ({
+const MapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch, { intl }) => ({

@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onOpenCanvas () {
     dispatch(openModal('DOODLE', { noEsc: true }));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoodleButton);

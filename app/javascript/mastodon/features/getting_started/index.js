@@ -39,7 +39,7 @@ const messages = defineMessages({
   tokyo: { id:'navigation_bar.tokyo', defaultMessage: 'Tokyo Camera Club' },
   galleryapp: { id:'navigation_bar.galleryapp', defaultMessage: 'Federated Media Timeline' },
   gallery: { id: 'navigation_bar.gallery', defaultMessage: 'Galleries' },
-  galleries_subheading: {id: 'column_subheading.galleries', defaultMessage: 'Galleries' },
+  galleries_subheading: { id: 'column_subheading.galleries', defaultMessage: 'Galleries' },
 });
 
 const mapStateToProps = state => ({
