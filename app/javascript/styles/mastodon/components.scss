@@ -1047,6 +1047,12 @@
     }
   }
 
+  & > .muted-quote {
+    color: $dark-text-color;
+    font-weight: 500;
+    font-size: 100%;
+  }
+
   .status__avatar,
   .detailed-status__display-avatar {
     height: 18px;
