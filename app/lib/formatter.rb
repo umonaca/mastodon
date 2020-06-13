@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'singleton'
+require 'json'
 require_relative './sanitize_config'
 
 class Formatter
@@ -8,6 +9,8 @@ class Formatter
   include RoutingHelper
 
   include ActionView::Helpers::TextHelper
+
+  @@link_rewrite = JSON.parse(ENV["LINK_REWRITE"])
 
   def format(status, **options)
     if status.reblog?
@@ -257,6 +260,12 @@ class Formatter
     html_attrs = { target: '_blank', rel: 'nofollow noopener noreferrer' }
 
     html_attrs[:rel] = "me #{html_attrs[:rel]}" if options[:me]
+
+    @@link_rewrite.each do |column|
+      if url.host == column[0] and url.path.start_with?(column[1])
+        url.host = column[2]
+      end
+    end
 
     Twitter::Autolink.send(:link_to_text, entity, link_html(entity[:url]), url, html_attrs)
   rescue Addressable::URI::InvalidURIError, IDN::Idna::IdnaError

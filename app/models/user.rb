@@ -203,15 +203,15 @@ class User < ApplicationRecord
   end
 
   def allows_digest_emails?
-    settings.notification_emails['digest']
+    false
   end
 
   def allows_report_emails?
-    settings.notification_emails['report']
+    false
   end
 
   def allows_pending_account_emails?
-    settings.notification_emails['pending_account']
+    false
   end
 
   def allows_trending_tag_emails?
@@ -361,7 +361,7 @@ class User < ApplicationRecord
   def prepare_new_user!
     BootstrapTimelineWorker.perform_async(account_id)
     ActivityTracker.increment('activity:accounts:local')
-    UserMailer.welcome(self).deliver_later
+    # UserMailer.welcome(self).deliver_later
   end
 
   def prepare_returning_user!
@@ -371,8 +371,7 @@ class User < ApplicationRecord
 
   def notify_staff_about_pending_account!
     User.staff.includes(:account).each do |u|
-      next unless u.allows_pending_account_emails?
-      AdminMailer.new_pending_account(u.account, self).deliver_later
+      next
     end
   end
 
