@@ -36,6 +36,8 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
+  nicedb: { id: 'navigation_bar.nicedb', defaultMessage: 'NiceDB' },
+  extra_heading: { id: 'navigation_bar.extraheading', defaultMessage: 'New world'},
 });
 
 const mapStateToProps = state => ({
@@ -113,6 +115,13 @@ class GettingStarted extends ImmutablePureComponent {
       }
 
       navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.extra_heading)} />,
+        <ColumnLink key={i++} icon='book' text={intl.formatMessage(messages.nicedb)} href='https://nicedb.org' />,
+      );
+
+      height += 34 + 48;
+
+      navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
       );
 
@@ -140,6 +149,13 @@ class GettingStarted extends ImmutablePureComponent {
     }
 
     if (!multiColumn) {
+      navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.extra_heading)} />,
+        <ColumnLink key={i++} icon='book' text={intl.formatMessage(messages.nicedb)} href='https://nicedb.org' />,
+      );
+
+      height += 34 + 48;
+
       navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.settings_subheading)} />,
         <ColumnLink key={i++} icon='gears' text={intl.formatMessage(messages.preferences)} href='/settings/preferences' />,
