@@ -215,7 +215,9 @@ class StatusActionBar extends ImmutablePureComponent {
     const textarea = document.createElement('textarea');
 
     textarea.textContent    = url;
-    textarea.style.position =        <IconButton className='status__action-bar-button bookmark-icon' disabled={anonymousAccess} active={status.get('bookmarked')} pressed={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} />
+    textarea.style.position = 'fixed';
+
+    document.body.appendChild(textarea);
 
     try {
       textarea.select();
