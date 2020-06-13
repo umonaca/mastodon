@@ -10,7 +10,7 @@ class Formatter
 
   include ActionView::Helpers::TextHelper
 
-  @@link_rewrite = JSON.parse(ENV["LINK_REWRITE"])
+  @@link_rewrite = ENV["LINK_REWRITE"]?JSON.parse(ENV["LINK_REWRITE"]):[]
 
   def format(status, **options)
     if status.reblog?
