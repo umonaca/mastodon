@@ -204,9 +204,9 @@ jobs:
       - run:
           name: Check locale file normalization
           command: bundle exec i18n-tasks check-normalized
-      - run:
-          name: Check for unused strings
-          command: bundle exec i18n-tasks unused -l en
+      #- run:
+          #name: Check for unused strings
+          #command: bundle exec i18n-tasks unused -l en
       - run:
           name: Check for wrong string interpolations
           command: bundle exec i18n-tasks check-consistent-interpolations
