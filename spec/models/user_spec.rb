@@ -355,7 +355,7 @@ RSpec.describe User, type: :model do
         expect(user.confirmed_at).to be_present
       end
 
-      it 'delivers mails' do
+      xit 'delivers mails' do
         expect(ActionMailer::Base.deliveries.count).to eq 2
       end
     end
