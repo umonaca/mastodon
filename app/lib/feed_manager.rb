@@ -299,6 +299,7 @@ class FeedManager
     end
 
     return true if check_for_blocks.any? { |target_account_id| crutches[:blocking][target_account_id] || crutches[:muting][target_account_id] }
+    return true if crutches[:blocked_by][status.account_id]
 
     if status.reblog?                                                                                                            # Filter out a reblog
       should_filter   = crutches[:hiding_reblogs][status.account_id]                                                             # if the reblogger's reblogs are suppressed
@@ -520,7 +521,7 @@ class FeedManager
     crutches[:muting]            = Mute.where(account_id: receiver_id, target_account_id: check_for_blocks).pluck(:target_account_id).each_with_object({}) { |id, mapping| mapping[id] = true }
     crutches[:domain_blocking]   = AccountDomainBlock.where(account_id: receiver_id, domain: statuses.map { |s| s.account&.domain }.compact).pluck(:domain).each_with_object({}) { |domain, mapping| mapping[domain] = true }
     crutches[:domain_blocking_r] = AccountDomainBlock.where(account_id: receiver_id, domain: statuses.map { |s| s.reblog&.account&.domain }.compact).pluck(:domain).each_with_object({}) { |domain, mapping| mapping[domain] = true }
-    crutches[:blocked_by]        = Block.where(target_account_id: receiver_id, account_id: statuses.map { |s| s.reblog&.account_id }.compact).pluck(:account_id).each_with_object({}) { |id, mapping| mapping[id] = true }
+    crutches[:blocked_by]        = Block.where(target_account_id: receiver_id, account_id: statuses.flat_map { |s| [s&.account_id, s.reblog&.account_id] }.compact).pluck(:account_id).each_with_object({}) { |id, mapping| mapping[id] = true }
     crutches[:following_tag_by]  = FollowTag.where(account_id: receiver_id, tag: statuses.map { |s| s.tags }.flatten.uniq.compact).pluck(:tag_id).each_with_object({}) { |tag_id, mapping| mapping[tag_id] = true }
     crutches[:domain_subscribe]  = DomainSubscribe.where(account_id: receiver_id, list_id: nil, domain: statuses.map { |s| s&.account&.domain }.compact).pluck(:domain).each_with_object({}) { |domain, mapping| mapping[domain] = true }
     crutches[:account_subscribe] = AccountSubscribe.where(account_id: receiver_id, target_account_id: statuses.map(&:account_id).compact).pluck(:target_account_id).each_with_object({}) { |id, mapping| mapping[id] = true }
