@@ -45,6 +45,7 @@ const messages = defineMessages({
   unendorse: { id: 'account.unendorse', defaultMessage: 'Don\'t feature on profile' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
+  nicedb: { id: 'account.nicedb', defaultMessage: 'NiceDB' },
 });
 
 const dateFormatOptions = {
@@ -70,6 +71,11 @@ class Header extends ImmutablePureComponent {
 
   openEditProfile = () => {
     window.open('/settings/profile', '_blank');
+  }
+
+  openNiceDB = () => {
+    const { account } = this.props;
+    window.open(`https://nicedb.org/users/${account.get('id')}/?is_mastodon_id=true`, '_blank');
   }
 
   isStatusesPageActive = (match, location) => {
@@ -272,6 +278,7 @@ class Header extends ImmutablePureComponent {
 
             <div className='account__header__tabs__buttons'>
               {actionBtn}
+              <Button className='logo-button' text={intl.formatMessage(messages.nicedb)} onClick={this.openNiceDB} />
 
               <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />
             </div>
