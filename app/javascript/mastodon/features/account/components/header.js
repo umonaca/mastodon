@@ -136,6 +136,7 @@ class Header extends ImmutablePureComponent {
 
     let info        = [];
     let actionBtn   = '';
+    let NiceDBBtn   = '';
     let lockedIcon  = '';
     let menu        = [];
 
@@ -167,6 +168,12 @@ class Header extends ImmutablePureComponent {
 
     if (account.get('moved') && !account.getIn(['relationship', 'following'])) {
       actionBtn = '';
+    }
+
+    if (account.get('acct') === account.get('username')) {
+      NiceDBBtn = <Button className='logo-button' text={intl.formatMessage(messages.nicedb)} onClick={this.openNiceDB} />;
+    } else {
+      NiceDBBtn = '';
     }
 
     if (account.get('locked')) {
@@ -278,7 +285,7 @@ class Header extends ImmutablePureComponent {
 
             <div className='account__header__tabs__buttons'>
               {actionBtn}
-              <Button className='logo-button' text={intl.formatMessage(messages.nicedb)} onClick={this.openNiceDB} />
+              {NiceDBBtn}
 
               <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />
             </div>
