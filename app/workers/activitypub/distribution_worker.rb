@@ -28,7 +28,7 @@ class ActivityPub::DistributionWorker
   end
 
   def relayable?
-    @status.public_visibility?
+    false
   end
 
   def inboxes

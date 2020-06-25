@@ -100,7 +100,7 @@ class RemoveStatusService < BaseService
   end
 
   def relayable?
-    @status.public_visibility?
+    false
   end
 
   def relay!

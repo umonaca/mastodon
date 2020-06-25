@@ -24,7 +24,7 @@ class ActivityPub::DistributePollUpdateWorker
   private
 
   def relayable?
-    @status.public_visibility?
+    false
   end
 
   def inboxes
