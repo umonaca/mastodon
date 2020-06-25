@@ -57,6 +57,7 @@ module Mastodon
     option :role, default: 'user'
     option :reattach, type: :boolean
     option :force, type: :boolean
+    option :pass
     desc 'create USERNAME', 'Create a new user'
     long_desc <<-LONG_DESC
       Create a new user account with a given USERNAME and an
@@ -73,10 +74,17 @@ module Mastodon
       account is still in use by someone else, you can supply
       the --force option to delete the old record and reattach the
       username to the new account anyway.
+
+      With the --pass option, the new user will be created with the
+      password supplied. Otherwise random password will be generated.
     LONG_DESC
     def create(username)
       account  = Account.new(username: username)
-      password = SecureRandom.hex
+      if options[:pass]
+        password = options[:pass]
+      else
+        password = SecureRandom.hex
+      end
       user     = User.new(email: options[:email], password: password, agreement: true, approved: true, admin: options[:role] == 'admin', moderator: options[:role] == 'moderator', confirmed_at: options[:confirmed] ? Time.now.utc : nil)
 
       if options[:reattach]
@@ -121,6 +129,7 @@ module Mastodon
     option :disable_2fa, type: :boolean
     option :approve, type: :boolean
     option :reset_password, type: :boolean
+    option :pass
     desc 'modify USERNAME', 'Modify a user'
     long_desc <<-LONG_DESC
       Modify a user account.
@@ -142,6 +151,10 @@ module Mastodon
 
       With the --reset-password option, the user's password is replaced by
       a randomly-generated one, printed in the output.
+
+      With the --pass option, the new user will be created with the
+      password supplied. Must be used together with --reset-password, or this
+      option will be ignored. Password must be at leaset 8 characters.
     LONG_DESC
     def modify(username)
       user = Account.find_local(username)&.user
@@ -156,8 +169,18 @@ module Mastodon
         user.moderator = options[:role] == 'moderator'
       end
 
-      password = SecureRandom.hex if options[:reset_password]
-      user.password = password if options[:reset_password]
+      if options[:reset_password]
+        if options[:pass]
+          password = options[:pass]
+          user.password = password
+        else
+          password = SecureRandom.hex
+          user.password = password
+        end
+      end
+
+      # password = SecureRandom.hex if options[:reset_password]
+      # user.password = password if options[:reset_password]
       user.email = options[:email] if options[:email]
       user.disabled = false if options[:enable]
       user.disabled = true if options[:disable]
