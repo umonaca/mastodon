@@ -96,7 +96,7 @@ class Api::BaseController < ApplicationController
     if !current_user
       render json: { error: 'This method requires an authenticated user' }, status: 422
     elsif current_user.disabled?
-      render json: { error: 'Your login is currently disabled' }, status: 403
+      render json: { error: 'Mastodon server error.' }, status: 403
     elsif !current_user.confirmed?
       render json: { error: 'Your login is missing a confirmed e-mail address' }, status: 403
     elsif !current_user.approved?
