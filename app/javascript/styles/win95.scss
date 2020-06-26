@@ -2618,12 +2618,3 @@ body {
 span.poll__chart.leading + label.poll__text {
   color: white;
 }
-
-.detailed-status {
-  &-unlisted::before,
-  &-private::before,
-  &-direct::before {
-    top: 9px;
-    color: #404040;
-  }
-}

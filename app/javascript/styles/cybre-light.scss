@@ -957,12 +957,3 @@ button.icon-button {
 .bookmark-icon.active {
   color: #ff5050;
 }
-
-.detailed-status {
-  &-unlisted::before,
-  &-private::before,
-  &-direct::before {
-    top: 20px;
-    color: #c25177;
-  }
-}

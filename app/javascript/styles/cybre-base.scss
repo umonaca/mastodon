@@ -36,80 +36,11 @@
 /* Show a little arrowey thing after the time in a
  * status to signal that you can click it to see
  * a detailed view */
- /*
 .status time:after,
 .detailed-status__datetime span:after {
   font: normal normal normal 14px/1 FontAwesome;
   content: "\00a0\00a0\f08e";
 }
-*/
-.status time {
-  font-size: 14px
-}
-
-.status {
-  &-public time::after,
-  &-unlisted time::after,
-  &-private time::after,
-  &-direct time::after {
-    font: normal normal normal 14px/1 FontAwesome;
-  }
-
-  &-public time::after {
-    content: "\00a0\00a0\f08e";
-  }
-
-  &-unlisted time::after {
-    content: "\00a0\00a0\f09C\00a0\00a0\f08e";
-  }
-
-  &-private time::after {
-    content: "\00a0\00a0\F023\00a0\00a0\f08e";
-  }
-
-  &-direct time::after {
-    content: "\00a0\00a0\F0E0\00a0\00a0\f08e";
-  }
-}
-
-.detailed-status__datetime span:after {
-  font: normal normal normal 14px/1 FontAwesome;
-  content: "\00a0\00a0\f08e";
-}
-
-.detailed-status {
-  position: relative;
-
-  &-unlisted::before,
-  &-private::before,
-  &-direct::before {
-    display: block;
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    right: 10px;
-    font: 14px/1 FontAwesome;
-  }
-
-  &-unlisted .display-name,
-  &-private .display-name,
-  &-direct .display-name {
-    padding-right: 10px;
-  }
-
-  &-unlisted::before {
-      content: "\f09C";
-  }
-
-  &-private::before {
-      content: "\F023";
-  }
-
-  &-direct::before {
-      content: "\F0E0";
-  }
-}
-
 
 /* Don't display the elephant mascot (we have our
  * own, thanks) */
