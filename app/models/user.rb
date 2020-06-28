@@ -38,6 +38,8 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  sign_in_token             :string
+#  sign_in_token_sent_at     :datetime
 #
 
 class User < ApplicationRecord
@@ -115,7 +117,7 @@ class User < ApplicationRecord
            :follow_button_to_list_adder,
            :default_federation, :mobile_federation, to: :settings, prefix: :setting, allow_nil: false
 
-  attr_reader :invite_code
+  attr_reader :invite_code, :sign_in_token_attempt
   attr_writer :external
 
   def confirmed?
@@ -167,6 +169,10 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     true
+  end
+
+  def suspicious_sign_in?(ip)
+    !otp_required_for_login? && current_sign_in_at.present? && current_sign_in_at < 2.weeks.ago && !recent_ip?(ip)
   end
 
   def functional?
@@ -271,6 +277,13 @@ class User < ApplicationRecord
     super
   end
 
+  def external_or_valid_password?(compare_password)
+    # If encrypted_password is blank, we got the user from LDAP or PAM,
+    # so credentials are already valid
+
+    encrypted_password.blank? || valid_password?(compare_password)
+  end
+
   def send_reset_password_instructions
     return false if encrypted_password.blank?
 
@@ -306,6 +319,15 @@ class User < ApplicationRecord
     end
   end
 
+  def sign_in_token_expired?
+    sign_in_token_sent_at.nil? || sign_in_token_sent_at < 5.minutes.ago
+  end
+
+  def generate_sign_in_token
+    self.sign_in_token         = Devise.friendly_token(6)
+    self.sign_in_token_sent_at = Time.now.utc
+  end
+
   protected
 
   def send_devise_notification(notification, *args)
@@ -321,6 +343,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def recent_ip?(ip)
+    recent_ips.any? { |(_, recent_ip)| recent_ip == ip }
+  end
 
   def send_pending_devise_notifications
     pending_devise_notifications.each do |notification, args|
