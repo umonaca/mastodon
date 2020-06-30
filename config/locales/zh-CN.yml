@@ -785,6 +785,11 @@ zh-CN:
     lists: 列表
     mutes: 隐藏的用户
     storage: 媒体文件存储
+  favourite_tags:
+    add_new: 新增
+    errors:
+      limit: 你固定的话题标签数已达上限
+    hint_html: "<strong>什么是喜欢的话题标签？</strong> 你可以使用此功能把喜欢的话题标签固定在主页上，方便浏览相应的话题时间线。它们只对你自己可见。"
   featured_tags:
     add_new: 添加新条目
     errors:
@@ -1082,6 +1087,7 @@ zh-CN:
     development: 开发
     edit_profile: 更改个人资料
     export: 导出
+    favourite_tags: 喜欢的话题标签
     featured_tags: 精选的话题标签
     identity_proofs: 身份证明
     import: 导入

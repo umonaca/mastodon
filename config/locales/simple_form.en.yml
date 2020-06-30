@@ -161,6 +161,8 @@ en:
         whole_word: Whole word
       email_domain_block:
         with_dns_records: Include MX records and IPs of the domain
+      favourite_tag:
+        name: Hashtag
       featured_tag:
         name: Hashtag
       interactions:
