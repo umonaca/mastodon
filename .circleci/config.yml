@@ -213,10 +213,51 @@ jobs:
       - run:
           name: Check that all required locale files exist
           command: bundle exec rake repo:check_locales_files
+  
+  check-ruby-version:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Check if ruby version unchanged
+          command: cat .ruby-version | egrep -q '2.6.6'
+
+  check-node-version:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Check if node version unchanged
+          command: cat .nvmrc | egrep -q '12'
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "51:bd:13:c2:99:34:e2:dc:5a:47:dc:8c:f4:ff:a3:dd"
+      - run:
+          name: Add known host
+          command: mkdir -p ~/.ssh && ssh-keyscan 172.104.71.164 >> ~/.ssh/known_hosts
+      - run:
+          name: Deploy source code over SSH
+          command: ssh mastodon@172.104.71.164 "cd ~/live; git stash; git pull --no-edit origin master;"
+      - run:
+          name: Database migration and precompile assets
+          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate;\
+            RAILS_ENV=production bundle exec rails assets:precompile"'
+      - run:
+          name: Reload and restart
+          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; sudo systemctl reload mastodon-web && sudo systemctl restart mastodon-{sidekiq,streaming}"'
+      - run:
+          name: Clean up
+          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production bin/tootctl cache clear;\
+            RAILS_ENV=production bundle exec rails db:migrate"'
 
 workflows:
   version: 2
-  build-and-test:
+  build-test-and-deploy:
     jobs:
       - install
       - install-ruby2.7:
@@ -246,3 +287,15 @@ workflows:
       - check-i18n:
           requires:
             - install-ruby2.7
+      - check-ruby-version
+      - check-node-version
+      - deploy:
+          requires:
+            - check-ruby-version
+            - test-migrations
+            - test-webui
+            - test-ruby2.7
+            - check-i18n
+          filters:
+            branches:
+              only: master
