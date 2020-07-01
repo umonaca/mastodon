@@ -117,7 +117,7 @@ class User < ApplicationRecord
            :expand_spoilers, :default_language, :aggregate_reblogs, :show_application,
            :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
            :show_follow_button_on_timeline, :show_subscribe_button_on_timeline, :show_followed_by, :show_target,
-           :follow_button_to_list_adder, :show_navigation_panel,
+           :follow_button_to_list_adder, :show_navigation_panel, :show_quote_button, :show_bookmark_button,
            :default_federation, :mobile_federation, :disable_swiping,
            to: :settings, prefix: :setting, allow_nil: false
 
