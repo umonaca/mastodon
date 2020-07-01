@@ -245,14 +245,14 @@ jobs:
           command: ssh mastodon@172.104.71.164 "cd ~/live; git stash; git pull --no-edit origin master;"
       - run:
           name: Database migration and precompile assets
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate;\
+          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate; 
             RAILS_ENV=production bundle exec rails assets:precompile"'
       - run:
           name: Reload and restart
           command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; sudo systemctl reload mastodon-web && sudo systemctl restart mastodon-{sidekiq,streaming}"'
       - run:
           name: Clean up
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production bin/tootctl cache clear;\
+          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production bin/tootctl cache clear; 
             RAILS_ENV=production bundle exec rails db:migrate"'
 
 workflows:
