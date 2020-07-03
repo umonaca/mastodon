@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  queue: eddiewebb/queue@1.5.0
 
 aliases:
   - &defaults
@@ -117,11 +120,11 @@ jobs:
     <<: *defaults
     <<: *install_steps
 
-  install-ruby2.7:
+  install-ruby-new:
     <<: *defaults
     <<: *install_ruby_dependencies
 
-  install-ruby2.6:
+  install-ruby-old:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.6-buster-node
@@ -162,7 +165,7 @@ jobs:
           name: Run migrations
           command: ./bin/rails db:migrate
 
-  test-ruby2.7:
+  test-ruby-new:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.7-buster-node
@@ -174,7 +177,7 @@ jobs:
       - image: circleci/redis:5-alpine
     <<: *test_steps
 
-  test-ruby2.6:
+  test-ruby-old:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.6-buster-node
@@ -234,6 +237,9 @@ jobs:
     machine:
       enabled: true
     steps:
+      - queue/until_front_of_line:
+          only-on-branch: master
+          time: '20'
       - add_ssh_keys:
           fingerprints:
             - "51:bd:13:c2:99:34:e2:dc:5a:47:dc:8c:f4:ff:a3:dd"
@@ -265,10 +271,12 @@ workflows:
   build-test-and-deploy:
     jobs:
       - install
-      - install-ruby2.7:
+      - install-ruby-new:
+          name: "install-ruby2.7"
           requires:
             - install
-      - install-ruby2.6:
+      - install-ruby-old:
+          name: "install-ruby2.6"
           requires:
             - install
             - install-ruby2.7
@@ -278,11 +286,13 @@ workflows:
       - test-migrations:
           requires:
             - install-ruby2.7
-      - test-ruby2.7:
+      - test-ruby-new:
+          name: "test-ruby2.7"
           requires:
             - install-ruby2.7
             - build
-      - test-ruby2.6:
+      - test-ruby-old:
+          name: "test-ruby2.6"
           requires:
             - install-ruby2.6
             - build
