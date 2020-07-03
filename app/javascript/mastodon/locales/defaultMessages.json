@@ -505,6 +505,22 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Public",
+        "id": "privacy.public.short"
+      },
+      {
+        "defaultMessage": "Unlisted",
+        "id": "privacy.unlisted.short"
+      },
+      {
+        "defaultMessage": "Followers-only",
+        "id": "privacy.private.short"
+      },
+      {
+        "defaultMessage": "Direct",
+        "id": "privacy.direct.short"
+      },
+      {
         "defaultMessage": "Filtered",
         "id": "status.filtered"
       },
@@ -662,6 +678,31 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "No comment provided",
+        "id": "account_note.placeholder"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "account_note.cancel"
+      },
+      {
+        "defaultMessage": "Save",
+        "id": "account_note.save"
+      },
+      {
+        "defaultMessage": "Your note for @{name}",
+        "id": "account.account_note_header"
+      },
+      {
+        "defaultMessage": "Edit",
+        "id": "account_note.edit"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/account/components/account_note.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Unfollow",
         "id": "account.unfollow"
       },
@@ -788,6 +829,10 @@
       {
         "defaultMessage": "Open moderation interface for @{name}",
         "id": "status.admin_account"
+      },
+      {
+        "defaultMessage": "Add note for @{name}",
+        "id": "account.add_account_note"
       },
       {
         "defaultMessage": "Follows you",
@@ -2523,6 +2568,27 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Public",
+        "id": "privacy.public.short"
+      },
+      {
+        "defaultMessage": "Unlisted",
+        "id": "privacy.unlisted.short"
+      },
+      {
+        "defaultMessage": "Followers-only",
+        "id": "privacy.private.short"
+      },
+      {
+        "defaultMessage": "Direct",
+        "id": "privacy.direct.short"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/status/components/detailed_status.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Delete",
         "id": "confirmations.delete.confirm"
       },
@@ -3046,10 +3112,6 @@
       {
         "defaultMessage": "Exit full screen",
         "id": "video.exit_fullscreen"
-      },
-      {
-        "defaultMessage": "Download file",
-        "id": "video.download"
       },
       {
         "defaultMessage": "Sensitive content",

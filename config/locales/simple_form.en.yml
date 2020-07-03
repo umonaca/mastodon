@@ -66,7 +66,7 @@ en:
         exclude_reblog: Exclude boosted posts from subscription
       email_domain_block:
         domain: This can be the domain name that shows up in the e-mail address, the MX record that domain resolves to, or IP of the server that MX record resolves to. Those will be checked upon user sign-up and the sign-up will be rejected.
-        with_dns_records: An attempt to resolve the given domain's DNS records will be made and the results will also be blacklisted
+        with_dns_records: An attempt to resolve the given domain's DNS records will be made and the results will also be blocked
       featured_tag:
         name: 'You might want to use one of these:'
       follow_tag:

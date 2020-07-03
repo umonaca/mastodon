@@ -188,7 +188,7 @@ GEM
     devise_pam_authenticatable2 (9.2.0)
       devise (>= 4.0.0)
       rpam2 (~> 4.0)
-    diff-lcs (1.3)
+    diff-lcs (1.4.3)
     discard (1.2.0)
       activerecord (>= 4.2, < 7)
     docile (1.3.2)
@@ -218,7 +218,7 @@ GEM
       tzinfo
     excon (0.75.0)
     fabrication (2.21.1)
-    faker (2.12.0)
+    faker (2.13.0)
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
@@ -444,8 +444,6 @@ GEM
       rack (>= 1.0, < 3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -570,11 +568,10 @@ GEM
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
     semantic_range (2.3.0)
-    sidekiq (6.0.7)
+    sidekiq (6.1.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     sidekiq-bulk (0.2.0)
       sidekiq
     sidekiq-scheduler (3.0.1)
@@ -706,7 +703,7 @@ DEPENDENCIES
   e2mmap (~> 0.1.0)
   ed25519 (~> 1.2)
   fabrication (~> 2.21)
-  faker (~> 2.12)
+  faker (~> 2.13)
   fast_blank (~> 1.0)
   fastimage
   fog-core (<= 2.1.0)

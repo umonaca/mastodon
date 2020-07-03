@@ -21,6 +21,7 @@ import { initBlockModal } from '../../../actions/blocks';
 import { initReport } from '../../../actions/reports';
 import { openModal } from '../../../actions/modal';
 import { blockDomain, unblockDomain } from '../../../actions/domain_blocks';
+import { initEditAccountNote } from 'mastodon/actions/account_notes';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { unfollowModal, unsubscribeModal } from '../../../initial_state';
 import { List as ImmutableList } from 'immutable';
@@ -125,6 +126,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(initMuteModal(account));
     }
+  },
+
+  onEditAccountNote (account) {
+    dispatch(initEditAccountNote(account));
   },
 
   onBlockDomain (domain) {
