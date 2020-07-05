@@ -8,3 +8,5 @@ light: styles/cybre-light.scss
 cybrespace: styles/cybre.scss
 win95: styles/win95.scss
 material: styles/qoto-no-ticker.scss
+linernotes_dark: styles/linernotes_dark.scss
+midnight-blue: styles/midnight-blue.scss

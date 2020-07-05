@@ -1343,6 +1343,8 @@ en:
     nga: NGA
     win95: Windows 95
     witches-town: Witches town
+    linernotes_dark: Linernotes Dark
+    midnight-blue: Midnight Blue
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
