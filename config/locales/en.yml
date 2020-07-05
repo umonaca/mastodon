@@ -1337,14 +1337,14 @@ en:
     cybrespace: Cybrespace
     default: Mastodon
     light: Cybre Lite
+    linernotes_dark: Linernotes Dark
     mastodon-light: Mastodon (light)
     mastodon-mask: Mastodon (Mask)
     material: QOTO theme without instance tickers
+    midnight-blue: Midnight Blue
     nga: NGA
     win95: Windows 95
     witches-town: Witches town
-    linernotes_dark: Linernotes Dark
-    midnight-blue: Midnight Blue
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
