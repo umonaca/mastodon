@@ -247,3 +247,10 @@ override for muted text
 {
     background: var(--bgHead);
 }
+
+.dashboard__counters div a,
+.dashboard__counters div div
+{
+    background: var(--bgHead);
+    color: var(--textBold)
+}
