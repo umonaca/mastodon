@@ -66,9 +66,13 @@ base background and text
     .column-inline-form label,
 /* modals */
     .actions-modal,
+        .actions-modal ul li:not(:empty) a,
+        .actions-modal .status.light,
+        .actions-modal .status.light .status__content,
     .boost-modal,
     .confirmation-modal,
     .mute-modal,
+        .mute-modal__container .setting-toggle .setting-toggle__label,
     .report-modal,
         .report-modal__statuses .status__content p,
         .report-modal__comment .setting-toggle__label,
@@ -133,6 +137,7 @@ override for bold text
 
 /* primary elements */
     .account__display-name strong,
+        .status.light .status__display-name .display-name strong,
         .status__display-name strong,
         .detailed-status__display-name strong,
         .card__bar .display-name strong,
