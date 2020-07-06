@@ -63,6 +63,8 @@ base background and text
         .table.inline-table>tbody>tr:nth-child(odd)>th,
         .table>tbody>tr:nth-child(odd)>td,
         .table>tbody>tr:nth-child(odd)>th,
+    .batch-table__body,
+        .batch-table__body .batch-table__row,
     .column-inline-form label,
 /* modals */
     .actions-modal,
@@ -237,3 +239,9 @@ override for muted text
 
 .account__section-headline a.active::after, .account__section-headline button.active::after, .notification__filter-bar a.active::after, .notification__filter-bar button.active::after
 {border-color: transparent transparent var(--bg)}
+
+/* fix for batch tables in settings page*/
+.batch-table__toolbar
+{
+    background: var(--bgHead);
+}
