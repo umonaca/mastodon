@@ -6,3 +6,5 @@ nga: styles/nga.scss
 light: styles/cybre-light.scss
 cybrespace: styles/cybre.scss
 win95: styles/win95.scss
+linernotes_dark: styles/linernotes_dark.scss
+midnight-blue: styles/midnight-blue.scss
