@@ -1,8 +1,9 @@
 $ui-base-color: #1b1b1b; // darkest
 $ui-highlight-color: #1ea21e; // vibrant
-$ui-secondary-color: #E4F2E4; // lightest
-$ui-primary-color: #E4F2E4; // lighter
+$ui-secondary-color: #b9b9ba; // lightest
+$ui-primary-color: #b9b9ba; // lighter
 $ui-primary-color-alt: #a0b49c; // darker, for external pages
+$ui-link-text-color: #65cfed;
 
 $about-page-text: lighten($ui-base-color, 50%);
 
@@ -248,12 +249,20 @@ $about-page-text: lighten($ui-base-color, 50%);
   }
 }
 
+/* customize color and opacity */
 .status__content a,
 .status__content a.unhandled-link {
-  color: mix($ui-highlight-color, $ui-secondary-color, 10%);
+  color: $ui-link-text-color;
 }
 
-/* begin opacity stuff */
+.status__content {
+  color: lighten($ui-primary-color, 6%);
+}
+
+.status__display-name strong {
+  color: lighten($ui-primary-color, 15%);
+}
+
 .column > .scrollable {
   background-color: rgba(27,27,27,0.9);
 }
