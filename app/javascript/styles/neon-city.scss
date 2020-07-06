@@ -253,6 +253,7 @@ $about-page-text: lighten($ui-base-color, 50%);
   color: mix($ui-highlight-color, $ui-secondary-color, 10%);
 }
 
+/* begin opacity stuff */
 .column > .scrollable {
   background-color: rgba(27,27,27,0.9);
 }
@@ -261,7 +262,7 @@ $about-page-text: lighten($ui-base-color, 50%);
   opacity: 0.8;
 }
 
-.ui, .landing-page, .public-layout {
+body, .landing-page, .public-layout {
   background-image: url("../images/neon-city.jpg");
   background-size: cover;
   background-repeat: no-repeat;
