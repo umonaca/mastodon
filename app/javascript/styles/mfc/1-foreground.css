@@ -66,6 +66,8 @@ base background and text
     .batch-table__body,
         .batch-table__body .batch-table__row,
     .column-inline-form label,
+    .announcements-list,
+    .announcements-list .log-entry,
 /* modals */
     .actions-modal,
         .actions-modal ul li:not(:empty) a,
