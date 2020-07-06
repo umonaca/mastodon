@@ -298,3 +298,15 @@ $about-page-text: lighten($ui-base-color, 50%);
     }
   }
 }
+
+.landing__grid {
+  opacity: 0.9;
+}
+
+.activity-stream .entry {
+  background-color: rgba(27,27,27,0.9);
+}
+
+.account__section-headline {
+  background-color: rgba(17,17,17,0.9);
+}
