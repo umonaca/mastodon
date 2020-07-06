@@ -26,6 +26,7 @@
 ------------------------------------------------------------------------------*/
 
 /* add shadow on hover and active states */
+/*
 .status__action-bar .icon-button:hover,
     .status__action-bar .icon-button:active,
     .status__action-bar .icon-button.active,
@@ -33,10 +34,11 @@
     .detailed-status__action-bar .icon-button:active,
     .detailed-status__action-bar .icon-button.active
 {filter: drop-shadow(0px 1px 0px rgba(0,0,0,0.6))}
+*/
 
 /* remove bg color on hover and active states*/
-.icon-button:active, .icon-button:focus, .icon-button:hover
-{background-color: transparent}
+/*.icon-button:active, .icon-button:focus, .icon-button:hover
+{background-color: transparent}*/
 
 /* replies and follows */
 .status__action-bar-button.icon-button:nth-child(1):hover,
@@ -55,16 +57,28 @@
 {color: #0bf;}
 
 /* favourites */
-.status__action-bar-button.icon-button:nth-child(3):hover,
-.status__action-bar-button.icon-button:nth-child(3):active,
-.status__action-bar-button.icon-button:nth-child(3).active,
-.status__action-bar-button.icon-button:nth-child(3):focus,
-.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button:hover,
-.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button:active,
-.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button.active,
-.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button:focus,
+.status__action-bar-button.icon-button.star-icon:hover,
+.status__action-bar-button.icon-button.star-icon:active,
+.status__action-bar-button.icon-button.star-icon.active,
+/*.status__action-bar-button.icon-button.star-icon:focus,*/
+.detailed-status__action-bar .detailed-status__button .star-icon.icon-button:hover,
+.detailed-status__action-bar .detailed-status__button .star-icon.icon-button:active,
+.detailed-status__action-bar .detailed-status__button .star-icon.icon-button.active,
+/*.detailed-status__action-bar .detailed-status__button .star-icon.icon-button:focus,*/
 .notification__favourite-icon-wrapper .star-icon
 {color: #f90;}
+
+/* bookmark */
+.status__action-bar-button.icon-button.bookmark-icon:hover,
+.status__action-bar-button.icon-button.bookmark-icon:active,
+.status__action-bar-button.icon-button.bookmark-icon.active,
+/*.status__action-bar-button.icon-button.bookmark-icon:focus,*/
+.detailed-status__action-bar .detailed-status__button .bookmark-icon.icon-button:hover,
+.detailed-status__action-bar .detailed-status__button .bookmark-icon.icon-button:active,
+.detailed-status__action-bar .detailed-status__button .bookmark-icon.icon-button.active,
+/*.detailed-status__action-bar .detailed-status__button .bookmark-icon.icon-button:focus,*/
+.notification__favourite-icon-wrapper .bookmark-icon
+{color: #0bf;}
 
 /* menu */
 .status__action-bar-dropdown .icon-button:hover,
