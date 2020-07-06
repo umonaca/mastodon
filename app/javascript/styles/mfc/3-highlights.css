@@ -187,3 +187,9 @@ accented links
 .react-toggle--checked .react-toggle-thumb,
 .radio-button__input.checked
 {border-color: var(--accent)}
+
+/* announcements */
+.announcements__item .reactions-bar .emoji-picker-dropdown .emoji-button i:hover
+{
+    color: var(--accent)
+}
