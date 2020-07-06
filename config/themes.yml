@@ -6,3 +6,4 @@ nga: styles/nga.scss
 light: styles/cybre-light.scss
 cybrespace: styles/cybre.scss
 win95: styles/win95.scss
+neoncity: styles/neon-city.scss
