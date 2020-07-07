@@ -8,6 +8,8 @@ $ui-link-text-color: #65cfed;
 $about-page-text: lighten($ui-base-color, 50%);
 
 @import 'neon-base';
+@import 'mods/layout_mobile_bottombar.css';
+
 
 @keyframes floating {
   from {
