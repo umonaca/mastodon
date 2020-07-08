@@ -132,7 +132,7 @@ accented links
     .status__content__read-more-button,
     .icon-button.active,
         /*.icon-button:focus,*/
-        .icon-button:hover,
+        /*.icon-button:hover,*/
     .search__icon .fa:hover,
     .account__header__bio .account__header__fields a,
     .notification-follow .account .icon-button:hover,
