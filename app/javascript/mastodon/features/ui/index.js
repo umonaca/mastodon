@@ -30,6 +30,7 @@ import {
   PublicTimeline,
   CommunityTimeline,
   DomainTimeline,
+  GroupTimeline,
   AccountTimeline,
   AccountGallery,
   HomeTimeline,
@@ -192,6 +193,7 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/timelines/public' exact component={PublicTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/timelines/public/local' exact component={CommunityTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/timelines/public/domain/:domain' exact component={DomainTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
+          <WrappedRoute path='/timelines/groups/:id/:tagged?' exact component={GroupTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/timelines/direct' component={DirectTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/timelines/tag/:id' component={HashtagTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/timelines/list/:id' component={ListTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />

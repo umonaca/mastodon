@@ -11,13 +11,14 @@ class RemoveStatusService < BaseService
   # @option  [Boolean] :immediate
   # @option [Boolean] :original_removed
   def call(status, **options)
-    @payload  = Oj.dump(event: :delete, payload: status.id.to_s)
-    @status   = status
-    @account  = status.account
-    @tags     = status.tags.pluck(:name).to_a
-    @mentions = status.active_mentions.includes(:account).to_a
-    @reblogs  = status.reblogs.includes(:account).to_a
-    @options  = options
+    @payload        = Oj.dump(event: :delete, payload: status.id.to_s)
+    @reblog_payload = Oj.dump(event: :delete, payload: status.reblog.id.to_s)
+    @status         = status
+    @account        = status.account
+    @tags           = status.tags.pluck(:name).to_a
+    @mentions       = status.active_mentions.includes(:account).to_a
+    @reblogs        = status.reblogs.includes(:account).to_a
+    @options        = options
 
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
@@ -27,6 +28,7 @@ class RemoveStatusService < BaseService
         remove_from_affected
         remove_reblogs
         remove_from_hashtags
+        remove_from_group if status.account.group?
         remove_from_public
         remove_from_media if status.media_attachments.any?
         remove_from_spam_check
@@ -133,6 +135,22 @@ class RemoveStatusService < BaseService
     @tags.each do |hashtag|
       redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}", @payload)
       redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}:local", @payload) if @status.local?
+    end
+  end
+
+  def remove_from_group
+    redis.publish("timeline:group:#{@status.account.id}", @reblog_payload)
+
+    @tags.each do |hashtag|
+      redis.publish("timeline:group:#{@status.account.id}:#{hashtag.mb_chars.downcase}", @reblog_payload)
+    end
+
+    if @status.media_attachments.any?
+      redis.publish("timeline:group:media:#{@status.account.id}", @reblog_payload)
+
+      @tags.each do |hashtag|
+        redis.publish("timeline:group:media:#{@status.account.id}:#{hashtag.mb_chars.downcase}", @reblog_payload)
+      end
     end
   end
 

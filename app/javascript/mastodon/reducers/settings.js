@@ -87,6 +87,12 @@ const initialState = ImmutableMap({
     }),
   }),
 
+  group: ImmutableMap({
+    regex: ImmutableMap({
+      body: '',
+    }),
+  }),
+
   public: ImmutableMap({
     regex: ImmutableMap({
       body: '',

@@ -91,7 +91,11 @@ class Content extends ImmutablePureComponent {
       let mention = this.props.announcement.get('mentions').find(item => link.href === item.get('url'));
 
       if (mention) {
-        link.addEventListener('click', this.onMentionClick.bind(this, mention), false);
+        if (mention.get('group', false)) {
+          link.addEventListener('click', this.onGroupMentionClick.bind(this, mention), false);
+        } else {
+          link.addEventListener('click', this.onMentionClick.bind(this, mention), false);
+        }
         link.setAttribute('title', mention.get('acct'));
       } else if (link.textContent[0] === '#' || (link.previousSibling && link.previousSibling.textContent && link.previousSibling.textContent[link.previousSibling.textContent.length - 1] === '#')) {
         link.addEventListener('click', this.onHashtagClick.bind(this, link.text), false);
@@ -113,6 +117,13 @@ class Content extends ImmutablePureComponent {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/accounts/${mention.get('id')}`);
+    }
+  }
+
+  onGroupMentionClick = (mention, e) => {
+    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      this.context.router.history.push(`/timelines/groups/${mention.get('id')}`);
     }
   }
 
