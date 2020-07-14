@@ -120,7 +120,23 @@ module Mastodon
             [json, account.id, inbox_url]
           end
 
-          account.suspend!
+          if account&.user.present?
+            user = account&.user
+            user.disabled = true
+            unless user.save
+              user.errors.to_h.each do |key, error|
+                say('Failure/Error: ', :red)
+                say(key)
+                say('    ' + error, :red)
+              end
+            end
+          end
+
+          if account.id == -99
+            account.suspend!
+          end
+
+          # account.suspend!
         end
 
         processed += 1
