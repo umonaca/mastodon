@@ -14,6 +14,7 @@ require_relative 'mastodon/cache_cli'
 require_relative 'mastodon/upgrade_cli'
 require_relative 'mastodon/email_domain_blocks_cli'
 require_relative 'mastodon/version'
+require_relative 'mastodon/defederate_cli'
 
 module Mastodon
   class CLI < Thor
@@ -56,6 +57,9 @@ module Mastodon
 
     desc 'email_domain_blocks SUBCOMMAND ...ARGS', 'Manage e-mail domain blocks'
     subcommand 'email_domain_blocks', Mastodon::EmailDomainBlocksCLI
+
+    desc 'defederate SUBCOMMAND ...ARGS', 'defederate accounts or statuses'
+    subcommand 'defederate', Mastodon::DefederateCLI
 
     option :dry_run, type: :boolean
     desc 'self-destruct', 'Erase the server from the federation'
