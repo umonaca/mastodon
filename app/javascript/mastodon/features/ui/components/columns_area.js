@@ -27,6 +27,7 @@ import {
   FavouritedStatuses,
   BookmarkedStatuses,
   ListTimeline,
+  GroupDirectory,
   Directory,
 } from '../../ui/util/async-components';
 import Icon from 'mastodon/components/icon';
@@ -51,6 +52,7 @@ const componentMap = {
   'FAVOURITES': FavouritedStatuses,
   'BOOKMARKS': BookmarkedStatuses,
   'LIST': ListTimeline,
+  'GROUP_DIRECTORY': GroupDirectory,
   'DIRECTORY': Directory,
 };
 

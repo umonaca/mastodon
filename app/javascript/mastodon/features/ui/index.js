@@ -53,6 +53,7 @@ import {
   PinnedStatuses,
   Lists,
   Search,
+  GroupDirectory,
   Directory,
 } from './util/async-components';
 import { me, forceSingleColumn } from '../../initial_state';
@@ -204,6 +205,7 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/pinned' component={PinnedStatuses} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/search' component={Search} content={children} />
+          <WrappedRoute path='/group_directory' component={GroupDirectory} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/directory' component={Directory} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/statuses/new' component={Compose} content={children} />

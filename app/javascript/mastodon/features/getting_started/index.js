@@ -35,6 +35,7 @@ const messages = defineMessages({
   personal: { id: 'navigation_bar.personal', defaultMessage: 'Personal' },
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
+  group_directory: { id: 'getting_started.group_directory', defaultMessage: 'Group directory' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
   tokyo: { id:'navigation_bar.tokyo', defaultMessage: 'Tokyo Camera Club' },
   galleryapp: { id:'navigation_bar.galleryapp', defaultMessage: 'Federated Media Timeline' },
@@ -108,6 +109,12 @@ class GettingStarted extends ImmutablePureComponent {
 
       height += 34 + 48*2;
 
+      navItems.push(
+        <ColumnLink key='group_directory' icon='address-book' text={intl.formatMessage(messages.group_directory)} to='/group_directory' />,
+      );
+
+      height += 48;
+
       if (profile_directory) {
         navItems.push(
           <ColumnLink key='directory' icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
@@ -129,12 +136,20 @@ class GettingStarted extends ImmutablePureComponent {
       );
 
       height += 34;
-    } else if (profile_directory) {
+    } else {
       navItems.push(
-        <ColumnLink key='directory' icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
+        <ColumnLink key='group_directory' icon='address-book' text={intl.formatMessage(messages.group_directory)} to='/group_directory' />,
       );
 
       height += 48;
+
+      if (profile_directory) {
+        navItems.push(
+          <ColumnLink key='directory' icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
+        );
+
+        height += 48;
+      }
     }
 
     if (multiColumn && !columns.find(item => item.get('id') === 'HOME')) {
