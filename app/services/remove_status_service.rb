@@ -12,7 +12,7 @@ class RemoveStatusService < BaseService
   # @option [Boolean] :original_removed
   def call(status, **options)
     @payload        = Oj.dump(event: :delete, payload: status.id.to_s)
-    @reblog_payload = Oj.dump(event: :delete, payload: status.reblog.id.to_s)
+    @reblog_payload = Oj.dump(event: :delete, payload: status.reblog.id.to_s) if status.reblog
     @status         = status
     @account        = status.account
     @tags           = status.tags.pluck(:name).to_a
