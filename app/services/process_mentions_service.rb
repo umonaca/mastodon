@@ -7,7 +7,8 @@ class ProcessMentionsService < BaseService
   # local mention pointers, send Salmon notifications to mentioned
   # remote users
   # @param [Status] status
-  def call(status)
+  # @param [Circle] circle
+  def call(status, circle = nil)
     return unless status.local?
 
     @status  = status
@@ -40,6 +41,12 @@ class ProcessMentionsService < BaseService
       mentions << mention if mention.save
 
       "@#{mentioned_account.acct}"
+    end
+
+    if circle.present?
+      circle.accounts.find_each do |target_account|
+        status.mentions.create(silent: true, account: target_account)
+      end
     end
 
     status.save!
