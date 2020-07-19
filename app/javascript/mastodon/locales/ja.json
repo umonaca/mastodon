@@ -26,7 +26,7 @@
   "account.locked_info": "このアカウントは承認制アカウントです。相手が承認するまでフォローは完了しません。",
   "account.media": "メディア",
   "account.members": "参加者",
-  "account.members_counter": "{counter} 人の参加者",
+  "account.members_counter": "{counter} 参加者",
   "account.mention": "@{name}さんにトゥート",
   "account.moved_to": "{name}さんは引っ越しました:",
   "account.mute": "@{name}さんをミュート",
