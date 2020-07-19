@@ -10,7 +10,14 @@ import Permalink from 'mastodon/components/permalink';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
 import IconButton from 'mastodon/components/icon_button';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { autoPlayGif, me, unfollowModal, unsubscribeModal, show_followed_by, follow_button_to_list_adder } from 'mastodon/initial_state';
+import {
+  autoPlayGif,
+  me,
+  unfollowModal,
+  unsubscribeModal,
+  show_followed_by,
+  follow_button_to_list_adder,
+} from 'mastodon/initial_state';
 import ShortNumber from 'mastodon/components/short_number';
 import {
   followAccount,
