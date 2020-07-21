@@ -51,6 +51,7 @@ import {
   Mutes,
   PinnedStatuses,
   Lists,
+  Circles,
   Search,
   Directory,
 } from './util/async-components';
@@ -222,6 +223,7 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/domain_blocks' component={DomainBlocks} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/mutes' component={Mutes} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/lists' component={Lists} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
+          <WrappedRoute path='/circles' component={Circles} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute component={GenericNotFound} content={children} />
         </WrappedSwitch>
