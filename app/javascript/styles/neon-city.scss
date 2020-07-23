@@ -269,8 +269,9 @@ $about-page-text: lighten($ui-base-color, 50%);
   background-color: rgba(27,27,27,0.9);
 }
 
-.drawer__inner, .drawer__inner__mastodon {
-  opacity: 0.8;
+.drawer__inner,
+.drawer__inner.darker {
+  background-color: rgba(27,27,27,0.9);
 }
 
 body, .landing-page, .public-layout {
