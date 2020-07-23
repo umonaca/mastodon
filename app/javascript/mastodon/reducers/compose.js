@@ -210,6 +210,10 @@ const privacyPreference = (a, b) => {
   return order[Math.max(order.indexOf(a), order.indexOf(b), 0)];
 };
 
+const privacyCompatibility = (visibility) => {
+  return visibility === 'limited' ? 'private' : visibility;
+};
+
 const hydrate = (state, hydratedState) => {
   state = clearAll(state.merge(hydratedState));
 
@@ -331,7 +335,7 @@ export default function compose(state = initialState, action) {
       map.set('quote_from', null);
       map.set('quote_from_url', null);
       map.set('text', statusToTextMentions(state, action.status));
-      map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+      map.set('privacy', privacyPreference(privacyCompatibility(action.status.get('visibility')), state.get('default_privacy')));
       map.set('federation', !action.status.get('local_only'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
@@ -465,7 +469,7 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('quote_from', action.status.getIn(['quote', 'id']));
       map.set('quote_from_url', action.status.getIn(['quote', 'url']));
-      map.set('privacy', action.status.get('visibility'));
+      map.set('privacy', privacyCompatibility(action.status.get('visibility')));
       map.set('federation', !action.status.get('local_only'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
