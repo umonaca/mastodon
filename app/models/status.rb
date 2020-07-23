@@ -144,7 +144,7 @@ class Status < ApplicationRecord
 
     ids << account_id if local?
 
-    ids += Account.local.where.not(id:-99).pluck(:id) if public_visibility?
+    ids += Account.local.without_suspended.where.not(id:-99).pluck(:id) if public_visibility?
 
     if preloaded.nil?
       ids += mentions.where(account: Account.local, silent: false).pluck(:account_id)
