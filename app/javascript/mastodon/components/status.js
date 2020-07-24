@@ -16,8 +16,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import Icon from 'mastodon/components/icon';
-import { displayMedia } from '../initial_state';
+import { displayMedia, me } from '../initial_state';
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
@@ -473,6 +474,14 @@ class Status extends ImmutablePureComponent {
 
     const visibilityIcon = visibilityIconInfo[status.get('visibility')];
 
+    let visibilityLink;
+
+    if (status.getIn(['account', 'id']) !== me || status.get('visibility') !== 'limited' || !this.context.router) {
+      visibilityLink = <Icon id={visibilityIcon.icon} title={visibilityIcon.text} />;
+    } else {
+      visibilityLink = <Link to={`/statuses/${status.get('id')}/mentions`} className='status__link'><Icon id={visibilityIcon.icon} title={visibilityIcon.text} /></Link>;
+    }
+
     let quote = null;
     if (status.get('quote', null) !== null) {
       let quote_status = status.get('quote');
@@ -583,7 +592,7 @@ class Status extends ImmutablePureComponent {
             <div className='status__expand' onClick={this.handleExpandClick} role='presentation' />
             <div className='status__info'>
               <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
-              <span className='status__visibility-icon'><Icon id={visibilityIcon.icon} title={visibilityIcon.text} /></span>
+              <span className='status__visibility-icon'>{visibilityLink}</span>
 
               <a onClick={this.handleAccountClick} data-id={status.getIn(['account', 'id'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
                 <div className='status__avatar'>
