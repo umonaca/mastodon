@@ -50,6 +50,7 @@ export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
 export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
 export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
 export const COMPOSE_FEDERATION_CHANGE  = 'COMPOSE_FEDERATION_CHANGE';
+export const COMPOSE_CIRCLE_CHANGE = 'COMPOSE_CIRCLE_CHANGE';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
 
@@ -161,22 +162,14 @@ export function submitCompose(routerHistory) {
 
     dispatch(submitComposeRequest());
 
-    let visibility = getState().getIn(['compose', 'privacy']);
-    let circleId = null;
-
-    if (!(['public', 'unlisted', 'private', 'direct'].includes(visibility))) {
-      circleId = visibility;
-      visibility = 'limited';
-    }
-
     api(getState).post('/api/v1/statuses', {
       status,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']),
       spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
-      visibility: visibility,
-      circle_id: circleId,
+      visibility: getState().getIn(['compose', 'privacy']),
+      circle_id: getState().getIn(['compose', 'circle_id']),
       poll: getState().getIn(['compose', 'poll'], null),
       local_only: !getState().getIn(['compose', 'federation']),
       quote_id: getState().getIn(['compose', 'quote_from'], null),
@@ -637,6 +630,13 @@ export function changeComposeVisibility(value) {
 export function changeComposeFederation(value) {
   return {
     type: COMPOSE_FEDERATION_CHANGE,
+    value,
+  };
+};
+
+export function changeComposeCircle(value) {
+  return {
+    type: COMPOSE_CIRCLE_CHANGE,
     value,
   };
 };

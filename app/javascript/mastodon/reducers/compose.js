@@ -30,6 +30,7 @@ import {
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_FEDERATION_CHANGE,
+  COMPOSE_CIRCLE_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -59,6 +60,7 @@ const initialState = ImmutableMap({
   spoiler_text: '',
   privacy: null,
   federation: null,
+  circle_id: null,
   text: '',
   focusDate: null,
   caretPosition: null,
@@ -124,6 +126,7 @@ function clearAll(state) {
     map.set('quote_from', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('federation', state.get('default_federation'));
+    map.set('circle_id', null);
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
@@ -206,12 +209,8 @@ const insertEmoji = (state, position, emojiData, needsSpace) => {
 };
 
 const privacyPreference = (a, b) => {
-  const order = ['public', 'unlisted', 'private', 'direct'];
+  const order = ['public', 'unlisted', 'private', 'limited', 'direct'];
   return order[Math.max(order.indexOf(a), order.indexOf(b), 0)];
-};
-
-const privacyCompatibility = (visibility) => {
-  return visibility === 'limited' ? 'private' : visibility;
 };
 
 const hydrate = (state, hydratedState) => {
@@ -320,8 +319,16 @@ export default function compose(state = initialState, action) {
       .set('federation', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_VISIBILITY_CHANGE:
+    return state.withMutations(map => {
+      map.set('privacy', action.value);
+      map.set('idempotencyKey', uuid());
+      if (action.value !== 'limited') {
+        map.set('circle_id', null);
+      }
+    });
+  case COMPOSE_CIRCLE_CHANGE:
     return state
-      .set('privacy', action.value)
+      .set('circle_id', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_CHANGE:
     return state
@@ -335,7 +342,8 @@ export default function compose(state = initialState, action) {
       map.set('quote_from', null);
       map.set('quote_from_url', null);
       map.set('text', statusToTextMentions(state, action.status));
-      map.set('privacy', privacyPreference(privacyCompatibility(action.status.get('visibility')), state.get('default_privacy')));
+      map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+      map.set('circle_id', null);
       map.set('federation', !action.status.get('local_only'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
@@ -357,6 +365,7 @@ export default function compose(state = initialState, action) {
       map.set('quote_from_url', action.status.get('url'));
       map.set('text', '');
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+      map.set('circle_id', null);
       map.set('focusDate', new Date());
       map.set('preselectDate', new Date());
       map.set('idempotencyKey', uuid());
@@ -380,6 +389,7 @@ export default function compose(state = initialState, action) {
       map.set('spoiler', false);
       map.set('spoiler_text', '');
       map.set('privacy', state.get('default_privacy'));
+      map.set('circle_id', null);
       map.set('poll', null);
       map.set('federation', state.get('default_federation'));
       map.set('idempotencyKey', uuid());
@@ -431,6 +441,7 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.update('text', text => [text.trim(), `@${action.account.get('acct')} `].filter((str) => str.length !== 0).join(' '));
       map.set('privacy', 'direct');
+      map.set('circle_id', null);
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
@@ -469,7 +480,8 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('quote_from', action.status.getIn(['quote', 'id']));
       map.set('quote_from_url', action.status.getIn(['quote', 'url']));
-      map.set('privacy', privacyCompatibility(action.status.get('visibility')));
+      map.set('privacy', action.status.get('visibility'));
+      map.set('circle_id', null);
       map.set('federation', !action.status.get('local_only'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
