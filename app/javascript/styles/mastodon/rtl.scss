@@ -420,4 +420,9 @@ body.rtl {
   .circle-dropdown .circle-dropdown__menu {
     background-position: left 8px center;
   }
+
+  .circle-link .circle-edit-button,
+  .circle-link .circle-delete-button {
+      text-align: right;
+  }
 }
