@@ -43,7 +43,6 @@ class AccountSearchService < BaseService
     unless match.nil? || account.nil?
       return if options[:following] && !account.following?(match)
       return if options[:followers] && !match.following?(account)
-      return if options[:group_only] && !match.group?
     end
 
     @exact_match = match
