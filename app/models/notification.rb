@@ -52,6 +52,7 @@ class Notification < ApplicationRecord
   belongs_to :poll,           foreign_type: 'Poll',          foreign_key: 'activity_id', optional: true
 
   validates :type, inclusion: { in: TYPES }
+  validates :activity_id, uniqueness: { scope: [:account_id, :type] }, if: -> { type.to_sym == :status }
 
   scope :without_suspended, -> { joins(:from_account).merge(Account.without_suspended) }
 
