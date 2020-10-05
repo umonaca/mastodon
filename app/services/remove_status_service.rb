@@ -11,14 +11,13 @@ class RemoveStatusService < BaseService
   # @option  [Boolean] :immediate
   # @option [Boolean] :original_removed
   def call(status, **options)
-    @payload        = Oj.dump(event: :delete, payload: status.id.to_s)
-    @reblog_payload = Oj.dump(event: :delete, payload: status.reblog.id.to_s) if status.reblog
-    @status         = status
-    @account        = status.account
-    @tags           = status.tags.pluck(:name).to_a
-    @mentions       = status.active_mentions.includes(:account).to_a
-    @reblogs        = status.reblogs.includes(:account).to_a
-    @options        = options
+    @payload  = Oj.dump(event: :delete, payload: status.id.to_s)
+    @status   = status
+    @account  = status.account
+    @tags     = status.tags.pluck(:name).to_a
+    @mentions = status.active_mentions.includes(:account).to_a
+    @reblogs  = status.reblogs.includes(:account).to_a
+    @options  = options
 
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
@@ -139,17 +138,19 @@ class RemoveStatusService < BaseService
   end
 
   def remove_from_group
-    redis.publish("timeline:group:#{@status.account.id}", @reblog_payload)
+    payload = @status.reblog? ? Oj.dump(event: :delete, payload: @status.reblog.id.to_s) : @payload
+
+    redis.publish("timeline:group:#{@status.account.id}", payload)
 
     @tags.each do |hashtag|
-      redis.publish("timeline:group:#{@status.account.id}:#{hashtag.mb_chars.downcase}", @reblog_payload)
+      redis.publish("timeline:group:#{@status.account.id}:#{hashtag.mb_chars.downcase}", payload)
     end
 
     if @status.media_attachments.any?
-      redis.publish("timeline:group:media:#{@status.account.id}", @reblog_payload)
+      redis.publish("timeline:group:media:#{@status.account.id}", payload)
 
       @tags.each do |hashtag|
-        redis.publish("timeline:group:media:#{@status.account.id}:#{hashtag.mb_chars.downcase}", @reblog_payload)
+        redis.publish("timeline:group:media:#{@status.account.id}:#{hashtag.mb_chars.downcase}", payload)
       end
     end
   end
