@@ -420,10 +420,10 @@ class Status extends ImmutablePureComponent {
       status  = status.get('reblog');
     }
 
-    if (pictureInPicture.get('inUse')) {
-      media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
-    } else if (status.get('media_attachments').size > 0) {
-      if (this.props.muted) {
+    if (status.get('media_attachments').size > 0) {
+      if (pictureInPicture.get('inUse')) {
+        media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
+      } else if (this.props.muted) {
         media = (
           <AttachmentList
             compact
@@ -522,7 +522,7 @@ class Status extends ImmutablePureComponent {
 
       let quote_media = null;
       if (quote_status.get('media_attachments').size > 0) {
-        if (pictureInPicture.inUse) {
+        if (pictureInPicture.get('inUse')) {
           quote_media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
         } else if (this.props.muted) {
           quote_media = (
@@ -548,7 +548,7 @@ class Status extends ImmutablePureComponent {
                   width={this.props.cachedMediaWidth}
                   height={70}
                   cacheWidth={this.props.cacheMediaWidth}
-                  deployPictureInPicture={this.handleDeployPictureInPicture}
+                  deployPictureInPicture={pictureInPicture.get('available') ? this.handleDeployPictureInPicture : undefined}
                   />
               )}
             </Bundle>
@@ -570,7 +570,7 @@ class Status extends ImmutablePureComponent {
                   sensitive={quote_status.get('sensitive')}
                   onOpenVideo={this.handleOpenVideo}
                   cacheWidth={this.props.cacheMediaWidth}
-                  deployPictureInPicture={this.handleDeployPictureInPicture}
+                  deployPictureInPicture={pictureInPicture.get('available') ? this.handleDeployPictureInPicture : undefined}
                   visible={this.state.showQuoteMedia}
                   onToggleVisibility={this.handleToggleQuoteMediaVisibility}
                   quote
