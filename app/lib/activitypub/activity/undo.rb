@@ -2,6 +2,8 @@
 
 class ActivityPub::Activity::Undo < ActivityPub::Activity
   def perform
+    return if @object.nil?
+
     case @object['type']
     when 'Announce'
       undo_announce
