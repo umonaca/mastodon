@@ -24,7 +24,7 @@ class ActivityPub::DistributePollUpdateWorker
   private
 
   def relayable?
-    @status.public_visibility?
+    ENV['SINGLE_SIDE_RELAY'] != 'true' && @status.public_visibility?
   end
 
   def inboxes

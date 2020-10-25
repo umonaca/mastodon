@@ -100,7 +100,7 @@ class RemoveStatusService < BaseService
   end
 
   def relayable?
-    @status.public_visibility?
+    ENV['SINGLE_SIDE_RELAY'] != 'true' && @status.public_visibility?
   end
 
   def relay!
