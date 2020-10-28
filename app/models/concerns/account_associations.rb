@@ -71,5 +71,8 @@ module AccountAssociations
 
     # DomainSubscribes
     has_many :domain_subscribes, inverse_of: :account, dependent: :destroy
+
+    # Account deletion requests
+    has_one :deletion_request, class_name: 'AccountDeletionRequest', inverse_of: :account, dependent: :destroy
   end
 end

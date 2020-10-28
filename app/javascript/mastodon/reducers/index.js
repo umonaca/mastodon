@@ -38,6 +38,7 @@ import announcements from './announcements';
 import markers from './markers';
 import favourite_domains from './favourite_domains';
 import favourite_tags from './favourite_tags';
+import picture_in_picture from './picture_in_picture';
 
 const reducers = {
   announcements,
@@ -79,6 +80,7 @@ const reducers = {
   markers,
   favourite_domains,
   favourite_tags,
+  picture_in_picture,
 };
 
 export default combineReducers(reducers);

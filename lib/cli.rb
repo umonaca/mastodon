@@ -13,6 +13,7 @@ require_relative 'mastodon/preview_cards_cli'
 require_relative 'mastodon/cache_cli'
 require_relative 'mastodon/upgrade_cli'
 require_relative 'mastodon/email_domain_blocks_cli'
+require_relative 'mastodon/ip_blocks_cli'
 require_relative 'mastodon/version'
 require_relative 'mastodon/defederate_cli'
 
@@ -60,6 +61,9 @@ module Mastodon
 
     desc 'defederate SUBCOMMAND ...ARGS', 'defederate accounts or statuses'
     subcommand 'defederate', Mastodon::DefederateCLI
+
+    desc 'ip_blocks SUBCOMMAND ...ARGS', 'Manage IP blocks'
+    subcommand 'ip_blocks', Mastodon::IpBlocksCLI
 
     option :dry_run, type: :boolean
     desc 'self-destruct', 'Erase the server from the federation'

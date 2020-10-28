@@ -11,6 +11,7 @@
 #  show_reblogs      :boolean          default(TRUE), not null
 #  uri               :string
 #  delivery          :boolean          default(TRUE), not null
+#  notify            :boolean          default(FALSE), not null
 #
 
 class Follow < ApplicationRecord
@@ -35,14 +36,16 @@ class Follow < ApplicationRecord
   end
 
   def revoke_request!
-    FollowRequest.create!(account: account, target_account: target_account, show_reblogs: show_reblogs, uri: uri)
+    FollowRequest.create!(account: account, target_account: target_account, show_reblogs: show_reblogs, notify: notify, uri: uri)
     destroy!
   end
 
   before_validation :set_uri, only: :create
   after_create :increment_cache_counters
+  after_create :invalidate_hash_cache
   after_destroy :remove_endorsements
   after_destroy :decrement_cache_counters
+  after_destroy :invalidate_hash_cache
 
   private
 
@@ -62,5 +65,11 @@ class Follow < ApplicationRecord
   def decrement_cache_counters
     account&.decrement_count!(:following_count)
     target_account&.decrement_count!(:followers_count)
+  end
+
+  def invalidate_hash_cache
+    return if account.local? && target_account.local?
+
+    Rails.cache.delete("followers_hash:#{target_account_id}:#{account.synchronization_uri_prefix}")
   end
 end

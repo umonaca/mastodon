@@ -1412,10 +1412,10 @@ body.admin {
   &:hover { background-image: url("../images/icon_local.png"); }
 }
 .column-link[href="/web/directory"] {
-  background-image: url("../images/icon_profile");
+  background-image: url("../images/icon_profile.png");
   background-repeat:no-repeat;
   background-position: 36px 50%;
-  &:hover { background-image: url("../images/icon_profile"); }
+  &:hover { background-image: url("../images/icon_profile.png"); }
 }
 .column-link[href="/web/timelines/direct"] {
   background-image: url("../images/icon_direct.png");
@@ -1493,8 +1493,8 @@ body.admin {
   &:hover { background-image: url("../images/icon_invite.png"); }
 }
 .getting-started__footer ul li a[href="/auth/edit"] {
-  background-image: url("../images/icon_setting_alt");
-  &:hover { background-image: url("../images/icon_setting_alt"); }
+  background-image: url("../images/icon_setting_alt.png");
+  &:hover { background-image: url("../images/icon_setting_alt.png"); }
 }
 .getting-started__footer ul li a[href="/terms"] {
   background-image: url("../images/icon_tos.png");
