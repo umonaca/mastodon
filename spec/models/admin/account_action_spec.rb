@@ -116,7 +116,7 @@ RSpec.describe Admin::AccountAction, type: :model do
       let(:account) { Fabricate(:account, domain: nil) }
 
       it 'returns ["none", "disable", "silence", "suspend"]' do
-        expect(subject).to eq %w(none disable silence suspend)
+        expect(subject).to eq %w(none disable silence suspend sensitive)
       end
     end
 
@@ -124,7 +124,7 @@ RSpec.describe Admin::AccountAction, type: :model do
       let(:account) { Fabricate(:account, domain: 'hoge.com') }
 
       it 'returns ["silence", "suspend"]' do
-        expect(subject).to eq %w(silence suspend)
+        expect(subject).to eq %w(silence suspend sensitive)
       end
     end
   end

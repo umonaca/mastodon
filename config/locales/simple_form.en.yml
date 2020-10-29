@@ -53,6 +53,7 @@ en:
         setting_show_application: The application you use to toot will be displayed in the detailed view of your toots
         setting_show_follow_button_on_timeline: You can easily check the follow status and build a follow list quickly
         setting_show_followed_by: 'The color of the follow button changes according to the follow status (gray: no follow relationship, yellow: followed, blue: following, green: mutual follow)'
+        setting_show_navigation_panel: Show the navigation panel at the right end of the advanced UI
         setting_show_subscribe_button_on_timeline: You can easily check the status of your subscriptions and quickly build a subscription list
         setting_show_target: Enable the function to switch between posting target and follow / subscribe target
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
@@ -179,6 +180,7 @@ en:
         setting_show_application: Disclose application used to send toots
         setting_show_follow_button_on_timeline: Show follow button on timeline
         setting_show_followed_by: Reflect the following status on the follow button
+        setting_show_navigation_panel: Show the navigation panel
         setting_show_subscribe_button_on_timeline: Show subscribe button on timeline
         setting_show_target: Enable targeting features
         setting_system_font_ui: Use system's default font
