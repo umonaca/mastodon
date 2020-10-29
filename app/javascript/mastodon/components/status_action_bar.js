@@ -13,6 +13,7 @@ const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
   direct: { id: 'status.direct', defaultMessage: 'Direct message @{name}' },
+  showMemberList: { id: 'status.show_member_list', defaultMessage: 'Show member list' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
@@ -68,6 +69,7 @@ class StatusActionBar extends ImmutablePureComponent {
     onQuote: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
+    onMemberList: PropTypes.func,
     onMention: PropTypes.func,
     onMute: PropTypes.func,
     onUnmute: PropTypes.func,
@@ -156,6 +158,10 @@ class StatusActionBar extends ImmutablePureComponent {
 
   handleDirectClick = () => {
     this.props.onDirect(this.props.status.get('account'), this.context.router.history);
+  }
+
+  handleMemberListClick = () => {
+    this.props.onMemberList(this.props.status, this.context.router.history);
   }
 
   handleMuteClick = () => {
@@ -259,7 +265,12 @@ class StatusActionBar extends ImmutablePureComponent {
     }
     menu.push(null);
 
-    if (status.getIn(['account', 'id']) === me || withDismiss) {
+    if (status.getIn(['account', 'id']) === me && status.get('visibility') === 'limited' && status.get('circle_id')) {
+      menu.push({ text: intl.formatMessage(messages.showMemberList), action: this.handleMemberListClick });
+      menu.push(null);
+    }
+
+    if ((status.getIn(['account', 'id']) === me || withDismiss)) {
       menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
       menu.push(null);
     }

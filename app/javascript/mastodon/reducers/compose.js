@@ -30,6 +30,7 @@ import {
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_FEDERATION_CHANGE,
+  COMPOSE_CIRCLE_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -59,6 +60,7 @@ const initialState = ImmutableMap({
   spoiler_text: '',
   privacy: null,
   federation: null,
+  circle_id: null,
   text: '',
   focusDate: null,
   caretPosition: null,
@@ -66,6 +68,7 @@ const initialState = ImmutableMap({
   in_reply_to: null,
   quote_from: null,
   quote_from_url: null,
+  reply_status: null,
   is_composing: false,
   is_submitting: false,
   is_changing_upload: false,
@@ -103,17 +106,31 @@ const initialPoll = ImmutableMap({
   multiple: false,
 });
 
-function statusToTextMentions(state, status) {
-  let set = ImmutableOrderedSet([]);
-
-  if (status.getIn(['account', 'id']) !== me) {
-    set = set.add(`@${status.getIn(['account', 'acct'])} `);
+const statusToTextMentions = (text, privacy, status) => {
+  if(status === null) {
+    return text;
   }
 
-  return set.union(status.get('mentions').filterNot(mention => mention.get('id') === me).map(mention => `@${mention.get('acct')} `)).join('');
+  let mentions = ImmutableOrderedSet();
+
+  if (status.getIn(['account', 'id']) !== me) {
+    mentions = mentions.add(`@${status.getIn(['account', 'acct'])} `);
+  }
+
+  mentions = mentions.union(status.get('mentions').filterNot(mention => mention.get('id') === me).map(mention => `@${mention.get('acct')} `));
+
+  const match = /^(\s*(?:(?:@\S+)\s*)*)([\s\S]*)/.exec(text);
+  const extrctMentions = ImmutableOrderedSet(match[1].trim().split(/\s+/).filter(Boolean).map(mention => `${mention} `));
+  const others = match[2];
+
+  if(privacy === 'limited') {
+    return extrctMentions.subtract(mentions).add(others).join('');
+  } else {
+    return mentions.union(extrctMentions).add(others).join('');
+  }
 };
 
-function clearAll(state) {
+const clearAll = state => {
   return state.withMutations(map => {
     map.set('text', '');
     map.set('spoiler', false);
@@ -122,8 +139,10 @@ function clearAll(state) {
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
     map.set('quote_from', null);
+    map.set('reply_status', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('federation', state.get('default_federation'));
+    map.set('circle_id', null);
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
@@ -131,7 +150,7 @@ function clearAll(state) {
   });
 };
 
-function appendMedia(state, media, file) {
+const appendMedia = (state, media, file) => {
   const prevSize = state.get('media_attachments').size;
 
   return state.withMutations(map => {
@@ -150,7 +169,7 @@ function appendMedia(state, media, file) {
   });
 };
 
-function removeMedia(state, mediaId) {
+const removeMedia = (state, mediaId) => {
   const prevSize = state.get('media_attachments').size;
 
   return state.withMutations(map => {
@@ -206,7 +225,7 @@ const insertEmoji = (state, position, emojiData, needsSpace) => {
 };
 
 const privacyPreference = (a, b) => {
-  const order = ['public', 'unlisted', 'private', 'direct'];
+  const order = ['public', 'unlisted', 'private', 'limited', 'direct'];
   return order[Math.max(order.indexOf(a), order.indexOf(b), 0)];
 };
 
@@ -316,8 +335,15 @@ export default function compose(state = initialState, action) {
       .set('federation', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_VISIBILITY_CHANGE:
+    return state.withMutations(map => {
+      map.set('text', statusToTextMentions(state.get('text'), action.value, state.get('reply_status')));
+      map.set('privacy', action.value);
+      map.set('idempotencyKey', uuid());
+      map.set('circle_id', null);
+    });
+  case COMPOSE_CIRCLE_CHANGE:
     return state
-      .set('privacy', action.value)
+      .set('circle_id', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_CHANGE:
     return state
@@ -326,12 +352,16 @@ export default function compose(state = initialState, action) {
   case COMPOSE_COMPOSING_CHANGE:
     return state.set('is_composing', action.value);
   case COMPOSE_REPLY:
+    const privacy = privacyPreference(action.status.get('visibility'), state.get('default_privacy'));
+
     return state.withMutations(map => {
       map.set('in_reply_to', action.status.get('id'));
       map.set('quote_from', null);
       map.set('quote_from_url', null);
-      map.set('text', statusToTextMentions(state, action.status));
-      map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+      map.set('reply_status', action.status);
+      map.set('text', statusToTextMentions('', privacy, action.status));
+      map.set('privacy', privacy);
+      map.set('circle_id', null);
       map.set('federation', !action.status.get('local_only'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
@@ -372,10 +402,12 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', null);
       map.set('quote_from', null);
       map.set('quote_from_url', null);
+      map.set('reply_status', null);
       map.set('text', '');
       map.set('spoiler', false);
       map.set('spoiler_text', '');
       map.set('privacy', state.get('default_privacy'));
+      map.set('circle_id', null);
       map.set('poll', null);
       map.set('federation', state.get('default_federation'));
       map.set('idempotencyKey', uuid());
@@ -427,6 +459,7 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.update('text', text => [text.trim(), `@${action.account.get('acct')} `].filter((str) => str.length !== 0).join(' '));
       map.set('privacy', 'direct');
+      map.set('circle_id', null);
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
@@ -465,8 +498,10 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('quote_from', action.status.getIn(['quote', 'id']));
       map.set('quote_from_url', action.status.getIn(['quote', 'url']));
+      map.set('reply_status', action.replyStatus);
       map.set('privacy', action.status.get('visibility'));
       map.set('federation', !action.status.get('local_only'));
+      map.set('circle_id', action.status.get('circle_id'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);

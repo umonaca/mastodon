@@ -17,8 +17,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import Icon from 'mastodon/components/icon';
-import { displayMedia } from '../initial_state';
+import { displayMedia, me } from '../initial_state';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
 
 // We use the component (and not the container) since we do not want
@@ -81,6 +82,7 @@ const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
+  limited_short: { id: 'privacy.limited.short', defaultMessage: 'Circle' },
   direct_short: { id: 'privacy.direct.short', defaultMessage: 'Direct' },
 });
 
@@ -104,6 +106,7 @@ class Status extends ImmutablePureComponent {
     onBookmark: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
+    onMemberList: PropTypes.func,
     onMention: PropTypes.func,
     onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,
@@ -510,6 +513,17 @@ class Status extends ImmutablePureComponent {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
 
+    const visibilityIconInfo = {
+      'public': { icon: 'globe', text: intl.formatMessage(messages.public_short) },
+      'unlisted': { icon: 'unlock', text: intl.formatMessage(messages.unlisted_short) },
+      'private': { icon: 'lock', text: intl.formatMessage(messages.private_short) },
+      'limited': { icon: 'user-circle', text: intl.formatMessage(messages.limited_short) },
+      'direct': { icon: 'envelope', text: intl.formatMessage(messages.direct_short) },
+    };
+
+    const visibilityIcon = visibilityIconInfo[status.get('visibility')];
+    const visibilityLink = <Icon id={visibilityIcon.icon} title={visibilityIcon.text} />;
+
     let quote = null;
     if (status.get('quote', null) !== null) {
       let quote_status = status.get('quote');
@@ -634,14 +648,6 @@ class Status extends ImmutablePureComponent {
         </div>
       );
     }
-    const visibilityIconInfo = {
-      'public': { icon: 'globe', text: intl.formatMessage(messages.public_short) },
-      'unlisted': { icon: 'unlock', text: intl.formatMessage(messages.unlisted_short) },
-      'private': { icon: 'lock', text: intl.formatMessage(messages.private_short) },
-      'direct': { icon: 'envelope', text: intl.formatMessage(messages.direct_short) },
-    };
-
-    const visibilityIcon = visibilityIconInfo[status.get('visibility')];
 
     return (
       <HotKeys handlers={handlers}>
@@ -652,10 +658,8 @@ class Status extends ImmutablePureComponent {
             <AccountActionBar account={status.get('account')} {...other} />
             <div className='status__expand' onClick={this.handleExpandClick} role='presentation' />
             <div className='status__info'>
-              <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
-                <span className='status__visibility-icon'><Icon id={visibilityIcon.icon} title={visibilityIcon.text} /></span>
-                <RelativeTimestamp timestamp={status.get('created_at')} />
-              </a>
+              <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
+              <span className='status__visibility-icon'>{visibilityLink}</span>
 
               <a onClick={this.handleAccountClick} data-id={status.getIn(['account', 'id'])} data-group={status.getIn(['account', 'group'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
                 <div className='status__avatar'>
