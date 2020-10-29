@@ -329,11 +329,18 @@ body, .landing-page, .public-layout {
 
 .columns-area__panels__pane__inner .navigation-panel {
   opacity: 0.8;
+  height: auto;
   .column-link {
     background: lighten($ui-base-color, 5%);
     color:$white;
     &:hover {
       background: lighten($ui-base-color, 10%);
     }
+    &.active {
+      background: darken($ui-base-color, 5%);
+    }
+  }
+  hr {
+    display: none;
   }
 }
