@@ -774,7 +774,7 @@ const startWorker = (workerId) => {
           channelIds: [`timeline:public:domain:${params.domain.toLowerCase()}`],
           options: { needsFiltering: true, notificationOnly: false },
         });
-      };
+      }
 
       break;
     case 'public:media':
@@ -806,7 +806,7 @@ const startWorker = (workerId) => {
           channelIds: [`timeline:public:domain:media:${params.domain.toLowerCase()}`],
           options: { needsFiltering: true, notificationOnly: false },
         });
-      };
+      }
 
       break;
     case 'direct':
