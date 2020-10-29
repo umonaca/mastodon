@@ -23,11 +23,11 @@ const MapStateToProps = (state, { account }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onRemove (account) {
-    dispatch(followAccount(account.get('id'), account.getIn(['relationship', 'showing_reblogs'], true), false));
+    dispatch(followAccount(account.get('id'), { delivery: false }));
   },
 
   onAdd (account) {
-    dispatch(followAccount(account.get('id'), account.getIn(['relationship', 'showing_reblogs'], true), true));
+    dispatch(followAccount(account.get('id'), { delivery: true }));
   },
 
   onSubscribe (account) {
