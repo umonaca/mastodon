@@ -326,3 +326,14 @@ body, .landing-page, .public-layout {
 .account__section-headline {
   background-color: rgba(17,17,17,0.9);
 }
+
+.columns-area__panels__pane__inner .navigation-panel {
+  opacity: 0.8;
+  .column-link {
+    background: lighten($ui-base-color, 5%);
+    color:$white;
+    &:hover {
+      background: lighten($ui-base-color, 10%);
+    }
+  }
+}
