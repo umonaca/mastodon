@@ -7373,4 +7373,9 @@ noscript {
   }
 }
 
+.reply-indicator__content {
+  overflow-y: auto;
+  max-height: 250px;
+}
+
 @import 'doodle';
