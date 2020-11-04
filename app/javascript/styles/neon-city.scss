@@ -344,3 +344,7 @@ body, .landing-page, .public-layout {
     display: none;
   }
 }
+
+.columns-area__panels__pane__inner {
+  overflow-y: auto;
+}
