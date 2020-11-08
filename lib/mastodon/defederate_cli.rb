@@ -20,7 +20,7 @@ module Mastodon
     option :dry_run, type: :boolean
     option :verbose, type: :boolean, aliases: [:v]
     option :debug, type: :boolean
-    desc 'actor {<username>|--all_users} {--domain=example.com|--all-domains}
+    desc 'actor {<username>|--all-users} {--domain=example.com|--all-domains}
     [--set-local-only] [--preserve-follows] [--dry-run] [-v] [--debug]', 'Defederate user from Fediverse'
     long_desc <<-LONG_DESC
       Defederate the user(s) from the Fediverse. 
