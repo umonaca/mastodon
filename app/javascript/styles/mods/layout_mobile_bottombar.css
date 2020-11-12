@@ -27,3 +27,9 @@ margin: 0 !important;
 .react-swipeable-view-container .columns-area {height: 100% !important}
     
 }
+
+.picture-in-picture {
+    @media screen and (max-width: 415px) {
+        bottom: 58px !important;
+    }
+}
