@@ -22,26 +22,26 @@ class AccountStat < ApplicationRecord
 
   def increment_count!(key)
     update(attributes_for_increment(key))
-  rescue ActiveRecord::StaleObjectError
+  rescue ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique
     begin
       reload_with_id
     rescue ActiveRecord::RecordNotFound
-      # Nothing to do
-    else
-      retry
+      return
     end
+
+    retry
   end
 
   def decrement_count!(key)
-    update(key => [public_send(key) - 1, 0].max)
-  rescue ActiveRecord::StaleObjectError
+    update(attributes_for_decrement(key))
+  rescue ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique
     begin
       reload_with_id
     rescue ActiveRecord::RecordNotFound
-      # Nothing to do
-    else
-      retry
+      return
     end
+
+    retry
   end
 
   private
@@ -52,8 +52,13 @@ class AccountStat < ApplicationRecord
     attrs
   end
 
+  def attributes_for_decrement(key)
+    attrs = { key => [public_send(key) - 1, 0].max }
+    attrs
+  end
+
   def reload_with_id
-    self.id = find_by!(account: account).id if new_record?
+    self.id = self.class.find_by!(account: account).id if new_record?
     reload
   end
 end
