@@ -292,6 +292,11 @@ body.rtl {
     text-align: right;
   }
 
+  .filter {
+    margin-right: 0;
+    margin-left: -45px;
+  }
+
   .filters .filter-subset {
     margin-right: 0;
     margin-left: 45px;
