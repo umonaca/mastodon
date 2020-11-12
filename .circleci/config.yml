@@ -246,25 +246,25 @@ jobs:
             - "51:bd:13:c2:99:34:e2:dc:5a:47:dc:8c:f4:ff:a3:dd"
       - run:
           name: Add known host
-          command: mkdir -p ~/.ssh && ssh-keyscan 172.104.71.164 >> ~/.ssh/known_hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan ${SERVER_ADDR} >> ~/.ssh/known_hosts
       - run:
           name: Deploy source code over SSH
-          command: ssh mastodon@172.104.71.164 "cd ~/live; git stash; git pull --no-edit origin master;"
+          command: ssh mastodon@${SERVER_ADDR} "cd ~/live; git stash; git pull --no-edit origin master;"
       - run:
           name: Upgrade gems and js packages
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live;
+          command: ssh mastodon@${SERVER_ADDR} 'zsh -lc "set -e; cd ~/live;
             bundle install -j$(getconf _NPROCESSORS_ONLN); 
             yarn install --pure-lockfile"'
       - run:
           name: Database migration and precompile assets
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate; 
+          command: ssh mastodon@${SERVER_ADDR} 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate; 
             RAILS_ENV=production bundle exec rails assets:precompile"'
       - run:
           name: Reload and restart
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; sudo systemctl reload mastodon-web && sudo systemctl restart mastodon-{sidekiq,streaming}"'
+          command: ssh mastodon@${SERVER_ADDR} 'zsh -lc "set -e; sudo systemctl reload mastodon-web && sudo systemctl restart mastodon-{sidekiq,streaming}"'
       - run:
           name: Clean up
-          command: ssh mastodon@172.104.71.164 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production bin/tootctl cache clear; 
+          command: ssh mastodon@${SERVER_ADDR} 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production bin/tootctl cache clear; 
             RAILS_ENV=production bundle exec rails db:migrate"'
 
 workflows:
