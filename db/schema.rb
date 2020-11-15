@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_004238) do
     t.datetime "updated_at", null: false
     t.bigint "list_id"
     t.boolean "show_reblogs", default: true, null: false
+    t.boolean "media_only", default: false, null: false
     t.index ["account_id"], name: "index_account_subscribes_on_account_id"
     t.index ["list_id"], name: "index_account_subscribes_on_list_id"
     t.index ["target_account_id"], name: "index_account_subscribes_on_target_account_id"
@@ -383,6 +384,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_004238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "exclude_reblog", default: true
+    t.boolean "media_only", default: false, null: false
     t.index ["account_id"], name: "index_domain_subscribes_on_account_id"
     t.index ["list_id"], name: "index_domain_subscribes_on_list_id"
   end
@@ -465,6 +467,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_004238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "list_id"
+    t.boolean "media_only", default: false, null: false
     t.index ["account_id"], name: "index_follow_tags_on_account_id"
     t.index ["list_id"], name: "index_follow_tags_on_list_id"
     t.index ["tag_id"], name: "index_follow_tags_on_tag_id"
@@ -540,6 +543,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_004238) do
     t.boolean "disabled", default: false
     t.string "exclude_keyword", default: "", null: false
     t.bigint "list_id"
+    t.boolean "media_only", default: false, null: false
     t.index ["account_id"], name: "index_keyword_subscribes_on_account_id"
     t.index ["list_id"], name: "index_keyword_subscribes_on_list_id"
   end

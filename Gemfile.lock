@@ -44,6 +44,10 @@ GEM
       activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    active_record_extended (1.4.0)
+      activerecord (>= 5.0, < 6.1)
+      ar_outer_joins (~> 0.2)
+      pg (< 2.0)
     active_record_query_trace (1.8)
     activejob (5.2.4.4)
       activesupport (= 5.2.4.4)
@@ -71,6 +75,8 @@ GEM
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
+    ar_outer_joins (0.2.0)
+      activerecord (>= 3.2)
     arel (9.0.0)
     ast (2.4.1)
     attr_encrypted (3.1.0)
@@ -680,6 +686,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10)
+  active_record_extended (~> 1.4.0)
   active_record_query_trace (~> 1.8)
   addressable (~> 2.7)
   annotate (~> 3.1)
