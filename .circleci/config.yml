@@ -257,6 +257,7 @@ jobs:
             yarn install --pure-lockfile"'
       - run:
           name: Database migration and precompile assets
+          no_output_timeout: 30m
           command: ssh mastodon@${SERVER_ADDR} 'zsh -lc "set -e; cd ~/live; RAILS_ENV=production SKIP_POST_DEPLOYMENT_MIGRATIONS=true bundle exec rails db:migrate; 
             RAILS_ENV=production bundle exec rails assets:precompile"'
       - run:
