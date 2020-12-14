@@ -224,7 +224,7 @@ jobs:
       - checkout
       - run:
           name: Check if ruby version unchanged
-          command: cat .ruby-version | egrep -q '2.6.6'
+          command: cat .ruby-version | egrep -q '2.7.2'
 
   check-node-version:
     <<: *defaults
