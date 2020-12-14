@@ -249,8 +249,8 @@ ja:
         ignore_block: ユーザーによるドメインブロックを無視する
         ignorecase: 大文字と小文字を区別しない
         keyword: キーワードまたは正規表現
-        media_only: メディアのみ
         list_id: 対象タイムライン
+        media_only: メディアのみ
         name: 名称
         regexp: キーワードに正規表現を使う
       keyword_subscribes:
