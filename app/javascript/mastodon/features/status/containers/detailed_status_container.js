@@ -20,6 +20,8 @@ import {
   deleteStatus,
   hideStatus,
   revealStatus,
+  revealQuote,
+  hideQuote,
 } from '../../../actions/statuses';
 import { initMuteModal } from '../../../actions/mutes';
 import { initBlockModal } from '../../../actions/blocks';
