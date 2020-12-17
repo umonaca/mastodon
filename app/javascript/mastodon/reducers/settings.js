@@ -45,6 +45,8 @@ const initialState = ImmutableMap({
       advanced: false,
     }),
 
+    dismissPermissionBanner: false,
+
     shows: ImmutableMap({
       follow: true,
       follow_request: false,
