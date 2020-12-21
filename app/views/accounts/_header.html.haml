@@ -30,6 +30,7 @@
         .spacer
         .public-account-header__tabs__tabs__buttons
           = account_action_button(account)
+          = link_to "NiceDB", "https://nicedb.org/users/#{acct(account).gsub(/^@/, '')}/", class: 'button logo-button'
 
     .public-account-header__extra
       = render 'accounts/bio', account: account
