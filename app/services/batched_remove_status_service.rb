@@ -4,8 +4,6 @@ class BatchedRemoveStatusService < BaseService
   include Redisable
 
   # Delete given statuses and reblogs of them
-  # Dispatch PuSH updates of the deleted statuses, but only local ones
-  # Dispatch Salmon deletes, unique per domain, of the deleted statuses, but only local ones
   # Remove statuses from home feeds
   # Push delete events to streaming API for home feeds and public feeds
   # @param [Enumerable<Status>] statuses A preferably batched array of statuses
@@ -21,7 +19,6 @@ class BatchedRemoveStatusService < BaseService
     @payloads        = statuses.each_with_object({}) { |s, h| h[s.id] = Oj.dump(event: :delete, payload: s.id.to_s) }
     @reblog_payloads = statuses.each_with_object({}) { |s, h| h[s.id] = Oj.dump(event: :delete, payload: s.reblog.id.to_s) if s.account.group? }
 
-    # Ensure that rendered XML reflects destroyed state
     statuses.each do |status|
       status.mark_for_mass_destruction!
       status.destroy
