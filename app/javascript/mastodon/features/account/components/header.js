@@ -52,6 +52,7 @@ const messages = defineMessages({
   unendorse: { id: 'account.unendorse', defaultMessage: 'Don\'t feature on profile' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
+  nicedb: { id: 'account.nicedb', defaultMessage: 'NiceDB' },
 });
 
 const dateFormatOptions = {
@@ -90,6 +91,12 @@ class Header extends ImmutablePureComponent {
 
   openEditProfile = () => {
     window.open('/settings/profile', '_blank');
+  }
+
+  openNiceDB = () => {
+    const { account, domain } = this.props;
+    const acct = account.get('acct').indexOf('@') === -1 && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    window.open(`https://nicedb.org/users/${acct}/`, '_blank');
   }
 
   isStatusesPageActive = (match, location) => {
@@ -171,6 +178,7 @@ class Header extends ImmutablePureComponent {
     let bellBtn     = '';
     let lockedIcon  = '';
     let menu        = [];
+    let niceDBBtn = '';
 
     if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
       info.push(<span key='followed_by' className='relationship-tag'><FormattedMessage id='account.follows_you' defaultMessage='Follows you' /></span>);
@@ -336,6 +344,15 @@ class Header extends ImmutablePureComponent {
       buttons = <Fragment>{subscribing_buttons}{following_buttons}</Fragment>;
     }
 
+    if (account.get('acct') === account.get('username')) {
+      niceDBBtn = <Button className='logo-button' text={intl.formatMessage(messages.nicedb)} onClick={this.openNiceDB} />;
+    } else {
+      const domain = account.get('acct').split('@')[1];
+      if (domain === 'donotban.com') {
+        niceDBBtn = <Button className='logo-button' text={intl.formatMessage(messages.nicedb)} onClick={this.openNiceDB} />;
+      }
+    }
+
     return (
       <div className={classNames('account__header', { inactive: !!account.get('moved') })} ref={this.setRef}>
         <div className='account__header__image'>
@@ -357,6 +374,7 @@ class Header extends ImmutablePureComponent {
             {!suspended && (
               <div className='account__header__tabs__buttons'>
                 {actionBtn}
+                {niceDBBtn}
                 {bellBtn}
 
                 <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />
